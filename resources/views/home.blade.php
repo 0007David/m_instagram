@@ -28,6 +28,9 @@
     </div>
 </nav>
 
+
+{{ $usuarios ?? '' }}
+
 <div class="container mt-4">
     <br><br>
     <div class="row">
