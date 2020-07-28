@@ -46,4 +46,23 @@ class User extends Authenticatable
     {
         return static::where('id',compact('id'))->first();
     }
+
+    public static function findByEmail($email)
+    {
+        return static::where('email',compact('email'))->first();
+    }
+
+    public function getEmailAttribute($value)
+    {
+        return trim($value);
+    }
+    public function getPasswordAttribute($value)
+    {
+        return trim($value);
+    }
+    public function getEstadoAttribute($value)
+    {
+        return trim($value);
+    }
+
 }

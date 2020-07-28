@@ -21,15 +21,22 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        
+        <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
+            @method('GET')
+            @csrf
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
         </form>
     </div>
 </nav>
 
+<!-- {{ var_dump(Session::get('login')['usuario_estado'])}}
+{{ Session::get('login')['usuario_email']}} -->
+<!-- <div>
+    <?=var_dump(Session::get('login')) ?>
+</div> -->
 
-{{ $usuarios ?? '' }}
 
 <div class="container mt-4">
     <br><br>

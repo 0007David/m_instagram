@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
-Route::get('login', 'LoginController@index')->name('login');
 // Register & Login User
 // });
 Route::middleware(['guest'])->group(function () {
+    Route::get('/', 'LoginController@index')->name('login');
     Route::post('login', 'LoginController@autenticar');
+    Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::post('/register', 'RegistrationController@register');
+    Route::get('home', 'LoginController@home')->name('home');
 });
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('home', 'LoginController@home')->name('home');
 });
+
+

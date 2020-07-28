@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function index()
     {
         $mensaje = 'Su correo o contraseña son incorrectos!';
-        if(LoginController::auth()){
+        if (LoginController::auth()) {
             $mensaje = 'Wellcome to Instagram!';
         }
         return view('componentes.login')->with(compact('mensaje'));
@@ -21,11 +21,10 @@ class LoginController extends Controller
     public function home()
     {
         $usuarios = User::all();
-        $password = '12932388';
-        $user = User::find(12);
-        $user->password = Hash::make($password);
-        $user->save();
-
+        // $password = '12932388';
+        // $user = User::find(12);
+        // $user->password = Hash::make($password);
+        // $user->save();
         return view('home')->with(compact('usuarios'));;
     }
 
@@ -36,32 +35,45 @@ class LoginController extends Controller
     public function autenticar(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        // dd($credentials);
-        if ( $this->verificar($credentials) ) {
+        if ($this->verificar($credentials)) {
             // Authentication passed...
-            //creamos la sesion traemos los datos nesesarios
-            //del usuario 
+            //creamos la sesion traemos los datos nesesarios del usuario 
             // session_start();
+            $user = User::findByEmail($credentials['email']);
+            $datos = array(
+                'usuario_id' => $user->id,
+                'usuario_email' => $user->email,
+                'usuario_estado' => $user->estado
+            );
+            Session::put('login', $datos);
             return redirect()->route('home');
         }
-        
-       
-        
-        
-        
-        // // echo var_dump($_SESSION);
-        
+        $request->session()->flash('status', 'Task was successful!');
+
         return back();
     }
 
-    static public function auth(){
+    static public function auth()
+    {
         return true;
     }
 
-    private function verificar($credentials){
-
-        return true;
+    private function verificar($credentials)
+    {
+        $usuario = User::findByEmail($credentials['email']);
+        $password = $credentials['password'];
+        if (Hash::check($password, optional($usuario)->password)) {
+            // dd($usuario);
+            return true;
+        }
+        return false;
     }
 
+    public function logout(){
 
+        // Session::forget('login');
+        Session::flush();
+
+        return redirect('/');
+    }
 }
