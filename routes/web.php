@@ -22,11 +22,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('login', 'LoginController@autenticar');
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::post('/register', 'RegistrationController@register');
-    Route::get('home', 'LoginController@home')->name('home');
+    Route::get('home', 'HomeController@index')->name('home');
 });
 
-Route::middleware(['auth'])->group(function () {
-
-});
 
 

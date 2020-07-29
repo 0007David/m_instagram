@@ -31,8 +31,8 @@
     </div>
 </nav>
 
-<!-- {{ var_dump(Session::get('login')['usuario_estado'])}}
-{{ Session::get('login')['usuario_email']}} -->
+
+<!-- {{ Session::get('login')['usuario_email']}}  -->
 <!-- <div>
     <?=var_dump(Session::get('login')) ?>
 </div> -->
@@ -42,53 +42,18 @@
     <br><br>
     <div class="row">
         <div class="col-md-6">
+            @foreach($posts as $post)
             <div class="card">
                 <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <p class="card-text">{{$post->descripcion}}.</p>
+                    <p class="card-text"><small class="text-muted"> {{ $post->fecha_actualizada}} </small></p>
                 </div>
             </div>
             <br>
-            <div class="card">
-                <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
-
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
+            @endforeach
+            
 
         </div>
         <div class="col-md-6" style="position:fixed; right: 0px;">
@@ -98,8 +63,8 @@
                         <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="60" height="65">
                     </div>
                     <div class="col-md-9">
-                        <h6>davidtorrez280</h6>
-                        <p>David Torrez Navarro</p>
+                        <h6>{{$usuario['nombre_usuario'] ?? ''}}</h6>
+                        <p>{{$usuario['nombre']?? ''}}</p>
                     </div>
 
                 </div>

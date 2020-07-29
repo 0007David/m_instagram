@@ -18,16 +18,6 @@ class LoginController extends Controller
         return view('componentes.login')->with(compact('mensaje'));
     }
 
-    public function home()
-    {
-        $usuarios = User::all();
-        // $password = '12932388';
-        // $user = User::find(12);
-        // $user->password = Hash::make($password);
-        // $user->save();
-        return view('home')->with(compact('usuarios'));;
-    }
-
 
     /**
      * authenticate
@@ -40,10 +30,13 @@ class LoginController extends Controller
             //creamos la sesion traemos los datos nesesarios del usuario 
             // session_start();
             $user = User::findByEmail($credentials['email']);
+            $perfil = $user->perfil;
             $datos = array(
                 'usuario_id' => $user->id,
                 'usuario_email' => $user->email,
-                'usuario_estado' => $user->estado
+                'usuario_estado' => $user->estado,
+                'nombre_usuario'=> $perfil->nombre_usuario,
+                'nombre' => $perfil->nombre
             );
             Session::put('login', $datos);
             return redirect()->route('home');

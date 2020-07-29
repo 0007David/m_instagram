@@ -41,6 +41,18 @@ class User extends Authenticatable
     protected $primaryKey = 'id';
     
     public $timestamps = false;
+
+    public function post()
+    {
+        return $this->hasMany('App\Post', 'id_usuario', 'id');
+    }
+
+    public function perfil()
+    {
+        // return $this->belongsTo('App\Perfil', );
+        // return $this->hasOne('App\Phone');
+        return $this->hasOne('App\Perfil', 'id_usuario', 'id');
+    }
     
     public static function find($id)
     {
