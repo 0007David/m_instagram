@@ -31,6 +31,7 @@ class LoginController extends Controller
             // session_start();
             $user = User::findByEmail($credentials['email']);
             $perfil = $user->perfil;
+            
             $datos = array(
                 'usuario_id' => $user->id,
                 'usuario_email' => $user->email,

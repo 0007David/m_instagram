@@ -21,11 +21,25 @@ class Post extends Model
     
     public $timestamps = false;
     
-    public function post()
+    public function user()
     {
         return $this->belongsTo('App\User', 'id_usuario');
         // return $this->belongsTo('App\Post', 'foreign_key', 'other_key');
     }
 
+    public function likes()
+    {
+        return $this->hasMany('App\Likes', 'id_usuario', 'id');
+    }
+
+    public function notificacion()
+    {
+        return $this->hasOne('App\Notificacion', 'id_post', 'id');
+    }
     
+    public function comentario()
+    {
+        return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+    }
+
 }

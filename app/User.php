@@ -47,6 +47,36 @@ class User extends Authenticatable
         return $this->hasMany('App\Post', 'id_usuario', 'id');
     }
 
+    public function likes()
+    {
+        return $this->hasMany('App\Likes', 'id_usuario', 'id');
+    }
+
+    public function contacto()
+    {
+        return $this->hasMany('App\Contacto', 'id_usuario', 'id');
+    }
+
+    public function configuracion()
+    {
+        return $this->hasOne('App\Configuracion', 'id_usuario', 'id');
+    }
+
+    public function seguidor()
+    {
+        return $this->hasMany('App\Seguidor', 'id_usuario', 'id');
+    }
+
+    public function seguidor_2()
+    {
+        return $this->hasMany('App\Seguidor', 'id_usuario_seguidor', 'id');
+    }
+
+    public function comentario()
+    {
+        return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+    }
+
     public function perfil()
     {
         // return $this->belongsTo('App\Perfil', );

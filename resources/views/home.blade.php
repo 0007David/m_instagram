@@ -3,6 +3,7 @@
 @section('title','Mini Instagram')
 
 @section('content')
+
 <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -44,10 +45,10 @@
         <div class="col-md-6">
             @foreach($posts as $post)
             <div class="card">
-                <img src="https://instagram.flpb4-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/109132347_469349097322026_5465783850829104775_n.jpg?_nc_ht=instagram.flpb4-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=n97T-OiNLTEAX-1HH-q&oh=e2f3e56ddbd826a50c985ee2c6072a00&oe=5F3F73D9" class="card-img-top" alt="...">
+            <img src="imagen/{{$post->foto}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">{{$post->descripcion}}.</p>
+                    <h5 class="card-title">{{$post->descripcion}}</h5>
+                    <p class="card-text">{{$post->descripcion}}</p>
                     <p class="card-text"><small class="text-muted"> {{ $post->fecha_actualizada}} </small></p>
                 </div>
             </div>
@@ -73,7 +74,7 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="40" height="55">
+                            <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="55" height="55">
                         </div>
                         <div class="col-md-9">
                             <h6>lucasgram280</h6>
@@ -82,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="40" height="55">
+                            <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="55" height="55">
                         </div>
                         <div class="col-md-9">
                             <h6>Juanito007</h6>
