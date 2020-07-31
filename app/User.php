@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -106,5 +107,34 @@ class User extends Authenticatable
     {
         return trim($value);
     }
+
+    static public function ayuda1($id){
+        return DB::table('seguidor')
+        ->select('id_usuario')
+        ->where('id_usuario_seguidor', '=' ,$id)
+        ->get();
+    }
+
+    static public function consulta1($id){
+        $datos= User::ayuda1($id);
+        $respuesta=array();
+        foreach ($datos as $dato){
+            $respuesta[]=$dato->id_usuario;
+        }
+        //select nombre,nombre_usuario 
+        // from seguidor,perfil 
+        // where id_usuario_seguidor not in(select id_usuario from seguidor 
+        // where id_usuario_seguidor = 5) and seguidor.id_usuario=5 and seguidor.id_usuario_seguidor=perfil.id_usuario
+
+        return DB::table('seguidor')
+        ->join('perfil', 'seguidor.id_usuario_seguidor', '=', 'perfil.id_usuario')
+        ->select('nombre','nombre_usuario')
+        ->whereNotIn('id_usuario_seguidor', $respuesta)
+        ->where('seguidor.id_usuario', '=' ,$id)
+        ->limit(4)
+        ->get();
+    }
+
+
 
 }

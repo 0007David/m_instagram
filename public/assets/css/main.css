@@ -2,11 +2,13 @@
 
 html {
     background-color: #56baed;
+    
   }
   
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    background:url("https://images7.alphacoders.com/101/thumb-1920-1017006.png");
   }
   
   a {
@@ -209,7 +211,9 @@ html {
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
   }
-  
+  .asd{
+    background:url("http://getwallpapers.com/wallpaper/full/c/8/0/233064.jpg");
+  }
   .fadeIn.second {
     -webkit-animation-delay: 0.6s;
     -moz-animation-delay: 0.6s;

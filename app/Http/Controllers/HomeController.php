@@ -15,9 +15,10 @@ class HomeController extends Controller
 
         // dd($usuario);
         $user = User::find($usuario['usuario_id']);
-    
+        
         $posts = $user->post;
 
-        return view('home')->with(compact('posts','usuario'));
+        $seguidores= User::consulta1($usuario['usuario_id']);
+        return view('home')->with(compact('posts','usuario','seguidores'));
     }
 }

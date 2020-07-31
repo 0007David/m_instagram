@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Mini Instagram')
+@section('title','Mini-Instagram')
 
 @section('content')
 
@@ -10,7 +10,7 @@
     </button>
     <!-- add class container > 992px -->
     <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Hidden brand</a>
+        <img alt="Instagram" class="s4Iyt" src="Imagen/mini.png" width="120" height="30">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -26,6 +26,7 @@
         <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
             @method('GET')
             @csrf
+            <input class="XTCLo x3qfX" type="text" autocapitalize="none" placeholder="Buscar" value="">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
         </form>
@@ -71,31 +72,27 @@
                 </div>
                 <div class="card-body">
                     <h6 class="card-title">Sugerencia para ti</h6>
-
+                    @foreach($seguidores as $seguidor)
                     <div class="row">
                         <div class="col-md-3">
                             <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="55" height="55">
                         </div>
                         <div class="col-md-9">
-                            <h6>lucasgram280</h6>
+                            <h6>{{$seguidor->nombre}}</h6>
+                            <h6>{{$seguidor->nombre_usuario}}</h6>
                             <p>Te sigue</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img src="https://instagram.fyei1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fyei1-1.fna.fbcdn.net&_nc_ohc=iYZpEIp9uDMAX-QY1Zs&oh=401b307448290dabd5fb52de7d2d9332&oe=5F3F2E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="..." width="55" height="55">
-                        </div>
-                        <div class="col-md-9">
-                            <h6>Juanito007</h6>
-                            <p>Te sigue</p>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                     <!-- <div class="col-md-12"></div> -->
 
-                    <p class="card-text">InformaciónAyudaPrensaAPIEmpleoPrivacidadCondicionesUbicacionesCuentas
-                        destacadasHashtagsIdioma
+                    <p style="color:#CFCAC9"; class="card-text">Información·Ayuda·Prensa·API·Empleo·Privacidad·Condiciones·Ubicaciones·Cuentas
+                        destacadas·Hashtags·Idioma
                         Español (España)
-                        © 2020 INSTAGRAM FROM FACEBOOK</p>
+                        </p>
+                    <p style="color:#CFCAC9"; class="card-text">
+                        © 2020 MINI-INSTAGRAM FROM GRUPO12SA</p>
                 </div>
             </div>
         </div>
