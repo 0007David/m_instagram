@@ -108,6 +108,7 @@ class User extends Authenticatable
         return trim($value);
     }
 
+
     static public function ayuda1($id){
         return DB::table('seguidor')
         ->select('id_usuario')
@@ -134,7 +135,5 @@ class User extends Authenticatable
         ->limit(4)
         ->get();
     }
-
-
 
 }

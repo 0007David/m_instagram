@@ -1,0 +1,121 @@
+.fa-1x {
+    font-size: 1.5em;
+}
+.drop-down-left{
+    min-width: 30rem;
+    left: -1080%;
+}
+
+.fa-6x {
+    font-size: 10em;
+    color: #dbdbdb;
+}
+
+ol, ul {
+    list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.list_p {
+    margin-bottom: 20px;
+}
+
+.liul {
+    font-size: 16px;
+    margin-right: 40px;
+    display: inline-block;
+}
+
+.dp-inline {
+    display: inline-block;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.card-home-title {
+    max-width: 32rem;
+}
+
+.nav-border {
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+}
+
+.nav-search {
+    margin: 0px 250px;
+}
+
+.nav-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*
+    Media Query
+    1580px x 410px
+        .nav-search
+            margin: 0px 250px;
+        .card-home-title
+            max-width: 32rem;
+    1250px x 410px
+        .nav-search
+            margin: 0px 160px;
+        .card-home-title
+            max-width: 24rem;
+    990px x 410px
+        columna de post col-md-8 offset-md-3 y ocultamos la columna de datosy sugerencia
+        .nav-search 
+            margin: 0px;
+        .container  eliminamos de div dentro del navbar
+
+
+*/
+
+/* @media (min-width: 768px) {
+    .custom-element {
+        color: var(--primary);
+    }
+}
+
+ @media (min-width: 992px) {
+    .container, .container-lg, .container-md, .container-sm {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container, .container-md, .container-sm {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container, .container-sm {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+} */
