@@ -15,6 +15,8 @@ class HomeController extends Controller
 
         // dd($usuario);
         $user = User::find($usuario['usuario_id']);
+
+        // $seguidores = $user->seguidor;
     
         $posts = $user->post;
 

@@ -23,6 +23,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::post('/register', 'RegistrationController@register');
     Route::get('home', 'HomeController@index')->name('home');
+    Route::get('perfil', 'PerfilController@index')->name('perfil');
+    Route::get('edit', 'PerfilController@edit')->name('edit');
 });
 
 

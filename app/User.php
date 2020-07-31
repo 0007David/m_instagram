@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -106,5 +107,19 @@ class User extends Authenticatable
     {
         return trim($value);
     }
+
+    static public function consulta1($id){
+            //select nombre,nombre_usuario 
+            // from seguidor,perfil 
+            // where id_usuario_seguidor not in(select id_usuario from seguidor 
+            // where id_usuario_seguidor = 5) and seguidor.id_usuario=5 and seguidor.id_usuario_seguidor=perfil.id_usuario
+
+        return DB::table('seguidor')
+            ->join('perfil', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();
+    }
+    
 
 }
