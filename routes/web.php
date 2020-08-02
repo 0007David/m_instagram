@@ -27,10 +27,15 @@ Route::middleware(['guest'])->group(function () {
     Route::get('edit', 'PerfilController@edit')->name('edit');
     //POST
     Route::get('post', 'PostController@index')->name('post');
-
     //ESTADISTICAS
     Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
 
+    Route::post('update', 'PerfilController@update')->name('update');
+    Route::post('updatePass', 'PerfilController@updatePass')->name('updatePass');
+    Route::post('registrar', 'RegistrarController@crear')->name('registrar');
+    Route::get('registrar', 'RegistrarController@index')->name('registrar');
+    Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
+    Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
 });
 
 

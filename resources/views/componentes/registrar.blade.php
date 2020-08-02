@@ -27,16 +27,18 @@
 		@endisset
 
 		<!-- Login Form -->
-		<form method='POST' action="{{url('login')}}">
-			@csrf
+		<form method='POST' action="{{url('registrar')}}">
+            @csrf
+            <input type="text" id="nombre" class="fadeIn third" id="nombre" name="nombre" placeholder="Nombre Completo">
+            <input type="text" id="nombre_usuario" class="fadeIn third" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre_Usuario">
 			<input type="text" id="login" class="fadeIn second" id="email" name="email" placeholder="Correo Electronico">
-			<input type="password" id="password" class="fadeIn third" id="password" name="password" placeholder="Contraseña">
-			<input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="password" id="password" class="fadeIn third" id="password" name="password" placeholder="Contraseña">
+			<input type="submit" class="fadeIn fourth" value="Registrar">
 			<!-- <a href="{{ url('/home') }}" class="fadeIn fourth" >Log In</a> -->
 		</form>
 		<!-- Remind Passowrd -->
 		<div id="formFooter">
-		<p class="underlineHover">¿No tienes una cuenta? <a href="{{url('registrar')}}" tabindex="0"><span class="_7UhW9   xLCgt       qyrsm      gtFbE      se6yk        ">Regístrate</span></a></p>
+			<p class="underlineHover">¿Regresar al login? <a href="{{url('/')}}" tabindex="0"><span class="_7UhW9   xLCgt       qyrsm      gtFbE      se6yk        ">Login</span></a></p>
 		</div>
 
 	</div>

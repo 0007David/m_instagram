@@ -5,7 +5,7 @@
     <!-- add class container > 992px -->
     <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">
-            <img src="Imagen/Mini.png" alt="..." width="140" height="40">
+            <img src="Imagen/Mini.png" alt="..." width="150" height="40">
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item nav-search">
@@ -83,7 +83,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ url('perfil') }}"><span> <i class="fa fa-user-circle"> Perfil</i></span> </a>
                     <a class="dropdown-item" href="#"><span> <i class="fa fa-save"> Guardados</i></span> </a>
-                    <a class="dropdown-item" href="#"><span> <i class="fa fa-cogs"> Configuracion</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('editConfiguracion') }}"><span> <i class="fa fa-cogs"> Configuracion</i></span> </a>
                     <div class="dropdown-divider"></div>
                     <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
                         @method('GET')

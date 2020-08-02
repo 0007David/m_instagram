@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Seguidor extends Model
 {
@@ -24,4 +25,25 @@ class Seguidor extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    static public function contadorSeguidor($id)
+    {
+        $datos= DB::table('seguidor')
+        ->select(DB::raw('count(*)'))
+        ->where('seguidor.id_usuario', '=' ,$id)
+        ->get();
+
+        return $datos[0]->count;
+    }
+
+    static public function contadorSeguidos($id)
+    {
+        $datos= DB::table('seguidor')
+        ->select(DB::raw('count(*)'))
+        ->where('seguidor.id_usuario_seguidor', '=' ,$id)
+        ->get();
+
+        return $datos[0]->count;
+    }
+
 }

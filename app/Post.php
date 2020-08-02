@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
@@ -42,4 +43,12 @@ class Post extends Model
         return $this->hasMany('App\Comentario', 'id_usuario', 'id');
     }
 
+    static public function contadorPosts($id)
+    {
+        $datos= DB::table('post')
+        ->select(DB::raw('count(*)'))
+        ->where('post.id_usuario', '=' ,$id)
+        ->get();
+        return $datos[0]->count;
+    }
 }
