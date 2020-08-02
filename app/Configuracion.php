@@ -20,4 +20,9 @@ class Configuracion extends Model
     {
         return $this->belongsTo('App\User');
     }
+    
+    public static function find($id)
+    {
+        return static::where('id_usuario',compact('id'))->first();
+    }
 }

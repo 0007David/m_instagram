@@ -38,6 +38,10 @@ class Perfil extends Model
     
     public $timestamps = false;
 
+    public static function find($id)
+    {
+        return static::where('id_usuario',compact('id'))->first();
+    }
     public function usuario()
     {
         return $this->belongsTo('App\User');

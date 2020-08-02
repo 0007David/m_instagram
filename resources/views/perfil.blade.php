@@ -19,14 +19,13 @@
             <i class="fa fa-user-circle fa-6x"></i>
         </div>
         <div class="col-md-8">
-            <h4 class="dp-inline">LucasGrahnm289</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
-            
-            <ul class="list_p">
-                <li class="liul"><span><span>0</span> publicaciones</span></li>
-                <li class="liul"><a href="#" tabindex="0"><span title="10">10</span> seguidores</a></li>
-                <li class="liul"><a href="#" tabindex="0"><span>42</span> seguidos</a></li>
+            <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
+            <ul class="col-md-8">
+                <li class="liul"><span><span>{{$datos['cantidad_posts']}}</span> publicaciones</span></li>
+                <li class="liul"><a href="#" tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
+                <li class="liul"><a href="#" tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
             </ul>
-            <h5>Lucas Granh Man</h5>
+        <h4 class="dp-inline">{{$datos['nombre']}}</h4>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->

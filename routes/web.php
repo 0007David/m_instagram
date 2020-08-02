@@ -25,6 +25,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('perfil', 'PerfilController@index')->name('perfil');
     Route::get('edit', 'PerfilController@edit')->name('edit');
+    Route::post('update', 'PerfilController@update')->name('update');
+    Route::post('updatePass', 'PerfilController@updatePass')->name('updatePass');
+    Route::post('registrar', 'RegistrarController@crear')->name('registrar');
+    Route::get('registrar', 'RegistrarController@index')->name('registrar');
+    Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
+    Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
+
 });
 
 
