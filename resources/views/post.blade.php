@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">LucasGrahnm289</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
-            
+
             <ul class="list_p">
                 <li class="liul"><span><span>0</span> publicaciones</span></li>
                 <li class="liul"><a href="#" tabindex="0"><span title="10">10</span> seguidores</a></li>
@@ -30,10 +30,10 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home">Publicaciones</a>
+                    <a class="nav-link" data-toggle="tab" href="#home">Publicaciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu1">IGTV</a>
+                    <a class="nav-link active" data-toggle="tab" href="#menu1">Publicar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu2">GUARDADAS </a>
@@ -42,13 +42,28 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div id="home" class="container tab-pane active"><br>
+                <div id="home" class="container tab-pane fade"><br>
                     <h3>HOME</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
-                <div id="menu1" class="container tab-pane fade"><br>
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div id="menu1" class="container tab-pane active"><br>
+
+                    <h3>Post </h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="file">Foto</label>
+                            <input type="file" id="file">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Descripcion</label>
+                            <textarea class="form-control" placeholder="Enter ..."></textarea>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-light">cancelar</button>
+                            <button type="button" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
                 </div>
                 <div id="menu2" class="container tab-pane fade"><br>
                     <h3>Menu 2</h3>

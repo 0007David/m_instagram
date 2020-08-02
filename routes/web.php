@@ -25,6 +25,12 @@ Route::middleware(['guest'])->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('perfil', 'PerfilController@index')->name('perfil');
     Route::get('edit', 'PerfilController@edit')->name('edit');
+    //POST
+    Route::get('post', 'PostController@index')->name('post');
+
+    //ESTADISTICAS
+    Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
+
 });
 
 

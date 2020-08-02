@@ -5,7 +5,7 @@
     <!-- add class container > 992px -->
     <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">
-            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="...">
+            <img src="Imagen/Mini.png" alt="..." width="140" height="40">
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item nav-search">
@@ -13,19 +13,19 @@
             </li>
             <!-- <div style="right: -60%;"> -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('home') }}">
+                <a class="nav-link" href="{{ url('home') }}" title="Home">
                     <i class="fa fa-home fa-1x"></i>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-paper-plane-o fa-1x"></i>
+                <a class="nav-link" href="{{ url('post') }}" >
+                    <i class="fa fa-paper-plane-o fa-1x" title="Post"></i>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ url('estadistaca') }}" title="Estadisticas">
                     <i class="fa fa-dashboard fa-1x"></i>
                 </a>
             </li>
