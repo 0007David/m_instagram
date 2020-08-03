@@ -40,6 +40,7 @@ class LoginController extends Controller
                 'nombre' => $perfil->nombre
             );
             Session::put('login', $datos);
+            
             return redirect()->route('home');
         }
         $request->session()->flash('status', 'Task was successful!');
