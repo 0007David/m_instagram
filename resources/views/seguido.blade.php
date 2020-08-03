@@ -4,10 +4,6 @@
 
 @section('content')
 
-<!-- {{ Session::get('login')['usuario_email']}}  -->
-<!-- <div>
-    <?= var_dump(Session::get('login')) ?>
-</div> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
@@ -17,19 +13,23 @@
             <i class="fa fa-user-circle fa-6x"></i>
         </div>
         <div class="col-md-8">
-            <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
+            <h4 class="dp-inline">aprendiendoingles</h4> <a class="btn btn-light"> Enviar mensaje</a>
             <ul class="col-md-8">
-                <li class="liul"><span><span>{{$datos['cantidad_posts']}}</span> publicaciones</span></li>
-                <li class="liul"><a tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
-                <li class="liul"><a tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
+                <li class="liul"><span><span>3.367</span> publicaciones</span></li>
+                <li class="liul"><a tabindex="0"><span title="10">371K</span> seguidores</a></li>
+                <li class="liul"><a tabindex="0"><span>7.490</span> seguidos</a></li>
             </ul>
-        <h4 class="dp-inline">{{$datos['nombre']}}</h4>
+        <h4 class="dp-inline">Aprender Ingles</h4>
+        <p>Descripcion del personal de la pagina que Esse deserunt exercitation voluptate eu id id esse commodo sint et adipisicing laborum est incididunt.</p>
+        <a >https://mipagina.com.bo</a>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home">Publicaciones</a>
+                    <a class="nav-link active" data-toggle="tab" href="#home">
+
+                        Publicaciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu1">IGTV</a>

@@ -42,6 +42,7 @@ class LoginController extends Controller
             Session::put('login', $datos);
             return redirect()->route('home');
         }
+
         $request->session()->flash('status', 'Task was successful!');
 
         return back();
@@ -55,11 +56,13 @@ class LoginController extends Controller
     private function verificar($credentials)
     {
         $usuario = User::findByEmail($credentials['email']);
+
         $password = $credentials['password'];
         if (Hash::check($password, optional($usuario)->password)) {
-            // dd($usuario);
+
             return true;
         }
+        
         return false;
     }
 
