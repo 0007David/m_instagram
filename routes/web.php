@@ -31,6 +31,12 @@ Route::middleware(['guest'])->group(function () {
     //ESTADISTICAS
     Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
 
+    //COMENTARIOS
+    Route::get('comentarios', 'ComentarioController@index')->name('comentarios');
+
+    //SEGUIDOS
+    Route::get('seguido', 'SeguidorController@index')->name('seguido');
+
     Route::post('update', 'PerfilController@update')->name('update');
     Route::post('updatePass', 'PerfilController@updatePass')->name('updatePass');
     Route::post('registrar', 'RegistrarController@crear')->name('registrar');
@@ -38,6 +44,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
     Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
 });
+Route::namespace('Admin')->group(function () {
+    // Controllers Within The "App\Http\Controllers\Admin" Namespace
+    Route::get('usuarios', 'AdminController@index')->name('usuarios');
+    
+});
+
+
 
 
 

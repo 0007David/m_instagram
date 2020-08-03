@@ -36,7 +36,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i style="color:red" class="fa fa-heart fa-1x"></i>
+                    <i class="fa fa-heart fa-1x c-red"></i>
                 </a>
                 <!-- dropdpwn-menu: min-width: 22rem; left: -760%;-->
                 <div class="dropdown-menu drop-down-left" aria-labelledby="navbarDropdown">
@@ -70,9 +70,6 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-        
-                    
-
                 </div>
             </li>
             <!-- style="right: -60%;" -->
@@ -84,6 +81,7 @@
                     <a class="dropdown-item" href="{{ url('perfil') }}"><span> <i class="fa fa-user-circle"> Perfil</i></span> </a>
                     <a class="dropdown-item" href="#"><span> <i class="fa fa-save"> Guardados</i></span> </a>
                     <a class="dropdown-item" href="{{ url('editConfiguracion') }}"><span> <i class="fa fa-cogs"> Configuracion</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('usuarios') }}"><span> <i class="fa fa-users"> Usuarios</i></span> </a>
                     <div class="dropdown-divider"></div>
                     <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
                         @method('GET')

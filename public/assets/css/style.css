@@ -1,7 +1,8 @@
 .fa-1x {
     font-size: 1.5em;
 }
-.drop-down-left{
+
+.drop-down-left {
     min-width: 30rem;
     left: -1080%;
 }
@@ -9,6 +10,55 @@
 .fa-6x {
     font-size: 10em;
     color: #dbdbdb;
+}
+.m-t-9{
+    margin-top: 90px;
+}
+.border-card{
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.c-red {
+    color: red;
+}
+.c-gray{
+    color: #7c7c88;
+}
+.bc-white{
+    background-color: #fff;
+}
+
+
+.form-text-area {
+    display: block;
+    width: 100%;
+    /* height: calc(1.5em + .75rem + 2px); */
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    /* border: 1px solid #ced4da; */
+    /* border-radius: .25rem; */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-text-area:focus {
+    /* color: #495057; */
+    background-color: #fff;
+    outline: 0;
+}
+
+/* color: #616161; */
+
+/* text-decoration: underline; */
+
+a.link-sin-hover {
+    color: #616161;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 ol, ul {

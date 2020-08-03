@@ -136,4 +136,5 @@
 @endsection
 @section('script')
     <script src="{{asset('assets/js/Chart.min.js') }}"></script>
+    <script src="{{asset('assets/js/estadisticas.js') }}"></script>
 @endsection
