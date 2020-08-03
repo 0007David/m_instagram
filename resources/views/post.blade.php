@@ -17,27 +17,24 @@
             <i class="fa fa-user-circle fa-6x"></i>
         </div>
         <div class="col-md-8">
-            <h4 class="dp-inline">LucasGrahnm289</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
+            <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4>
 
-            <ul class="list_p">
-                <li class="liul"><span><span>0</span> publicaciones</span></li>
-                <li class="liul"><a href="#" tabindex="0"><span title="10">10</span> seguidores</a></li>
-                <li class="liul"><a href="#" tabindex="0"><span>42</span> seguidos</a></li>
+            <ul class="col-md-8">
+                <li class="liul"><span><span>{{$datos['cantidad_posts']}}</span> publicaciones</span></li>
+                <li class="liul"><a href="#" tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
+                <li class="liul"><a href="#" tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
             </ul>
-            <h5>Lucas Granh Man</h5>
+            <h4 class="dp-inline">{{$datos['nombre']}}</h4>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#home">Publicaciones</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#menu1">Publicar</a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu2">GUARDADAS </a>
-                </li>
+                </li>-->
             </ul>
 
             <!-- Tab panes -->
@@ -49,19 +46,21 @@
                 <div id="menu1" class="container tab-pane active"><br>
 
                     <h3>Post </h3>
-                    <form>
+                    <form method='POST' action="{{url('insertPost')}}" enctype="multipart/form-data">
+                        @method('POST')
+                        @csrf
                         <div class="form-group">
-                            <label for="file">Foto</label>
-                            <input type="file" id="file">
+                            <label for="file">Foto: </label>
+                            <input type="file" id="foto" name="foto">
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Descripcion</label>
-                            <textarea class="form-control" placeholder="Enter ..."></textarea>
+                            <label for="exampleFormControlTextarea1">Descripcion: </label>
+                            <textarea class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Ingrese una descripcion para su foto..."></textarea>
                         </div>
                         <div class="form-group text-center">
                             <button class="btn btn-light">cancelar</button>
-                            <button type="button" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                     </form>
                 </div>

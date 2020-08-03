@@ -15,12 +15,17 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'foto', 'descripcion','fecha_creado','fecha_actualizado','id_usuario'
+        'foto', 'descripcion','fecha_creada','fecha_actualizada','id_usuario'
     ];
 
     protected $primaryKey = 'id';
     
     public $timestamps = false;
+
+    public static function find($id)
+    {
+        return static::where('id_usuario',compact('id'))->first();
+    }
     
     public function user()
     {
