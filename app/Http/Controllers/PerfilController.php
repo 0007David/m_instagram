@@ -20,6 +20,7 @@ class PerfilController extends Controller
             'usuario_id' => $usuario['usuario_id'],
             'nombre_usuario'=> $usuario['nombre_usuario'],
             'nombre' => $usuario['nombre'],
+            'foto' => $usuario['foto'],
             'cantidad_seguidores'=>Seguidor::ContadorSeguidor($usuario['usuario_id']),
             'cantidad_seguidos'=>Seguidor::ContadorSeguidos($usuario['usuario_id']),
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
@@ -60,6 +61,24 @@ class PerfilController extends Controller
         $user = User::find($usuario['usuario_id']);
         $user->password = Hash::make($request->password);
         $user->save();
+        return redirect()->route('home');
+    }
+
+    public function updateFoto(Request $request){
+        $usuario = Session::get('login');
+        $perfil = Perfil::find($usuario['usuario_id']);
+
+        $file = $request->file('foto');
+        if($file->extension()=='png' || $file->extension()=='jpeg' || $file->extension()=='jpg')
+        {
+            $path = public_path() . '/Imagen';
+            $fileName = uniqid() . $file->getClientOriginalName();
+            $moved = $file->move($path, $fileName);
+            if ($moved) {
+                $perfil->foto = $fileName;
+                $perfil->save();
+            }
+        }
         return redirect()->route('home');
     }
 }

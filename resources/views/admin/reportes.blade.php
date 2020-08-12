@@ -27,8 +27,6 @@
                     <th scope="col">Nombre Usuario</th>
                     <th scope="col">Email</th>
                     <th scope="col">Genero</th>
-                    <th scope="col">Fecha Nacimiento</th>
-         
                     <th scope="col">Actiones</th>
                 </tr>
             </thead>
@@ -41,8 +39,6 @@
                     <td>{{$user->nombre_usuario}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->genero}}</td>
-                    <td>{{$user->fecha_nacimiento}}</td>
-             
                     <td>
                         <button class="btn btn-danger">Eliminar</button>
                         <button class="btn btn-warning">Editar</button>

@@ -37,7 +37,8 @@ class LoginController extends Controller
                 'usuario_email' => $user->email,
                 'usuario_estado' => $user->estado,
                 'nombre_usuario'=> $perfil->nombre_usuario,
-                'nombre' => $perfil->nombre
+                'nombre' => $perfil->nombre,
+                'foto' => $perfil->foto
             );
             Session::put('login', $datos);
             

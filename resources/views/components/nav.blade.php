@@ -79,15 +79,29 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ url('perfil') }}"><span> <i class="fa fa-user-circle"> Perfil</i></span> </a>
-                    <a class="dropdown-item" href="#"><span> <i class="fa fa-save"> Guardados</i></span> </a>
                     <a class="dropdown-item" href="{{ url('editConfiguracion') }}"><span> <i class="fa fa-cogs"> Configuracion</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('usuarios') }}"><span> <i class="fa fa-users"> Usuarios</i></span> </a>
                     <div class="dropdown-divider"></div>
                     <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
                         @method('GET')
                         @csrf
                         <button type="submit" class="dropdown-item">Logout</button>
                     </form>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-users fa-1x"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url('usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('configuraciones') }}"><span> <i class="fa fa-users"> Admi-Configuraciones</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('seguidores') }}"><span> <i class="fa fa-users"> Admi-Seguidores</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('contactos') }}"><span> <i class="fa fa-users"> Admi-Contactos</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts y Notifs</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('likes') }}"><span> <i class="fa fa-users"> Admi-Likes</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('comentarios') }}"><span> <i class="fa fa-users"> Admi-Comentarios</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('reportes') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('estadisticas') }}"><span> <i class="fa fa-users"> Admi-Estadisticas</i></span> </a>
                 </div>
             </li>
             <!-- </div> -->

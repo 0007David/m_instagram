@@ -14,7 +14,7 @@ class Perfil extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'nombre_usuario','presentacion','sitio_web','genero','id_usuario','fecha_nacimiento','telefono'
+        'nombre', 'nombre_usuario','presentacion','sitio_web','genero','id_usuario','fecha_nacimiento','telefono','foto'
     ];
 
     /**

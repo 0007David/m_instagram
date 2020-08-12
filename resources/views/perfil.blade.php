@@ -13,8 +13,8 @@
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-4">
-            <i class="fa fa-user-circle fa-6x"></i>
+        <div class="col-md-3">
+            <img src="imagen/{{$datos['foto']}}" class="circular--square" alt="..." width="160" height="160">
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>

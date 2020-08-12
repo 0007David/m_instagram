@@ -129,7 +129,7 @@ class User extends Authenticatable
 
         return DB::table('seguidor')
         ->join('perfil', 'seguidor.id_usuario_seguidor', '=', 'perfil.id_usuario')
-        ->select('nombre','nombre_usuario')
+        ->select('nombre','nombre_usuario','foto')
         ->whereNotIn('id_usuario_seguidor', $respuesta)
         ->where('seguidor.id_usuario', '=' ,$id)
         ->limit(4)

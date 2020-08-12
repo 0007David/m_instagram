@@ -9,7 +9,7 @@ class Likes extends Model
     protected $table = 'likes';
 
     protected $fillable = [
-        'estado', 'id_usuario','id_´post'
+        'estado', 'id_usuario','id_post'
     ];
 
     protected $primaryKey = 'id';

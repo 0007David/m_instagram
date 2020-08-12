@@ -231,6 +231,10 @@ html {
     -moz-animation-delay: 1s;
     animation-delay: 1s;
   }
+
+  .circular--square {
+    border-radius: 50%;
+  }
   
   /* Simple CSS3 Fade-in Animation */
   .underlineHover:after {

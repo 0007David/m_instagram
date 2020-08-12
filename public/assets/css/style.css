@@ -28,6 +28,10 @@
     background-color: #fff;
 }
 
+.circular--square {
+    border-radius: 50%;
+  }
+
 
 .form-text-area {
     display: block;

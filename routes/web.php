@@ -43,11 +43,21 @@ Route::middleware(['guest'])->group(function () {
     Route::get('registrar', 'RegistrarController@index')->name('registrar');
     Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
     Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
+    Route::post('updateFoto', 'PerfilController@updateFoto')->name('updateFoto');
 });
 Route::namespace('Admin')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
-    Route::get('usuarios', 'AdminController@index')->name('usuarios');
-    
+    Route::get('usuarios', 'UserController@index')->name('usuarios');
+    Route::get('usuarioseditar:id', 'UserController@editar')->name('usuarioseditar');
+    Route::post('usuariosupdate', 'UserController@update')->name('usuariosupdate');
+    Route::get('configuraciones', 'ConfiguracionController@index')->name('configuraciones');
+    Route::get('seguidores', 'SeguidorController@index')->name('seguidores');
+    Route::get('postsynotifs', 'PostController@index')->name('postsynotifs');
+    Route::get('likes', 'LikeController@index')->name('likes');
+    Route::get('comentarios', 'ComentarioController@index')->name('comentarios');
+    Route::get('contactos', 'ContactoController@index')->name('contactos');
+    Route::get('reportes', 'ReporteController@index')->name('reportes');
+    Route::get('estadisticas', 'EstadisticaController@index')->name('estadisticas');
 });
 
 

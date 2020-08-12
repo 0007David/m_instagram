@@ -24,7 +24,7 @@ class Post extends Model
 
     public static function find($id)
     {
-        return static::where('id_usuario',compact('id'))->first();
+        return static::where('id',compact('id'))->first();
     }
     
     public function user()
@@ -35,7 +35,7 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\Likes', 'id_usuario', 'id');
+        return $this->hasMany('App\Likes', 'id_post', 'id');
     }
 
     public function notificacion()
@@ -45,8 +45,61 @@ class Post extends Model
     
     public function comentario()
     {
-        return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+        return $this->hasMany('App\Comentario', 'id_post', 'id');
     }
+    public function getIdAttribute($value)
+    {
+        return trim($value);
+    }
+
+
+    public function getLikesCountAttribute()
+    {
+        $id = $this->id;
+        $datos= DB::table('likes')
+        ->select(DB::raw('count(*)'))
+        ->where('likes.id_post', '=' ,$id)
+        ->get();
+        return $datos[0]->count;
+    }
+
+    public function getComentarioCountAttribute()
+    {
+        $id = $this->id;
+        $datos= DB::table('comentario')
+        ->select(DB::raw('count(*)'))
+        ->where('comentario.id_post', '=' ,$id)
+        ->get();
+        return $datos[0]->count;
+    }
+
+    public function getFirstComentarioAttribute()
+    {
+        $id = $this->id;
+        $datos= DB::table('comentario')
+        ->select(DB::raw('*'))
+        ->join('perfil', 'comentario.id_usuario', '=', 'perfil.id_usuario')
+        ->where('comentario.id_post', '=' ,$id)
+        ->limit(1)
+        ->get();
+
+
+        return $datos->first();
+    }
+
+    /*public function getFirstComentarioAttribute()
+    {
+        $id = $this->id;
+        $datos= DB::table('comentario')
+        ->select(DB::raw('*'))
+        ->where('comentario.id_post', '=' ,$id)
+        ->limit(1)
+        ->get();
+
+
+        return $datos->first();
+    }*/
+
 
     static public function contadorPosts($id)
     {

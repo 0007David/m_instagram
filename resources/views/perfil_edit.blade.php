@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu1">Cambiar Contraseña</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">Cambiar Foto de Usuario</a>
+                </li>
                 <!--<li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu2">Aplicaciones y Sitios web </a>
                 </li>-->
@@ -101,21 +104,19 @@
                 </div>
                 <div id="menu2" class="tab-pane fade"><br>
                 <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Aplicacion</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Sitio web</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                            </div>
-                            <div class="form-group text-center">
-                                <button class="btn btn-light">cancelar</button>
-                                <button type="button" class="btn btn-primary">Enviar</button>
-                            </div>
-                        </form>
+                    <h3>Foto de Usuario </h3>
+                    <form method='POST' action="{{url('updateFoto')}}" enctype="multipart/form-data">
+                        @method('POST')
+                        @csrf
+                        <div class="form-group">
+                            <label for="file">Foto: </label>
+                            <input type="file" id="foto" name="foto">
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-light">cancelar</button>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
                 </div>
