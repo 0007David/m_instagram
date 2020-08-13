@@ -22,7 +22,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Nombre Usuario</th>
                     <th scope="col">Email</th>
@@ -35,7 +35,7 @@
             <tbody>
                 @foreach ($users as $key => $user)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$user->nombre}}</td>
                     <td>{{$user->nombre_usuario}}</td>
@@ -45,7 +45,7 @@
              
                     <td>
                         <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        <a href="{{ route('usuarios.show',$user->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
                 @endforeach

@@ -47,9 +47,11 @@ Route::middleware(['guest'])->group(function () {
 });
 Route::namespace('Admin')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
+    //USUARIO
     Route::get('usuarios', 'UserController@index')->name('usuarios');
-    Route::get('usuarioseditar:id', 'UserController@editar')->name('usuarioseditar');
-    Route::post('usuariosupdate', 'UserController@update')->name('usuariosupdate');
+    Route::get('usuario/{id}','UserController@show')->where('id','[0-9]+')->name('usuarios.show');
+    Route::put('usuario', 'UserController@update')->name('usuarios.update');
+
     Route::get('configuraciones', 'ConfiguracionController@index')->name('configuraciones');
     Route::get('seguidores', 'SeguidorController@index')->name('seguidores');
     Route::get('postsynotifs', 'PostController@index')->name('postsynotifs');
