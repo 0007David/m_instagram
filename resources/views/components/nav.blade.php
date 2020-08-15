@@ -2,10 +2,11 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    
     <!-- add class container > 992px -->
     <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">
-            <img src="Imagen/Mini.png" alt="..." width="150" height="40">
+            <img src="{{asset('Imagen/Mini.png')}}" alt="..." width="150" height="40">
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item nav-search">
@@ -88,22 +89,21 @@
                     </form>
                 </div>
             </li>
+            @if (Session::get('login')['rol']=='1')
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-users fa-1x"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('configuraciones') }}"><span> <i class="fa fa-users"> Admi-Configuraciones</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('seguidores') }}"><span> <i class="fa fa-users"> Admi-Seguidores</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('contactos') }}"><span> <i class="fa fa-users"> Admi-Contactos</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts y Notifs</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('likes') }}"><span> <i class="fa fa-users"> Admi-Likes</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('comentarios') }}"><span> <i class="fa fa-users"> Admi-Comentarios</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('reportes') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('estadisticas') }}"><span> <i class="fa fa-users"> Admi-Estadisticas</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/configuraciones') }}"><span> <i class="fa fa-users"> Admi-Configuraciones</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/contactos') }}"><span> <i class="fa fa-users"> Admi-Contactos</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/reportes') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/estadisticas') }}"><span> <i class="fa fa-users"> Admi-Estadisticas</i></span> </a>
                 </div>
             </li>
+            @endif
             <!-- </div> -->
         </ul>
 

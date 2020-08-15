@@ -27,23 +27,25 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Id Post</th>
                     <th scope="col">Dueño Post</th>
+                    <th scope="col">Post</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Actiones</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($comentarios as $key => $comentario)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$comentario->descripcion}}</td>
                     <td>{{$comentario->nombre_usuario}}</td>
                     <td>{{$comentario->id_post}}</td>
                     <td>{{$comentario->dueño_post}}</td>
+                    <td><img src="imagen/{{$comentario->foto}}" width="40" height="40"></td>
                     <td>{{$comentario->fecha}}</td>
                     <td>
                         <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        <a href="{{ route('comentarios.show',$comentario->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
                 @endforeach

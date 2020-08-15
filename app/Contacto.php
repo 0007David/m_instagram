@@ -20,5 +20,9 @@ class Contacto extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public static function findid($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
     
 }

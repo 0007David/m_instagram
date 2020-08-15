@@ -33,6 +33,7 @@ Route::middleware(['guest'])->group(function () {
 
     //COMENTARIOS
     Route::get('comentarios', 'ComentarioController@index')->name('comentarios');
+    Route::post('comentarios', 'ComentarioController@crear')->name('comentarios');
 
     //SEGUIDOS
     Route::get('seguido', 'SeguidorController@index')->name('seguido');
@@ -44,20 +45,41 @@ Route::middleware(['guest'])->group(function () {
     Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
     Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
     Route::post('updateFoto', 'PerfilController@updateFoto')->name('updateFoto');
+
+
+
+
 });
-Route::namespace('Admin')->group(function () {
+Route::prefix('admin')->namespace('Admin')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
     //USUARIO
-    Route::get('usuarios', 'UserController@index')->name('usuarios');
+    Route::get('usuarios', 'UserController@index')->name('usuarios');;
     Route::get('usuario/{id}','UserController@show')->where('id','[0-9]+')->name('usuarios.show');
+    Route::post('usuarios','UserController@eliminar')->name('usuarios.eliminar');
     Route::put('usuario', 'UserController@update')->name('usuarios.update');
 
     Route::get('configuraciones', 'ConfiguracionController@index')->name('configuraciones');
-    Route::get('seguidores', 'SeguidorController@index')->name('seguidores');
+    Route::get('configuracion/{id}','ConfiguracionController@show')->where('id','[0-9]+')->name('configuraciones.show');
+    Route::put('configuracion', 'ConfiguracionController@update')->name('configuraciones.update');
+    
+    Route::get('seguidores/{id}', 'SeguidorController@index')->where('id','[0-9]+')->name('seguidores');
+    Route::post('seguidores','SeguidorController@eliminar')->name('seguidores.eliminar');
+    
     Route::get('postsynotifs', 'PostController@index')->name('postsynotifs');
+    Route::get('post/{id}','PostController@show')->where('id','[0-9]+')->name('postsynotifs.show');
+    Route::post('postsynotifs','PostController@eliminar')->name('postsynotifs.eliminar');
+    Route::put('post', 'PostController@update')->name('postsynotifs.update');
+
     Route::get('likes', 'LikeController@index')->name('likes');
+
     Route::get('comentarios', 'ComentarioController@index')->name('comentarios');
+    Route::get('comentario/{id}','ComentarioController@show')->where('id','[0-9]+')->name('comentarios.show');
+    Route::put('comentario', 'ComentarioController@update')->name('comentarios.update');
+
     Route::get('contactos', 'ContactoController@index')->name('contactos');
+    Route::get('contacto/{id}','ContactoController@show')->where('id','[0-9]+')->name('contactos.show');
+    Route::put('contacto', 'ContactoController@update')->name('contactos.update');
+
     Route::get('reportes', 'ReporteController@index')->name('reportes');
     Route::get('estadisticas', 'EstadisticaController@index')->name('estadisticas');
 });

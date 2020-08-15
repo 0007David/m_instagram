@@ -24,4 +24,8 @@ class Comentario extends Model
     {
         return $this->belongsTo('App\Post');
     }
+    public static function findid($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
 }

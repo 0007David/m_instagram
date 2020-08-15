@@ -25,4 +25,9 @@ class Configuracion extends Model
     {
         return static::where('id_usuario',compact('id'))->first();
     }
+
+    public static function findid($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
 }

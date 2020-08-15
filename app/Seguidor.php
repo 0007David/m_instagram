@@ -26,6 +26,11 @@ class Seguidor extends Model
         return $this->belongsTo('App\User');
     }
 
+    public static function findid($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
+
     static public function contadorSeguidor($id)
     {
         $datos= DB::table('seguidor')

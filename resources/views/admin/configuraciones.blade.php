@@ -17,12 +17,12 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Configuraciones</h2>
-            <button class="btn btn-primary mb-2">Crear</button>
+            <!--<button class="btn btn-primary mb-2">Crear</button>-->
         </div>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Notificaciones</th>
                     <th scope="col">Tema Fondo</th>
                     <th scope="col">Usuario</th>
@@ -32,14 +32,14 @@
             <tbody>
                 @foreach ($configuraciones as $key => $configuracion)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$configuracion->notificaciones}}</td>
                     <td>{{$configuracion->tema_fondo}}</td>
                     <td>{{$configuracion->usuario}}</td>
                     <td>
-                        <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        <!--<button class="btn btn-danger">Eliminar</button>-->
+                        <a href="{{ route('configuraciones.show',$configuracion->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
                 @endforeach

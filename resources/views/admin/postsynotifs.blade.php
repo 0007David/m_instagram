@@ -27,21 +27,35 @@
                     <th scope="col">Descripcion</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Usuario</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($posts as $key => $post)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
-                    <td><img src="imagen/{{$post->foto}}" width="80" height="60"></td>
+                    <td><img src="{{asset('imagen/'.$post->foto)}}" width="40" height="40"></td>
                     <td>{{$post->descripcion}}</td>
                     <td>{{$post->fecha_actualizada}}</td>
                     <td>{{$post->nombre}}</td>
+                    <td>{{$post->estado}}</td>
                     <td>
-                        <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        <form method='POST' action="{{ url('admin/postsynotifs')}}">
+                            {{ method_field('POST') }}
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{$post->id}}">
+                            @if ($post->estado=='t')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <input type="hidden" name="estado" value="f">
+                            @endif
+                            @if ($post->estado=='f')
+                            <button type="submit" class="btn btn-success">Activar</button>
+                            <input type="hidden" name="estado" value="t">
+                            @endif
+                        </form>
+                        <a href="{{ route('postsynotifs.show',$post->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
                 @endforeach

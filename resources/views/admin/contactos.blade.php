@@ -24,20 +24,20 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Telefono</th>
-                    <th scope="col">Nombre Usuario</th>
-                    <th scope="col">Actiones</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($contactos as $key => $contacto)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$contacto->telefono}}</td>
                     <td>{{$contacto->usuario}}</td>
                     <td>
                         <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        <a href="{{ route('contactos.show',$contacto->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
                 @endforeach

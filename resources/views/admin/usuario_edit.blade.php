@@ -20,7 +20,7 @@
             <button class="btn btn-primary mb-2">Crear</button>
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('usuario')}}">
+            <form method='POST' action="{{ url('admin/usuario')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 <div class=" form-group">
@@ -50,7 +50,18 @@
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Genero</label>
-            <input type="text" class="form-control" name="genero" placeholder="Genero" value="{{$user->genero}}">
+            <select name="genero" class="form-control">
+                <option value="">Seleccione</option>
+                @if ($user->genero=='m')
+                <option value="m" selected>Masculino</option>
+                <option value="f" >Femenino</option>
+                @endif
+                @if ($user->genero=='f')
+                <option value="f" selected>Femenino</option>
+                <option value="m" >Masculino</option>
+                @endif
+            </select>
+            <!--<input type="text" class="form-control" name="genero" placeholder="Genero" value="{{$user->genero}}"> -->
         </div>
 
         <div class="form-group">
@@ -62,6 +73,38 @@
             <label for="exampleFormControlInput1">Telefono</label>
             <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{$user->telefono}}">
             <input type="hidden" name="id" value="{{$user->id}}">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Estado</label>
+            <select name="estado" class="form-control">
+                <option value="">Seleccione</option>
+                @if ($user->estado=='f')
+                <option value="f" selected>Desactivado</option>
+                <option value="t" >Activo</option>
+                @endif
+                @if ($user->estado=='t')
+                <option value="t" selected>Activo</option>
+                <option value="f" >Desactivado</option>
+                @endif
+            </select>
+            <!--<input type="text" class="form-control" name="genero" placeholder="Genero" value="{{$user->genero}}"> -->
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Rol</label>
+            <select name="rol" class="form-control">
+                <option value="">Seleccione</option>
+                @if ($user->rol=='1')
+                <option value="1" selected>Administrador</option>
+                <option value="0" >Usuario</option>
+                @endif
+                @if ($user->rol=='0')
+                <option value="0" selected>Usuario</option>
+                <option value="1" >Administrador</option>
+                @endif
+            </select>
+            
         </div>
 
         <div class="form-group text-center">

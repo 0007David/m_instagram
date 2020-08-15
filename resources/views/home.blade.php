@@ -22,7 +22,7 @@
                     <div class="col-md-11">
                         <a href="{{ url('seguido') }}">
                             <i class="fa fa-user-circle fa-2x c-gray"></i>
-                            <h5 class="dp-inline c-gray">lucas</h5>
+                            <h5 class="dp-inline c-gray">{{$post->user->perfil->nombre_usuario}}</h5>
                         </a>
                     </div>
                     
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-12 mt-2"> 
                     <strong><a class="link-sin-hover" title="ver mas">{{$post->likes_count}} Me gusta</a></strong>
-                    <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}</strong> {{$post->descripcion}}</p>
+                    <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
                         <strong><a href="{{url('comentarios')}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
                         @isset($post->first_comentario)
                             
@@ -72,15 +72,21 @@
 
                 </div>
                 <div class="dropdown-divider"></div>
-                <div class="card-food row">
+                
+                    <form class="card-food row" method='POST' action="{{ url('comentarios')}}">
+                    {{ method_field('POST') }}
+                    {{ csrf_field() }}
                     <div class="col-md-9">
-                        <textarea class="form-text-area" placeholder="Añade un comentario..."></textarea>
+                        <textarea required class="form-text-area" name="descripcion" placeholder="Añade un comentario..."></textarea>
+                        <input type="hidden" name="id_usuario" value="{{Session::get('login')['usuario_id']}}">
+                        <input type="hidden" name="id_post" value="{{$post->id}}">
                     </div>
+
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-outline-primary mt-2">Publicar</button>
+                        <button type="submit" class="btn btn-outline-primary mt-2">Publicar</button>
                     </div>
-                    <!-- <input type="text" placeholder="Añade un comentario"> -->
-                </div>
+                    </form>
+               
 
             </div>
             <br>

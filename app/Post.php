@@ -15,7 +15,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'foto', 'descripcion','fecha_creada','fecha_actualizada','id_usuario'
+        'foto', 'descripcion','fecha_creada','fecha_actualizada','id_usuario','estado'
     ];
 
     protected $primaryKey = 'id';
@@ -52,6 +52,10 @@ class Post extends Model
         return trim($value);
     }
 
+    public static function findid($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
 
     public function getLikesCountAttribute()
     {

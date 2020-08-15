@@ -27,13 +27,13 @@
                     <th scope="col">Nombre Usuario</th>
                     <th scope="col">Email</th>
                     <th scope="col">Genero</th>
-                    <th scope="col">Actiones</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $key => $user)
                 <tr>
-                    <th scope="row">{{$key}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$user->nombre}}</td>
                     <td>{{$user->nombre_usuario}}</td>

@@ -25,11 +25,12 @@ class LoginController extends Controller
     public function autenticar(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if ($this->verificar($credentials)) {
+        $user = User::findByEmail($credentials['email']);
+        if (isset($user) &&  $user->estado=='t' && $this->verificar($credentials)) {
             // Authentication passed...
             //creamos la sesion traemos los datos nesesarios del usuario 
             // session_start();
-            $user = User::findByEmail($credentials['email']);
+            
             $perfil = $user->perfil;
             
             $datos = array(
@@ -38,7 +39,8 @@ class LoginController extends Controller
                 'usuario_estado' => $user->estado,
                 'nombre_usuario'=> $perfil->nombre_usuario,
                 'nombre' => $perfil->nombre,
-                'foto' => $perfil->foto
+                'foto' => $perfil->foto,
+                'rol' => $user->rol
             );
             Session::put('login', $datos);
             
