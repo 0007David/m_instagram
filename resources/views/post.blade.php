@@ -14,7 +14,7 @@
 <div class="container mt-5 pt-5">
     <div class="row pt-5">
         <div class="col-md-4">
-            <i class="fa fa-user-circle fa-6x"></i>
+            <img src="imagen/{{$datos['foto']}}" class="circular--square" alt="..." width="160" height="160">
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4>
@@ -32,9 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#menu1">Publicar</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu2">GUARDADAS </a>
-                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">Publicaciones </a>
+                </li>
             </ul>
 
             <!-- Tab panes -->
@@ -65,8 +65,40 @@
                     </form>
                 </div>
                 <div id="menu2" class="container tab-pane fade"><br>
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Fecha</th>
+  
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($posts as $key => $post)
+                            <tr>
+                                <th scope="row">{{$key+1}}</th>
+                                
+                                <td><img src="{{asset('imagen/'.$post->foto)}}" width="40" height="40"></td>
+                                <td>{{$post->descripcion}}</td>
+                                <td>{{$post->fecha_actualizada}}</td>
+                                <td>
+                                    <form method='POST' action="{{ url('post')}}">
+                                        {{ method_field('POST') }}
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{$post->id}}">
+                                        @if ($post->estado=='t')
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <input type="hidden" name="estado" value="f">
+                                        @endif
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

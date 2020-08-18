@@ -16,7 +16,7 @@ class ConfiguracionController extends Controller
     {
         $usuario = Session::get('login');
         $configuracion = Configuracion::find($usuario['usuario_id']);
-        return view('configuracion_edit')->with(compact('configuracion'));;
+        return view('configuracion_edit')->with(compact('configuracion'));
     }
 
 

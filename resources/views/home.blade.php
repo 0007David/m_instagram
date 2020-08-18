@@ -37,7 +37,7 @@
                             @endif
                         </a>
 
-                        <a class="c-gray" href="{{ url('comentarios') }}" title="ver">
+                        <a class="c-gray" href="{{route('comentario',$post->id)}}" title="ver">
                             <i class="fa fa-comment-o fa-1x mr-3"></i>
                         </a>
                         <a title="share">

@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Notificacion extends Model
@@ -23,5 +23,10 @@ class Notificacion extends Model
     public static function findid($id)
     {
         return static::where('id',compact('id'))->first();
+    }
+
+    static public function maxID(){
+        return DB::table('post')
+        ->max('id');
     }
 }

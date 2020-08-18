@@ -12,7 +12,7 @@ class PostController extends Controller
     {
         $posts=DB::table('post')
         ->join('perfil', 'post.id_usuario', '=', 'perfil.id_usuario')
-        ->select('post.id','post.foto','post.descripcion','post.fecha_actualizada','perfil.nombre','post.estado')
+        ->select(DB::raw ("post.id,TRIM(post.foto) as foto,TRIM(post.descripcion) as descripcion,post.fecha_actualizada,TRIM(perfil.nombre) as nombre,post.estado"))
         ->orderBy('post.id')
         ->get();
         return view('admin.postsynotifs')->with(compact('posts'));
@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         $post=DB::table('post')
         ->join('perfil', 'post.id_usuario', '=', 'perfil.id_usuario')
-        ->select('post.id','post.foto','post.descripcion','post.fecha_actualizada','perfil.nombre','post.estado')
+        ->select(DB::raw ("post.id,TRIM(post.foto) as foto,TRIM(post.descripcion) as descripcion,post.fecha_actualizada,TRIM(perfil.nombre) as nombre,post.estado"))
         ->where('post.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array

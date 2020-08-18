@@ -13,7 +13,8 @@
     <div class="row m-t-9 border-card">
         <div class="col-md-6 pl-0 pr-0">
             <!-- img-thumbnail  -->
-            <img class="card-img-top" src="http://lorempixel.com/400/550/sports/" width="100%" alt="...">
+            <!--"http://lorempixel.com/400/550/sports/"-->
+            <img class="card-img-top" src="{{asset('imagen/'.$post->foto)}}" width="100%" alt="...">
         </div>
         <div class="col-md-6">
             <div class="row card-header">
@@ -21,8 +22,8 @@
                     <i class="fa fa-user-circle fa-4x"></i>
                 </div>
                 <div class="col-md-8">
-                    <h6>lucas</h6>
-                    <p>Lucas Granh </p>
+                <h6>{{$post->user->perfil->nombre_usuario}}</h6>
+                    <p>{{$post->user->perfil->nombre}} </p>
                 </div>
                 <div class="col-md-1 mt-4">
                     <i class="fa fa-ellipsis-h fa-1x"></i>
@@ -30,39 +31,23 @@
 
             </div>
             <div class="card-body">
+                @foreach ($post->comentario as $comentario)
                 <div class="row">
                     <div class="col-md-3">
                         <i class="fa fa-user-circle fa-2x"></i>
                     </div>
                     <div class="col-md-8">
-                        <strong>juanito</strong>
+                    <strong>{{$comentario->usuario->perfil->nombre_usuario}}</strong>
                         <!-- <p>Lucas Granh </p> -->
                     </div>
                     <div class="col-md-1 mt-4">
                         <i class="fa fa-ellipsis-h"></i>
                     </div>
                     <div class="col-md-12">
-                        <p>Velit ut do ut voluptate ea ad fugiat est reprehenderit minim qui aliquip ea laborum.
-                            incididunt sit nulla irure nostrud. Proident amet do elit commodo sint velit adipisicing
-                            dolor deserunt ullamco amet laboris do.</p>
+                        <p>{{$comentario->descripcion}}</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <i class="fa fa-user-circle fa-2x"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <strong>juanito</strong>
-                        <!-- <p>Lucas Granh </p> -->
-                    </div>
-                    <div class="col-md-1 mt-4">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </div>
-                    <div class="col-md-12">
-                        <p>Velit ut do ut voluptate ea ad fugiat est reprehenderit minim qui aliquip ea laborum .</p>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
             <div class="card-food row" style="position: absolute; bottom: 0px;">
 
@@ -84,15 +69,28 @@
                     <i class="fa fa-bookmark-o fa-1x mr-2"></i>
                 </div>
                 <div class="col-md-12 mt-2">
-                    <strong><a class="link-sin-hover" title="ver mas">672.432 Me gusta</a></strong>
-                    <p class="card-text"><small class="text-muted">Hace $post->fecha_actualizada ago</small></p>
+                <strong><a class="link-sin-hover" title="ver mas">{{$post->likes->count()}} Me gusta</a></strong>
+                    <p class="card-text"><small class="text-muted">{{$post->fecha_actualizada}}</small></p>
                 </div>
-                <div class="col-md-9">
+                {{-- <div class="col-md-9">
                     <textarea class="form-text-area" placeholder="Añade un comentario..."></textarea>
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-outline-primary mt-2">Publicar</button>
-                </div>
+                </div> --}}
+                <form class="row" method='POST' action="{{ url('comentarios')}}">
+                    {{ method_field('POST') }}
+                    {{ csrf_field() }}
+                    <div class="col-md-9">
+                        <textarea required class="form-text-area" name="descripcion" placeholder="Añade un comentario..."></textarea>
+                        <input type="hidden" name="id_usuario" value="{{Session::get('login')['usuario_id']}}">
+                        <input type="hidden" name="id_post" value="{{$post->id}}">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-outline-primary mt-2">Publicar</button>
+                    </div>
+                    </form>
                 <!-- <input type="text" placeholder="Añade un comentario"> -->
             </div>
         </div>

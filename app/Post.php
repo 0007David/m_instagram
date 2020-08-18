@@ -103,5 +103,5 @@ class Post extends Model
             ->get();
         return $datos[0]->count;
     }
-
+    
 }

@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Comentario;
 use Carbon\Carbon;
+use App\Post;
 class ComentarioController extends Controller
 {
-    public function index(){
-        return view('comentarios');
+    public function index($id){
+        //dd($id);
+        $post=Post::find($id);
+
+
+
+
+        return view('comentarios')->with(compact('post'));
     }
 
     public function crear(Request $request)

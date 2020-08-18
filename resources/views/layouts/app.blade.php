@@ -9,8 +9,9 @@
 	<title>@yield('title','Mini Instagram')</title>
 
 	@yield('class-login')
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}" />
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> --}}
+	<link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}"/>
 	<link href="{{asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">	
 	<link rel="stylesheet" href="{{asset('assets/css/autoComplete.css')}}">
@@ -29,6 +30,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
 
+
 	@if(!is_null( Session::get('login') ))
 	<script>
 		let loginData = @json(Session::get('login'));
@@ -36,6 +38,7 @@
 	</script>
 	<script src="{{asset('assets/js/main.js') }}"></script>
 	@endif
+
 	@yield('script')
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

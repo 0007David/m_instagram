@@ -54,6 +54,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ url('perfil') }}"><span> <i class="fa fa-user-circle"> Perfil</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('contacto') }}"><span> <i class="fa fa-book"> Contacto</i></span> </a>
                     <a class="dropdown-item" href="{{ url('editConfiguracion') }}"><span> <i class="fa fa-cogs"> Configuracion</i></span> </a>
                     <div class="dropdown-divider"></div>
                     <form class="form-inline my-2 my-lg-0" method='GET' action="{{url('/logout')}}">
