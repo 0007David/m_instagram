@@ -95,20 +95,6 @@ class Post extends Model
         return $this->likes()->where('id_usuario','=',$id_seguidor)->where('id_post','=',$id)->first();
     }
 
-    /*public function getFirstComentarioAttribute()
-    {
-        $id = $this->id;
-        $datos= DB::table('comentario')
-        ->select(DB::raw('*'))
-        ->where('comentario.id_post', '=' ,$id)
-        ->limit(1)
-        ->get();
-
-
-        return $datos->first();
-    }*/
-
-
     static public function contadorPosts($id)
     {
         $datos = DB::table('post')
@@ -118,20 +104,4 @@ class Post extends Model
         return $datos[0]->count;
     }
 
-    public function postsegme()
-    {
-
-
-        $id = $this->id;
-        return DB::table('post')
-            ->select('post.id', 'post.foto', 'post.descripcion', 'post.fecha_creada', 'post.fecha_actualizada', 'post.id_usuario', 'post.estado')
-            ->whereIn('post.id_usuario', $respuesta)
-            ->orwhere('post.id_usuario', '=', $id)
-            ->orderByDesc('post.id')
-            ->get();
-        $flights = App\Flight::where('active', 1)
-            ->orderBy('name', 'desc')
-            ->take(10)
-            ->get();
-    }
 }
