@@ -28,12 +28,21 @@ Route::middleware(['guest'])->group(function () {
     //POST
     Route::get('post', 'PostController@index')->name('post');
     Route::post('insertPost', 'PostController@insertPost')->name('insertPost');
+    Route::post('post','PostController@eliminar')->name('post.eliminar');
     //ESTADISTICAS
     Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
 
     //COMENTARIOS
-    Route::get('comentarios', 'ComentarioController@index')->name('comentarios');
+    Route::get('comentario/{id}', 'ComentarioController@index')->where('id','[0-9]+')->name('comentario');
+
     Route::post('comentarios', 'ComentarioController@crear')->name('comentarios');
+    //Route::get('comentario', 'ComentarioController@show')->name('comentario');
+
+    Route::get('contacto', 'ContactoController@index')->name('contacto');
+    Route::get('crearcontacto', 'ContactoController@index2')->name('crearcontacto');
+    Route::post('storecontacto', 'ContactoController@crear')->name('storecontacto');
+    Route::get('compararcontacto', 'ContactoController@compararcontacto')->name('compararcontacto');
+
 
     //SEGUIDOS
     Route::get('seguido', 'SeguidorController@index')->name('seguido');
@@ -53,7 +62,7 @@ Route::middleware(['guest'])->group(function () {
 Route::prefix('admin')->namespace('Admin')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
     //USUARIO
-    Route::get('usuarios', 'UserController@index')->name('usuarios');;
+    Route::get('usuarios', 'UserController@index')->name('usuarios');
     Route::get('usuario/{id}','UserController@show')->where('id','[0-9]+')->name('usuarios.show');
     Route::post('usuarios','UserController@eliminar')->name('usuarios.eliminar');
     Route::put('usuario', 'UserController@update')->name('usuarios.update');

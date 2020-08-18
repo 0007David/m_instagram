@@ -19,6 +19,9 @@ class HomeController extends Controller
 
         
         $posts = $user->post;
+
+        //$posts = Post::postsegme($usuario['usuario_id']);
+        
         $seguidores= User::consulta1($usuario['usuario_id']);
         return view('home')->with(compact('posts','usuario','seguidores'));
     }

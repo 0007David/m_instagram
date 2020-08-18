@@ -38,7 +38,7 @@
                             <i class="fa fa-heart-o fa-1x mr-3"></i>
                         </a>
 
-                        <a class="c-gray" href="{{ url('comentarios') }}" title="ver">
+                        <a class="c-gray" href="{{route('comentario',$post->id)}}" title="ver">
                             <i class="fa fa-comment-o fa-1x mr-3"></i>
                         </a>
                         <a title="share">
@@ -55,7 +55,7 @@
                     <div class="col-md-12 mt-2"> 
                     <strong><a class="link-sin-hover" title="ver mas">{{$post->likes_count}} Me gusta</a></strong>
                     <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
-                        <strong><a href="{{url('comentarios')}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
+                        <strong><a href="{{route('comentario',$post->id)}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
                         @isset($post->first_comentario)
                             
                             <p class="mb-0"><strong>{{ $post->first_comentario->nombre_usuario }}: </strong> {{ $post->first_comentario->descripcion }}</p>

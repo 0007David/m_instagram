@@ -104,7 +104,6 @@ class Post extends Model
         return $datos->first();
     }*/
 
-
     static public function contadorPosts($id)
     {
         $datos= DB::table('post')
@@ -112,5 +111,35 @@ class Post extends Model
         ->where('post.id_usuario', '=' ,$id)
         ->get();
         return $datos[0]->count;
+    }
+
+    static public function ayuda1($id){
+        return DB::table('seguidor')
+        ->select('id_usuario')
+        ->where('id_usuario_seguidor', '=' ,$id)
+        ->get();
+    }
+
+    static public function postsegme($id){
+        $datos= Post::ayuda1($id);
+        $respuesta=array();
+        foreach ($datos as $dato){
+            $respuesta[]=$dato->id_usuario;
+        }
+        // select *
+        // from post
+        // where post.id_usuario in (select seguidor.id_usuario
+        // from usuario, seguidor
+        // where usuario.id=seguidor.id_usuario_seguidor and usuario.id=9) OR post.id_usuario=9
+        // order by id desc
+
+        return DB::table('post')
+        //->join('perfil', 'post.id_usuario', '=', 'perfil.id_usuario')
+        ->select(DB::raw('post.id,post.foto,post.descripcion,post.fecha_creada,post.fecha_actualizada,post.id_usuario,post.estado'))
+        ->where('post.estado','=','t')
+        ->whereIn('post.id_usuario', $respuesta)
+        ->orwhere('post.id_usuario', '=' ,$id)
+        ->orderByDesc('post.id')
+        ->get();
     }
 }
