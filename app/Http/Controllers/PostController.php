@@ -9,8 +9,6 @@ use App\Perfil;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\file;
 use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {

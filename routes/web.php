@@ -23,6 +23,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::post('/register', 'RegistrationController@register');
     Route::get('home', 'HomeController@index')->name('home');
+
+    Route::get('buscar', 'HomeController@search')->name('buscar');
     Route::get('perfil', 'PerfilController@index')->name('perfil');
     Route::get('edit', 'PerfilController@edit')->name('edit');
     //POST
@@ -31,6 +33,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('post','PostController@eliminar')->name('post.eliminar');
     //ESTADISTICAS
     Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
+    Route::get('generoSeguidor/{id}', 'EstadisticaController@estadisticaGeneroSeguidores');
 
     //COMENTARIOS
     Route::get('comentario/{id}', 'ComentarioController@index')->where('id','[0-9]+')->name('comentario');
@@ -45,7 +48,10 @@ Route::middleware(['guest'])->group(function () {
 
 
     //SEGUIDOS
-    Route::get('seguido', 'SeguidorController@index')->name('seguido');
+    Route::get('user/{name}', 'SeguidorController@index')->name('seguido');
+    Route::get('getseguidores/{id}', 'SeguidorController@getSeguidores')->name('getSeguidores');
+    Route::get('getseguidor/{id}', 'SeguidorController@getSeguidor')->name('getSeguidor');
+    Route::post('seguidorStore', 'SeguidorController@store')->name('seguidor.store');
 
     Route::post('update', 'PerfilController@update')->name('update');
     Route::post('updatePass', 'PerfilController@updatePass')->name('updatePass');
@@ -55,6 +61,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
     Route::post('updateFoto', 'PerfilController@updateFoto')->name('updateFoto');
 
+    //LIKES
+    Route::post('like', 'LikeController@store')->name('like');
 
 
 

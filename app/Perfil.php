@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Perfil extends Model
 {
@@ -17,23 +18,6 @@ class Perfil extends Model
         'nombre', 'nombre_usuario','presentacion','sitio_web','genero','id_usuario','fecha_nacimiento','telefono','foto'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     * 'password', 'remember_token',
-     * @var array
-     */
-    // protected $hidden = [
-    //     'password'
-    // ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
     protected $primaryKey = 'id';
     
     public $timestamps = false;
@@ -42,13 +26,25 @@ class Perfil extends Model
     {
         return static::where('id_usuario',compact('id'))->first();
     }
+
+    public static function findByUserName($name)
+    {
+        return static::where('nombre_usuario',compact('name'))->first();
+    }
     public function usuario()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'id_usuario');
     }
     public static function findid($id)
     {
         return static::where('id',compact('id'))->first();
+    }
+
+    public function getEdadAttribute()
+    {
+        $fecha_nacimiento = $this->fecha_nacimiento;
+        $edad = Carbon::parse($fecha_nacimiento)->age;
+        return $edad;
     }
 
 }

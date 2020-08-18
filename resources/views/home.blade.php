@@ -4,28 +4,23 @@
 
 @section('content')
 
-
-<!-- {{ Session::get('login')['usuario_email']}}  -->
-<!-- <div>
-    <?= var_dump(Session::get('login')) ?>
-</div> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-4">
     <br><br>
     <div class="row">
-        <div class="col-md-6">
+        <div id="col-posts" class="col-md-6">
             @foreach($posts as $post)
             <div class="card">
                 <div class="card-header row bc-white m-0">
                     <div class="col-md-11">
-                        <a href="{{ url('seguido') }}">
+                        <a href="{{ url('user/'.$post->user->perfil->nombre_usuario) }}">
                             <i class="fa fa-user-circle fa-2x c-gray"></i>
                             <h5 class="dp-inline c-gray">{{$post->user->perfil->nombre_usuario}}</h5>
                         </a>
                     </div>
-                    
+
                     <div class="col-md-1 mt-1">
                         <i class="fa fa-ellipsis-h"></i>
                     </div>
@@ -35,7 +30,11 @@
                 <div class="card-body row pb-0">
                     <div class="col-md-6">
                         <a>
-                            <i class="fa fa-heart-o fa-1x mr-3"></i>
+                            @if ($post->dioLikeSeguidor(Session::get('login')['usuario_id']))
+                            <i id="btn-like" data-postid="{{$post->id}}" class="fa fa-heart fa-1x mr-3 c-red"></i>
+                            @else
+                            <i id="btn-like" data-postid="{{$post->id}}" class="fa fa-heart-o fa-1x mr-3"></i>
+                            @endif
                         </a>
 
                         <a class="c-gray" href="{{route('comentario',$post->id)}}" title="ver">
@@ -52,28 +51,28 @@
                     <div class="col-md-1">
                         <i class="fa fa-bookmark-o fa-1x"></i>
                     </div>
-                    <div class="col-md-12 mt-2"> 
-                    <strong><a class="link-sin-hover" title="ver mas">{{$post->likes_count}} Me gusta</a></strong>
-                    <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
-                        <strong><a href="{{route('comentario',$post->id)}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
+                    <div class="col-md-12 mt-2">
+                        <strong><a id="likes_count" class="link-sin-hover" title="ver mas">{{$post->likes_count}}</a> Me gusta</strong>
+                        <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
+                        <strong><a href="{{url('comentarios')}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
                         @isset($post->first_comentario)
-                            
-                            <p class="mb-0"><strong>{{ $post->first_comentario->nombre_usuario }}: </strong> {{ $post->first_comentario->descripcion }}</p>
+
+                        <p class="mb-0"><strong>{{ $post->first_comentario->nombre_usuario }}: </strong> {{ $post->first_comentario->descripcion }}</p>
                         @endisset
 
                         @empty($post->first_comentario)
-                            
-                            <p class="mb-0"><strong></strong> No hay comentarios</p>
+
+                        <p class="mb-0"><strong></strong> No hay comentarios</p>
                         @endempty
 
-                        
+
                         <p class="card-text"><small class="text-muted">{{ $post->fecha_actualizada}}</small></p>
                     </div>
 
                 </div>
                 <div class="dropdown-divider"></div>
-                
-                    <form class="card-food row" method='POST' action="{{ url('comentarios')}}">
+
+                <form class="card-food row" method='POST' action="{{ url('comentarios')}}">
                     {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="col-md-9">
@@ -85,8 +84,8 @@
                     <div class="col-md-3">
                         <button type="submit" class="btn btn-outline-primary mt-2">Publicar</button>
                     </div>
-                    </form>
-               
+                </form>
+
 
             </div>
             <br>
@@ -110,15 +109,15 @@
                 <div class="card-body">
                     <h6 class="card-title">Sugerencia para ti</h6>
 
-                    @foreach($seguidores as $seguidor)
+                    @foreach($seguidores as $seg)
 
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="imagen/{{$seguidor->foto}}" class="circular--square" alt="..." width="65" height="65">
+                            <img src="imagen/{{$seg->usuarioSeguidor->perfil->foto}}" class="circular--square" alt="..." width="65" height="65">
                         </div>
                         <div class="col-md-9">
-                            <h6>{{$seguidor->nombre}}</h6>
-                            <h6>{{$seguidor->nombre_usuario}}<button type="button" class="btn btn-outline-primary" style="margin-left: 50px">+ Seguir</button></h6>
+                            <h6>{{$seg->usuarioSeguidor->perfil->nombre}}</h6>
+                            <h6>{{$seg->usuarioSeguidor->perfil->nombre_usuario}}<button type="button" class="btn btn-outline-primary" style="margin-left: 50px">+ Seguir</button></h6>
                             <p>Te sigue</p>
                         </div>
                     </div>
@@ -138,5 +137,7 @@
     </div>
 
 </div>
-
+@endsection
+@section('script')
+<script src="{{asset('assets/js/home.js') }}"></script>
 @endsection

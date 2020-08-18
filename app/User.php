@@ -62,13 +62,17 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Configuracion', 'id_usuario', 'id');
     }
-
-    public function seguidor()
+    /**
+     * Seguidores del Usuario
+     */
+    public function seguidores()
     {
         return $this->hasMany('App\Seguidor', 'id_usuario', 'id');
     }
-
-    public function seguidor_2()
+    /**
+     * Los que el usuario sigue
+     */
+    public function seguidos()
     {
         return $this->hasMany('App\Seguidor', 'id_usuario_seguidor', 'id');
     }
@@ -80,8 +84,6 @@ class User extends Authenticatable
 
     public function perfil()
     {
-        // return $this->belongsTo('App\Perfil', );
-        // return $this->hasOne('App\Phone');
         return $this->hasOne('App\Perfil', 'id_usuario', 'id');
     }
     
@@ -107,26 +109,32 @@ class User extends Authenticatable
     {
         return trim($value);
     }
+    
+    public function getArraySeguidoresAttribute(){
 
-
-    static public function ayuda1($id){
-        return DB::table('seguidor')
-        ->select('id_usuario')
-        ->where('id_usuario_seguidor', '=' ,$id)
-        ->get();
+        $seguidores = $this->seguidores;
+        $respuesta = array();
+        foreach ($seguidores  as $dato){
+            $respuesta[]=$dato->id_usuario_seguidor;
+        }
+        return $respuesta;
     }
 
-    static public function consulta1($id){
-        $datos= User::ayuda1($id);
-        $respuesta=array();
-        foreach ($datos as $dato){
+    public function getArraySeguidosAttribute(){
+
+        $seguidos = $this->seguidos;
+        $respuesta = array();
+        foreach ($seguidos  as $dato){
             $respuesta[]=$dato->id_usuario;
         }
-        //select nombre,nombre_usuario 
-        // from seguidor,perfil 
-        // where id_usuario_seguidor not in(select id_usuario from seguidor 
-        // where id_usuario_seguidor = 5) and seguidor.id_usuario=5 and seguidor.id_usuario_seguidor=perfil.id_usuario
+        return $respuesta;
+    }
 
+    public function consulta1(){
+        $id = $this->id;
+        // $datos= User::ayuda1($id);
+        $respuesta= $this->array_seguidores();
+        
         return DB::table('seguidor')
         ->join('perfil', 'seguidor.id_usuario_seguidor', '=', 'perfil.id_usuario')
         ->select('nombre','nombre_usuario','foto')
@@ -135,5 +143,7 @@ class User extends Authenticatable
         ->limit(4)
         ->get();
     }
+
+    
 
 }
