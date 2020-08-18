@@ -7,21 +7,21 @@
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
-<div class="container mt-5">
-    <div class="row">
+<div class="container">
+    <div class="row mt-5 pt-5">
         <div class="col-md-4">
-            <i class="fa fa-user-circle fa-6x"></i>
+            <img src="{{asset('Imagen/'.$perfil->foto)}}" class="circular--square" alt="..." width="160" height="160">
         </div>
         <div class="col-md-8">
-            <h4 class="dp-inline">aprendiendoingles</h4> <a class="btn btn-light"> Enviar mensaje</a>
+            <h4 class="dp-inline">{{$perfil->nombre_usuario}}</h4> <a class="btn btn-light"> Enviar mensaje</a>
             <ul class="col-md-8">
-                <li class="liul"><span><span>3.367</span> publicaciones</span></li>
-                <li class="liul"><a tabindex="0"><span title="10">371K</span> seguidores</a></li>
-                <li class="liul"><a tabindex="0"><span>7.490</span> seguidos</a></li>
+                <li class="liul"><span><span>{{$perfil->usuario->post->count()}}</span> publicaciones</span></li>
+                <li class="liul"><a tabindex="0"><span title="10">{{$perfil->usuario->seguidores->count()}}</span> seguidores</a></li>
+                <li class="liul"><a tabindex="0"><span>{{$perfil->usuario->seguidos->count()}}</span> seguidos</a></li>
             </ul>
-        <h4 class="dp-inline">Aprender Ingles</h4>
-        <p>Descripcion del personal de la pagina que Esse deserunt exercitation voluptate eu id id esse commodo sint et adipisicing laborum est incididunt.</p>
-        <a >https://mipagina.com.bo</a>
+        <h4 class="dp-inline">{{$perfil->nombre}}</h4>
+        <p>{{$perfil->presentacion}}</p>
+        <a >{{$perfil->sitio_web}}</a>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
@@ -58,5 +58,4 @@
     </div>
     <br><br>
 </div>
-
 @endsection

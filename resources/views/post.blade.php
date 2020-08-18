@@ -11,8 +11,8 @@
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
-<div class="container mt-5">
-    <div class="row">
+<div class="container mt-5 pt-5">
+    <div class="row pt-5">
         <div class="col-md-4">
             <i class="fa fa-user-circle fa-6x"></i>
         </div>

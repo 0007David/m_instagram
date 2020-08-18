@@ -6,8 +6,6 @@ use App\Post;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\file;
 class PostController extends Controller
 {
     

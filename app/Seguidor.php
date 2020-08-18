@@ -17,13 +17,13 @@ class Seguidor extends Model
     
     public $timestamps = false;
 
-    public function usuario()
+    public function usuarioSeguido()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'id_usuario');
     }
-    public function usuario2()
+    public function usuarioSeguidor()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'id_usuario_seguidor');
     }
 
     public static function findid($id)
@@ -49,6 +49,12 @@ class Seguidor extends Model
         ->get();
 
         return $datos[0]->count;
+    }
+
+    public function loEstoySiguiendo($idSeguidor)
+    {
+        $id = $this->id_usuario;
+        return $this->where('id_usuario_seguidor','=',$id)->where('id_usuario','=',$idSeguidor)->where('estado','=','t')->first();
     }
 
 }
