@@ -45,7 +45,9 @@ Route::middleware(['guest'])->group(function () {
     Route::get('crearcontacto', 'ContactoController@index2')->name('crearcontacto');
     Route::post('storecontacto', 'ContactoController@crear')->name('storecontacto');
     Route::get('compararcontacto', 'ContactoController@compararcontacto')->name('compararcontacto');
-
+    Route::get('contacto/{id}','ContactoController@show')->where('id','[0-9]+')->name('contacto.show');
+    Route::put('contacto', 'ContactoController@update')->name('contacto.update');
+    Route::post('contacto', 'ContactoController@delete')->name('contacto.eliminar');
 
     //SEGUIDOS
     Route::get('user/{name}', 'SeguidorController@index')->name('seguido');

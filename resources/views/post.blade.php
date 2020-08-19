@@ -11,9 +11,9 @@
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
-<div class="container mt-5 pt-5">
-    <div class="row pt-5">
-        <div class="col-md-4">
+<div class="container">
+    <div class="row mt-5 pt-5">
+        <div class="col-md-3">
             <img src="imagen/{{$datos['foto']}}" class="circular--square" alt="..." width="160" height="160">
         </div>
         <div class="col-md-8">

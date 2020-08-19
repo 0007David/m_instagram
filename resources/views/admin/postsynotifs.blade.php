@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Post</h2>
-            <button class="btn btn-primary mb-2">Crear</button>
+           
         </div>
         <table class="table table-hover">
             <thead>

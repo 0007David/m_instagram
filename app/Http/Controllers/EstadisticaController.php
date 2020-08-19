@@ -104,6 +104,7 @@ class EstadisticaController extends Controller
             if($count_seguidores_f != 0)
                 $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
         }
+
         $estadisticaGenero = array(
             'parametros' => ["Masculino", "Femenino"],
             'porcentajes' => [$percent_m, $percent_f],
