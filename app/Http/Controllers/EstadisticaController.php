@@ -96,8 +96,16 @@ class EstadisticaController extends Controller
                 }
             }
         }
-        $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
-        $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+
+        $percent_f=0;
+        $percent_m=0;
+        if( $count_seguidores != 0 ){
+            if($count_seguidores_m != 0)
+                $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
+            if($count_seguidores_f != 0)
+                $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+        }
+
         $estadisticaGenero = array(
             'parametros' => ["Masculino", "Femenino"],
             'porcentajes' => [$percent_m, $percent_f],

@@ -127,7 +127,7 @@
 
                     <p style="color:#CFCAC9" ; class="card-text">Información·Ayuda·Prensa·API·Empleo·Privacidad·Condiciones·Ubicaciones·Cuentas
                         destacadas·Hashtags·Idioma
-                        Español (España)
+                        Español (Bolivia)
                     </p>
                     <p style="color:#CFCAC9" ; class="card-text">
                         © 2020 MINI-INSTAGRAM FROM GRUPO12SA</p>

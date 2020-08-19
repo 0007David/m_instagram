@@ -36,7 +36,18 @@
                     <th scope="row">{{$key+1}}</th>
                     
                     <td>{{$contacto->telefono}}</td>
+                    <td>
+                      
+                      <form class="dp-inline"  method='POST' action="{{ route('contacto.eliminar')}}">
+                        {{ method_field('POST') }}
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$contacto->id}}">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                      </form>
+                      <a href="{{ route('contacto.show',$contacto->id) }}" class="btn btn-warning">Editar</a>
+                  </td>
                 </tr>
+                
                 @endforeach
             </tbody>
         </table>

@@ -17,15 +17,20 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
-            <button class="btn btn-primary mb-2">Crear</button>
+            
         </div>
         <div class="col-md-8 offset-2">
             <form method='POST' action="{{ url('admin/usuario')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
-                <div class=" form-group">
+        <div class=" form-group">
                 <label for="exampleFormControlInput1">Email</label>
                 <input type="email" class="form-control" name="email" value="{{$user->email}}">
+        </div>
+
+        <div class=" form-group">
+            <label for="exampleFormControlInput1">Password</label>
+            <input type="password" class="form-control" name="password" value="">
         </div>
 
         <div class="form-group">

@@ -7,6 +7,7 @@ use App\Perfil;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
 
         $user = DB::table('usuario')
             ->join('perfil', 'usuario.id', '=', 'perfil.id_usuario')
-            ->select(DB::raw ("usuario.id as id,TRIM(usuario.email) as email,TRIM(usuario.estado) as estado,usuario.rol,TRIM(perfil.nombre) as nombre,TRIM(perfil.nombre_usuario) as nombre_usuario,TRIM(perfil.foto) as foto,TRIM(perfil.genero) as genero,perfil.fecha_nacimiento,TRIM(perfil.presentacion) as presentacion,TRIM(perfil.sitio_web) as sitio_web,TRIM(perfil.telefono) as telefono"))
+            ->select(DB::raw ("usuario.id as id,TRIM(usuario.email) as email,TRIM(usuario.password) as password,TRIM(usuario.estado) as estado,usuario.rol,TRIM(perfil.nombre) as nombre,TRIM(perfil.nombre_usuario) as nombre_usuario,TRIM(perfil.foto) as foto,TRIM(perfil.genero) as genero,perfil.fecha_nacimiento,TRIM(perfil.presentacion) as presentacion,TRIM(perfil.sitio_web) as sitio_web,TRIM(perfil.telefono) as telefono"))
            
             ->where('perfil.id_usuario','=', $id)
             ->first();
@@ -42,6 +43,7 @@ class UserController extends Controller
         // dd($request);
         $data = request()->validate([
             'email' => 'required',
+            'password' => '',
             'nombre' => 'required',
             'nombre_usuario' => 'required',
             'presentacion' => '',
@@ -53,6 +55,7 @@ class UserController extends Controller
             'rol' => 'required'
         ], [
             'email' => 'El email no puede ir vacio',
+            'password' => 'El password no puede ir vacio',
             'nombre' => 'Ingrese su nombre completo',
             'nombre_usuario' => 'Ingrese su nombre de usuario',
             'genero' => 'Ingrese su genero',
@@ -64,6 +67,11 @@ class UserController extends Controller
         $dataUser['estado'] = $data['estado'];
         $dataUser['rol'] = $data['rol'];
         
+        $dataUser['password'] = (isset($data['password']) && !empty($data['password'])? Hash::make($data['password']): "" );
+        if($dataUser['password'] == "" ){
+            unset($dataUser['password']);
+        }
+
         $user = User::find(request()->id);
         $user->update($dataUser);
         

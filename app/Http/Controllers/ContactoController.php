@@ -46,7 +46,38 @@ class ContactoController extends Controller
 
         return response()->json(array('exito'=>true, 'respuesta'=>$contactos ));
 
-        
+    }
+
+    public function show($id)
+    {
+        $contacto=DB::table('contacto')
+        ->join('perfil', 'contacto.id_usuario', '=', 'perfil.id_usuario')
+        ->select(DB::raw ("contacto.id,TRIM(contacto.telefono) as telefono,TRIM(perfil.nombre) as usuario"))
+        ->where('contacto.id', '=', $id)
+        ->first();
+        //first no es lo mismo que get, first elimina el array
+        return view('contacto_edit')->with(compact('contacto'));
+    }
+
+    public function update()
+    {
+        $data = request()->validate([
+            'telefono' => 'required',
+        ], [
+            'telefono' => 'Es necesario colocar un numero de telefono o celular'
+        ]);
+        $contacto=Contacto::findid(request()->id);
+        $contacto->update($data);
+        return redirect()->route('contacto');
+    }
+
+    public function delete(Request $request)
+    {   
+    
+        $contacto=Contacto::findid(request()->id);
+        $contacto->delete();
+
+        return redirect()->route('contacto');
     }
 
 
