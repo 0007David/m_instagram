@@ -106,21 +106,28 @@
                     </div>
 
                 </div>
-                <div class="card-body">
+                <div id="sugerencia_list" class="card-body">
                     <h6 class="card-title">Sugerencia para ti</h6>
 
                     @foreach($seguidores as $seg)
-
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <img src="imagen/{{$seg->usuarioSeguidor->perfil->foto}}" class="circular--square" alt="..." width="65" height="65">
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-7">
                             <h6>{{$seg->usuarioSeguidor->perfil->nombre}}</h6>
-                            <h6>{{$seg->usuarioSeguidor->perfil->nombre_usuario}}<button type="button" class="btn btn-outline-primary" style="margin-left: 50px">+ Seguir</button></h6>
+                            <h6>{{$seg->usuarioSeguidor->perfil->nombre_usuario}}</h6>
                             <p>Te sigue</p>
                         </div>
+                        <div id="" class="col-md-2 m-2 pl-1">
+                            @if( is_null($seg->loEstoySiguiendo( $seg->id_usuario_seguidor) ) )
+                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnSeguir" class="btn btn-primary">Seguir</button>
+                            @else
+                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnDejarSeguir" class="btn btn-secondary">Seguiendo</button>
+                            @endif
+                        </div>
                     </div>
+                    <div class="dropdown-divider"></div>
                     @endforeach
 
                     <!-- <div class="col-md-12"></div> -->

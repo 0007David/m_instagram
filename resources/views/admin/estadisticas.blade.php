@@ -17,40 +17,101 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
-            <button class="btn btn-primary mb-2">Crear</button>
-        </div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Nombre Usuario</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Genero</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $key => $user)
-                <tr>
-                    <th scope="row">{{$key+1}}</th>
-                    
-                    <td>{{$user->nombre}}</td>
-                    <td>{{$user->nombre_usuario}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->genero}}</td>
-                    <td>
-                        <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
-                    </td>
-                </tr>
+            <h5>Estadisticas y Reportes Personales </h5>
+            <select id="user_selected" class="form-control col-md-4 offset-4" name="" id="">
+                <option value="">Selecciones usuario</option>
+                @foreach($usuarios as $usuario)
+                <option value="{{$usuario->id_usuario}}">{{@$usuario->nombre}}</option>
                 @endforeach
-            </tbody>
-        </table>
+            </select>
+
+        </div>
+        <div class="col-md-12">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#esta1">Graficos Estadisticos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#esta2">Reportes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#esta3">Otros </a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div id="esta1" class="container tab-pane active"><br>
+                    <!-- PIE CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Grafica de Genero de Seguidores</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- BAR CHART -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Distribucion de Seguidores por Edades y Genero</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- STACKED BAR CHART -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Stacked Bar Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div id="esta2" class="container tab-pane fade"><br>
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Donut Chart</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+                <div id="esta3" class="container tab-pane fade"><br>
+                    <h3>Menu 2</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+            </div>
+        </div>
 
 
     </div>
     <br><br>
 </div>
-
+<script>
+    let dataSetPieChart = @json($estadisticaGenero);
+    let dataSetBar = @json($estadisticaEdades);
+</script>
+@endsection
+@section('script')
+<script src="{{asset('assets/js/Chart.min.js') }}"></script>
+<script src="{{asset('assets/js/estadisticas.admin.js') }}"></script>
 @endsection

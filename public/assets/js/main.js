@@ -193,8 +193,38 @@ $(document).ready((evt) => {
         seguirODejarSeguir(data);
 
     });
-    //Evento click modal dejar de seguir
+    $('#sugerencia_list').on('click', '#btnSeguir', (evt) => {
+        let target = $(evt.target);
+        let data = {
+            usuario_id: loginData.usuario_id,
+            usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
+            seguir: true
+        }
+        console.log(data);
+        seguirODejarSeguir(data);
+        target.attr('id','btnDejarSeguir');
+        target.text("Seguiendo");
+        target.removeClass('btn-primary');
+        target.addClass('btn-secondary');
+    });
+    $('#sugerencia_list').on('click', '#btnDejarSeguir', (evt) => {
+        let target = $(evt.target);
+        let data = {
+            usuario_id: loginData.usuario_id,
+            usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
+            seguir: false
+        }
+        console.log(data);
+        seguirODejarSeguir(data);
+        // id="btnSeguir" class="btn btn-primary"
+        target.attr('id','btnSeguir');
+        target.text("Seguir");
+        target.removeClass('btn-secondary');
+        target.addClass('btn-primary');
 
+    });
+    
+    //Evento click modal dejar de seguir
     $('#list_seguir').on('click', '#modalDejarDeSeguir', (evt) => {
 
         let target = $(evt.target);

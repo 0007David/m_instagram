@@ -27,12 +27,12 @@
 		@endisset
 
 		<!-- Login Form -->
-		<form method='POST' action="{{url('registrar')}}">
+		<form id="form-register"  method='POST' action="{{url('registrar')}}">
             @csrf
-            <input type="text" id="nombre" class="fadeIn third" id="nombre" name="nombre" placeholder="Nombre Completo">
-            <input type="text" id="nombre_usuario" class="fadeIn third" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre_Usuario">
-			<input type="text" id="login" class="fadeIn second" id="email" name="email" placeholder="Correo Electronico">
-            <input type="password" id="password" class="fadeIn third" id="password" name="password" placeholder="Contraseña">
+            <input type="text" id="nombre" class="fadeIn third" id="nombre" name="nombre" placeholder="Nombre Completo" data-rule="required|name|maxlength-256">
+            <input type="text" id="nombre_usuario" class="fadeIn third" id="nombre_usuario" name="nombre_usuario" data-rule="required|name|maxlength-120"  placeholder="Nombre_Usuario">
+			<input type="text" id="login" class="fadeIn second" id="email" name="email" data-rule="required|email" placeholder="Correo Electronico">
+            <input type="password" id="password" class="fadeIn third" id="password" data-rule="required|minlength-6" name="password" placeholder="Contraseña">
 			<input type="submit" class="fadeIn fourth" value="Registrar">
 			<!-- <a href="{{ url('/home') }}" class="fadeIn fourth" >Log In</a> -->
 		</form>

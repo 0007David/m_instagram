@@ -9,7 +9,7 @@
 	<title>@yield('title','Mini Instagram')</title>
 
 	@yield('class-login')
-    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> --}}
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 	<link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
 	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}"/>
 	<link href="{{asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
@@ -29,7 +29,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
-
+	<script type="text/javascript" src="{{asset('assets/js/js-form-validator.js') }}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/validaciones.js') }}"></script>
 
 	@if(!is_null( Session::get('login') ))
 	<script>

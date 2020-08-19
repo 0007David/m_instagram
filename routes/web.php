@@ -98,6 +98,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::put('contacto', 'ContactoController@update')->name('contactos.update');
 
     Route::get('reportes', 'ReporteController@index')->name('reportes');
+
     Route::get('estadisticas', 'EstadisticaController@index')->name('estadisticas');
 });
 

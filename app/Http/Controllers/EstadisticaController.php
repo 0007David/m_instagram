@@ -96,8 +96,14 @@ class EstadisticaController extends Controller
                 }
             }
         }
-        $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
-        $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+        $percent_f = 0;
+        $percent_m = 0;
+        if( $count_seguidores != 0 ){
+            if($count_seguidores_m != 0)
+                $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
+            if($count_seguidores_f != 0)
+                $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+        }
         $estadisticaGenero = array(
             'parametros' => ["Masculino", "Femenino"],
             'porcentajes' => [$percent_m, $percent_f],
@@ -115,24 +121,24 @@ class EstadisticaController extends Controller
         $count_seguidores_m = 0;
         $count_seguidores_f = 0; 
         $estadisticaEdades =array( //less=menor great=mayor between=entre
-            'l_17' =>array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
+            'Menores_17' =>array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
             '18_b_28' => array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
             '29_b_48' => array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
             '49_b_64' => array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
-            'g_65' => array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
+            'Mayores_65' => array('count'=>0,'count_m'=>0,'count_f'=>0,'percent_m'=>0,'percent_f'=>0),
         );
         foreach ($seguidores as $seguidor) {
             $edad = $seguidor->usuarioSeguidor->perfil->edad;
             switch ($edad) {
                     // -17,18-28,29-48,49-64,65+
                 case $edad < 17:
-                    $estadisticaEdades['l_17']['count'] +=1; 
+                    $estadisticaEdades['Menores_17']['count'] +=1; 
                     if ($seguidor->usuarioSeguidor->perfil->genero == 'm') {
                         $count_seguidores_m++;
-                        $estadisticaEdades['l_17']['count_m'] +=1; 
+                        $estadisticaEdades['Menores_17']['count_m'] +=1; 
                     } else {
                         $count_seguidores_f++;
-                        $estadisticaEdades['l_17']['count_f'] +=1; 
+                        $estadisticaEdades['Menores_17']['count_f'] +=1; 
                     }
                     break;
                 case ($edad > 17) && ($edad < 29):
@@ -167,13 +173,13 @@ class EstadisticaController extends Controller
                     break;
                 default:
                     //mayor de 65
-                    $estadisticaEdades['g_65']['count'] +=1;
+                    $estadisticaEdades['Mayores_65']['count'] +=1;
                     if ($seguidor->usuarioSeguidor->perfil->genero == 'm') {
                         $count_seguidores_m++;
-                        $estadisticaEdades['g_65']['count_m'] +=1;
+                        $estadisticaEdades['Mayores_65']['count_m'] +=1;
                     } else {
                         $count_seguidores_f++;
-                        $estadisticaEdades['g_65']['count_f'] +=1;
+                        $estadisticaEdades['Mayores_65']['count_f'] +=1;
                     }
                     break;
             }
@@ -194,8 +200,15 @@ class EstadisticaController extends Controller
                 }
             }
         }
-        $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
-        $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+        $percent_f = 0; $percent_m = 0;
+        if( $count_seguidores != 0 ){
+            if($count_seguidores_m != 0){
+                $percent_m = ($count_seguidores_m * 100) / $count_seguidores;
+            }
+            if($count_seguidores_f != 0){
+                $percent_f = ($count_seguidores_f * 100) / $count_seguidores;
+            }
+        }
         $salida['genero'] = array(
             'parametros' => ["Masculino", "Femenino"],
             'porcentajes' => [$percent_m, $percent_f],
