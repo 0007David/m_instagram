@@ -25,6 +25,32 @@
 			<strong>{{ $mensaje ?? 'kskks'}}</strong>
 		</div>
 		@endisset
+		@php
+			if( is_null(session()->get('count_view') )){
+				$counter = 1;
+			}else{	
+				$contadorVistas = session()->get('count_view');
+				// Obtener las rutas
+				$base_url = url('/');
+				$ssl = ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? true:false;
+  				$sp = strtolower( $_SERVER['SERVER_PROTOCOL'] );
+  				$protocol = substr( $sp, 0, strpos( $sp, '/'  )) . ( ( $ssl ) ? 's://' : '://' );
+				$current_url = $protocol. $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+				$view = substr($current_url,strlen($base_url) + 1, strlen($current_url)+1);
+				// --
+				$urls = array('url_cu'=> $current_url,'url_ba'=>$base_url,'view'=>$view);		
+				if(isset($contadorVistas[$view])){
+					$counter = $contadorVistas[$view];
+				}else{
+					$counter = 1;
+				}
+			}
+		@endphp
+		<!-- {{ Session::get('login')['usuario_email']}}  -->
+		<div class="alert alert-warning alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			Contador: <strong id="counter">{{$counter}}</strong>
+		</div>
 
 		<!-- Login Form -->
 		<form id="form-register"  method='POST' action="{{url('registrar')}}">
@@ -43,5 +69,8 @@
 
 	</div>
 </div>
-
 @endsection
+<script>
+	let contadorVistas = @json($contadorVistas ?? '');
+	let urls = @json( $urls ?? '');
+</script>

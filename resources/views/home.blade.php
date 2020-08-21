@@ -11,7 +11,8 @@
     <br><br>
     <div class="row">
         <div id="col-posts" class="col-md-6">
-            @foreach($posts as $post)
+        @foreach($posts as $post)
+            @if( $post->estado == 't')
             <div class="card">
                 <div class="card-header row bc-white m-0">
                     <div class="col-md-11">
@@ -89,7 +90,8 @@
 
             </div>
             <br>
-            @endforeach
+            @endif
+        @endforeach
 
 
         </div>
@@ -144,6 +146,9 @@
     </div>
 
 </div>
+<script>
+	let contadorVistas = @json($contadorVistas ?? '');
+</script>
 @endsection
 @section('script')
 <script src="{{asset('assets/js/home.js') }}"></script>

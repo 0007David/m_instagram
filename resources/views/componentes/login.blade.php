@@ -25,7 +25,25 @@
 			<strong>{{ $mensaje ?? 'kskks'}}</strong>
 		</div>
 		@endisset
-
+		@php
+			if( is_null(session()->get('count_view') )){
+				$counter = 1;
+			}else{	
+				$contadorVistas = session()->get('count_view');
+				if(isset($contadorVistas['login'])){
+					$counter = $contadorVistas['login'];
+					$counter++;
+				}else{
+					$counter = 1;
+				}
+			}
+		@endphp
+		<!-- {{ Session::get('login')['usuario_email']}}  -->
+		<div class="alert alert-warning alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			Contador: <strong id="counter">{{$counter}}</strong>
+		</div>
+		
 		<!-- Login Form -->
 		<form id="form-login" method='POST' action="{{url('login')}}">
 			@csrf
@@ -40,5 +58,7 @@
 
 	</div>
 </div>
-
 @endsection
+<script>
+	let contadorVistas = @json($contadorVistas ?? '');
+</script>

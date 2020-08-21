@@ -22,7 +22,7 @@ class SeguidorController extends Controller
         $salida['seguidores'] = array(); //
         $salida['count'] = $user->seguidores->count();
         foreach($seguidores as $seguidor){
-            $seg = $seguidor->loEstoySiguiendo($seguidor->id_usuario_seguidor);
+            $seg = $seguidor->loEstoySiguiendo($seguidor->id_usuario_seguidor); 
             $salida['seguidores'][] = array(
                 'usuario_id' => $seguidor->usuarioSeguidor->perfil->id_usuario,
                 'nombre' => $seguidor->usuarioSeguidor->perfil->nombre,

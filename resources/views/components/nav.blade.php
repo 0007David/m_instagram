@@ -14,6 +14,33 @@
             </li>
             <!-- <div style="right: -60%;"> -->
             <li class="nav-item">
+            @php
+                if( is_null(session()->get('count_view') )){
+                    $counter = 1;
+                }else{	
+                    $contadorVistas = session()->get('count_view');
+                    // Obtener las rutas
+                    $base_url = url('/');
+                    $ssl = ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? true:false;
+                    $sp = strtolower( $_SERVER['SERVER_PROTOCOL'] );
+                    $protocol = substr( $sp, 0, strpos( $sp, '/'  )) . ( ( $ssl ) ? 's://' : '://' );
+                    $current_url = $protocol. $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+                    $view = substr($current_url,strlen($base_url) + 1, strlen($current_url)+1);
+                    // --
+                    $urls = array('url_cu'=> $current_url,'url_ba'=>$base_url,'view'=>$view);		
+                    if(isset($contadorVistas[$view])){
+                        $counter = $contadorVistas[$view];
+                    }else{
+                        $counter = 1;
+                    }
+                }
+            @endphp
+                <a class="nav-link" href="#">
+                    <!-- <i class="fa fa-bandcamp fa-1x"></i> -->
+                    <strong id="counter">{{$counter}}</strong>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('home') }}" title="Home">
                     <i class="fa fa-home fa-1x"></i>
                 </a>
@@ -28,11 +55,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('estadistaca') }}" title="Estadisticas">
                     <i class="fa fa-dashboard fa-1x"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-bandcamp fa-1x"></i>
                 </a>
             </li>
             <li class="nav-item dropdown">

@@ -66,7 +66,11 @@ Route::middleware(['guest'])->group(function () {
     //LIKES
     Route::post('like', 'LikeController@store')->name('like');
 
+    //REPORTES
+    Route::get('reportes/{tipo}', 'ReporteController@getReporte')->name('reportes');
 
+    //LOG
+    Route::post('counterViews', 'LogController@contadorVistas')->name('counterViews');
 
 });
 Route::prefix('admin')->namespace('Admin')->group(function () {

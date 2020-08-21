@@ -1,7 +1,6 @@
 
 $(document).ready((evt) => {
-
-    console.log('main');
+    contadorView();
     // MediaQuery
     $(window).resize(function () {
         if ($(window).width() < 992) {
@@ -9,97 +8,139 @@ $(document).ready((evt) => {
             $('#nav-div').removeClass('container');
         }
     });
+    // Funcion que contara las vistas
+    function contadorView() {
+        let counter = parseInt($('#counter').text());
+        let current_url = location.href;
+        let view = current_url.substring(base_url.length + 1, current_url.length );
+        if( view == ''){
+            view = 'login';
+        }
+
+        console.log('main', base_url, current_url);
+        // console.log('contadorVistas', contadorVistas);
+
+        let data = {
+            vista: view,
+            counter: counter
+        }
+        console.log('post data: ',data)
+        fetch('/counterViews', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": $('input[name="_token"]').val()
+            },
+            body: JSON.stringify(data)
+        }).then((response) => response.json())
+            .then(function (myJson) {
+                if(myJson.exito){
+                    
+                    // $('#counter').text(myJson.counter)
+                    console.log(myJson);
+                }
+        }).catch((err)=> console.log('respuesta error',err,err.message));
+        
+    }
 
     // autoComplete.js on type event emitter
     // document.querySelector("#autoComplete").addEventListener("autoComplete", function (event) {
     // console.log(event.detail);
     // });
     // Buscador de Amigos con AutoComplete.js
-    new autoComplete({
-        data: {                              // Data src [Array, Function, Async] | (REQUIRED)
-            src: async () => {
-                const query = document.querySelector("#autoComplete").value;
-                const source = await fetch(base_url + '/buscar?q=' + query);
-                const data = await source.json();
-                return data.answer;
+    if (document.querySelector("#autoComplete")) {
+        new autoComplete({
+            data: {                              // Data src [Array, Function, Async] | (REQUIRED)
+                src: async () => {
+                    const query = document.querySelector("#autoComplete").value;
+                    const source = await fetch(base_url + '/buscar?q=' + query);
+                    const data = await source.json();
+                    return data.answer;
+                },
+                key: ["nombre_usuario"],
+                cache: false
             },
-            key: ["nombre_usuario"],
-            cache: false
-        },
-        trigger: {
-            event: ["input", "focusin", "focusout"]
-        },
-        placeHolder: "Buscar Amigo",     // Place Holder text                 | (Optional)
-        selector: "#autoComplete",           // Input field selector              | (Optional)
-        threshold: 1,                        // Min. Chars length to start Engine | (Optional)
-        debounce: 300,                       // Post duration for engine to start | (Optional)
-        searchEngine: "strict",              // Search Engine type/mode           | (Optional)
-        resultsList: {                       // Rendered results list object      | (Optional)
-            render: true,
-            /* if set to false, add an eventListener to the selector for event type
-               "autoComplete" to handle the result */
-            container: source => {
-                source.setAttribute("id", "autoComplete_list");
-                source.setAttribute("style", "position: absolute; width: 14.5rem;");
-                console.log('source: ', source)
+            trigger: {
+                event: ["input", "focusin", "focusout"]
             },
-            // destination: document.querySelector("#autoComplete"),
-            position: "afterend",
-            element: "ul"
-        },
-        maxResults: 5,                         // Max. number of rendered results | (Optional)
-        highlight: true,                       // Highlight matching results      | (Optional)
-        resultItem: {                          // Rendered result item            | (Optional)
-            content: (data, source) => {
-                source.innerHTML = data.match;
-                let perfil = data.value;
-                let nombre = perfil.nombre;
-                data.index = perfil.id;
-                source.setAttribute('data-id', perfil.id);
-                source.className += " row";
-                source.innerHTML = `<div class="col-md-3 p-0">
-                                            <img src="${base_url}/imagen/${perfil.foto}" class="circular--square" alt="..." width="48" height="48">
-                                        </div>
-                                        <div class="col-md-9" style="padding: 0px 0px 0px 5px;">
-                                            ${data.match}
-                                            <p class="m-0">${nombre.length > 16 ? nombre.substring(0, 15) + "..." : nombre}</p>
-                                        </div>`;
-                // console.log('data, source: ', data, source);
+            placeHolder: "Buscar Amigo",     // Place Holder text                 | (Optional)
+            selector: "#autoComplete",           // Input field selector              | (Optional)
+            threshold: 1,                        // Min. Chars length to start Engine | (Optional)
+            debounce: 300,                       // Post duration for engine to start | (Optional)
+            searchEngine: "strict",              // Search Engine type/mode           | (Optional)
+            resultsList: {                       // Rendered results list object      | (Optional)
+                render: true,
+                /* if set to false, add an eventListener to the selector for event type
+                   "autoComplete" to handle the result */
+                container: source => {
+                    source.setAttribute("id", "autoComplete_list");
+                    source.setAttribute("style", "position: absolute; width: 14.5rem;");
+                    console.log('source: ', source)
+                },
+                // destination: document.querySelector("#autoComplete"),
+                position: "afterend",
+                element: "ul"
             },
-            element: "li"
-        },
-        noResults: () => {                     // Action script on noResults      | (Optional)
-            const result = document.createElement("li");
-            result.setAttribute("class", "autoComplete_result");
-            result.setAttribute("tabindex", "1");
-            result.setAttribute("style", "position: absolute; width: 14.5rem;")
-            result.innerHTML = "No Results";
-            document.querySelector("#autoComplete_list").appendChild(result);
-        },
-        onSelection: feedback => {             // Action script onSelection event | (Optional)
-            document.querySelector("#autoComplete").blur();
-            const selection = feedback.selection.value.nombre_usuario;
-            // console.log('feedback.selection', feedback.selection)
-            // Render selected choice to selection div
-            document.querySelector("#autoComplete").value = "";
-            // Change placeholder with the selected value
-            document.querySelector("#autoComplete").setAttribute("placeholder", selection);
-            location.href = base_url + '/user/' + selection;
-        }
-    });
-    //Accion para ocultar Lista
-    ["focus", "blur"].forEach(function (eventType) {
-        const resultsList = document.querySelector("#autoComplete_list");
-        document.querySelector("#autoComplete").addEventListener(eventType, function () {
-            // Hide results list & show other elemennts
-            console.log(eventType);
-            if (eventType === "blur") {
-                resultsList.style.display = "none";
-            } else if (eventType === "focus") {
-                resultsList.style.display = "block";
+            maxResults: 5,                         // Max. number of rendered results | (Optional)
+            highlight: true,                       // Highlight matching results      | (Optional)
+            resultItem: {                          // Rendered result item            | (Optional)
+                content: (data, source) => {
+                    source.innerHTML = data.match;
+                    let perfil = data.value;
+                    let nombre = perfil.nombre;
+                    data.index = perfil.id;
+                    source.setAttribute('data-id', perfil.id);
+                    source.className += " row";
+                    source.innerHTML = `<div class="col-md-3 p-0">
+                                                <img src="${base_url}/imagen/${perfil.foto}" class="circular--square" alt="..." width="48" height="48">
+                                            </div>
+                                            <div class="col-md-9" style="padding: 0px 0px 0px 5px;">
+                                                ${data.match}
+                                                <p class="m-0">${nombre.length > 16 ? nombre.substring(0, 15) + "..." : nombre}</p>
+                                            </div>`;
+                    // console.log('data, source: ', data, source);
+                },
+                element: "li"
+            },
+            noResults: () => {                     // Action script on noResults      | (Optional)
+                const result = document.createElement("li");
+                result.setAttribute("class", "autoComplete_result");
+                result.setAttribute("tabindex", "1");
+                result.setAttribute("style", "position: absolute; width: 14.5rem;")
+                result.innerHTML = "No Results";
+                document.querySelector("#autoComplete_list").appendChild(result);
+            },
+            onSelection: feedback => {             // Action script onSelection event | (Optional)
+                document.querySelector("#autoComplete").blur();
+                const selection = feedback.selection.value.nombre_usuario;
+                // console.log('feedback.selection', feedback.selection)
+                // Render selected choice to selection div
+                document.querySelector("#autoComplete").value = "";
+                // Change placeholder with the selected value
+                document.querySelector("#autoComplete").setAttribute("placeholder", selection);
+                location.href = base_url + '/user/' + selection;
             }
         });
-    });
+    }
+
+    //Accion para ocultar Lista
+    if (document.querySelector("#autoComplete_list")) {
+        ["focus", "blur"].forEach(function (eventType) {
+            const resultsList = document.querySelector("#autoComplete_list");
+            document.querySelector("#autoComplete").addEventListener(eventType, function () {
+                // Hide results list & show other elemennts
+                console.log(eventType);
+                if (eventType === "blur") {
+                    resultsList.style.display = "none";
+                } else if (eventType === "focus") {
+                    resultsList.style.display = "block";
+                }
+            });
+        });
+
+    }
 
     //Mostrar los Seguidores
     $('#btn-seguir').click((evt) => {
@@ -202,7 +243,7 @@ $(document).ready((evt) => {
         }
         console.log(data);
         seguirODejarSeguir(data);
-        target.attr('id','btnDejarSeguir');
+        target.attr('id', 'btnDejarSeguir');
         target.text("Seguiendo");
         target.removeClass('btn-primary');
         target.addClass('btn-secondary');
@@ -217,13 +258,13 @@ $(document).ready((evt) => {
         console.log(data);
         seguirODejarSeguir(data);
         // id="btnSeguir" class="btn btn-primary"
-        target.attr('id','btnSeguir');
+        target.attr('id', 'btnSeguir');
         target.text("Seguir");
         target.removeClass('btn-secondary');
         target.addClass('btn-primary');
 
     });
-    
+
     //Evento click modal dejar de seguir
     $('#list_seguir').on('click', '#modalDejarDeSeguir', (evt) => {
 
@@ -286,21 +327,21 @@ $(document).ready((evt) => {
                         $('#exampleModalCenter').modal('hide');
                         Toastify({
                             text: `Dejaste de Seguir a @${myJson.seguidor.nombre_usuario}`,
-                            duration: -1, 
+                            duration: -1,
                             close: true,
                             backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
                             stopOnFocus: true, // Prevents dismissing of toast on hover
-                            onClick: function(){} // Callback after click
-                          }).showToast();
+                            onClick: function () { } // Callback after click
+                        }).showToast();
                     } else {
-                        
+
                         Toastify({
                             text: `Comezaste a Seguir a @${myJson.seguidor.nombre_usuario}`,
                             backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
                             duration: -1,
                             close: true,
                             className: "info",
-                          }).showToast();
+                        }).showToast();
                     }
                 }
             })

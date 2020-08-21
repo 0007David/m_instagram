@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
             <h5>Estadisticas y Reportes Personales </h5>
-            <select id="user_selected" class="form-control col-md-4 offset-4" name="" id="">
+            <select id="user_selected" class="form-control col-md-4 offset-4">
                 <option value="">Selecciones usuario</option>
                 @foreach($usuarios as $usuario)
                 <option value="{{$usuario->id_usuario}}">{{@$usuario->nombre}}</option>

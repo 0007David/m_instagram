@@ -18,13 +18,14 @@ class HomeController extends Controller
         $user = User::find($usuario['usuario_id']);
         $seguidosIds = $user->array_seguidos;
 
-        $posts = Post::whereIn('id_usuario', $seguidosIds)
+        $posts = Post::where('estado', '=','t')
+            ->whereIn('id_usuario', $seguidosIds)
             ->orwhere('id_usuario', '=', $usuario['usuario_id'])
             ->orderByDesc('id')
             ->get();
         // $onlySeguidores = array_slice($seguidoresIds,0,(count($seguidoresIds) > 4 )? 4: count($seguidoresIds));
         $seguidores= $user->seguidores->only($user->array_seguidores);
-    
+        LogController::storeLog('GET','obetner','Home','quien','descripcion');
         return view('home')->with(compact('posts', 'usuario', 'seguidores'));
     }
 

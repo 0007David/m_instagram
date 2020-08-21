@@ -35,10 +35,12 @@
 	@if(!is_null( Session::get('login') ))
 	<script>
 		let loginData = @json(Session::get('login'));
-		const base_url = {!!json_encode(url('/')) !!};
+	</script>
+	@endif
+	<script>
+		const base_url = {!!json_encode(url('/'))!!};
 	</script>
 	<script src="{{asset('assets/js/main.js') }}"></script>
-	@endif
 
 	@yield('script')
 	<!-- Modal -->
