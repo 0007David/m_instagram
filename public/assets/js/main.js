@@ -435,29 +435,37 @@ $(document).ready((evt) => {
             .then(function (myJson) {
                 console.log(myJson);
                 if (myJson.exito) {
-                    if (!myJson.seguir) {
-                        $('#exampleModalCenter').modal('hide');
-                        Toastify({
-                            text: `Dejaste de Seguir a @${myJson.seguidor.nombre_usuario}`,
-                            duration: -1,
-                            close: true,
-                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                            stopOnFocus: true, // Prevents dismissing of toast on hover
-                            onClick: function () { } // Callback after click
-                        }).showToast();
-                    } else {
-
-                        Toastify({
-                            text: `Comezaste a Seguir a @${myJson.seguidor.nombre_usuario}`,
-                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                            duration: -1,
-                            close: true,
-                            className: "info",
-                        }).showToast();
+                    if(loginData.notificaciones == 't'){
+                        console.log('entro');
+                        if (!myJson.seguir) {
+                            console.log('entro1');
+                            $('#exampleModalCenter').modal('hide');
+                            Toastify({
+                                text: `Dejaste de Seguir a @${myJson.seguidor.nombre_usuario}`,
+                                duration: -1,
+                                close: true,
+                                gravity: "bottom",
+                                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                onClick: function () { } // Callback after click
+                            }).showToast();
+                        } else {
+                            console.log('entro2');
+                            Toastify({
+                                text: `Comezaste a Seguir a @${myJson.seguidor.nombre_usuario}`,
+                                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                duration: -1,
+                                close: true,
+                                gravity: "bottom",
+                                className: "info",
+                            }).showToast();
+                        }
                     }
                 }
-            })
-            .catch((err)=> console.log('respuesta error',err,err.message));
+            }).catch(function (response) {
+                console.log('respuesta error', response)
+    
+            });
 
     }
     
