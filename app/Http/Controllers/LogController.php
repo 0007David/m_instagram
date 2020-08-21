@@ -12,12 +12,16 @@ class LogController extends Controller
     public static function storeLog($tipo, $vista, $who)
     {
         $usuario = Session::get('login');
-        $fileName = $usuario['nombre_usuario'].'.log';
         date_default_timezone_set('America/La_Paz');
         // ::) date[2020-08-10 -10:0392.99] "GET / HTTP/1.1" - "Home" - user[{user_id: id,ip: ip,view:home,}]" ::(
+        if(!is_null($usuario)){
+            $fileName = $usuario['nombre_usuario'].'.log';
+        }else{
+            $fileName = 'FailUsersAccess.log';
+        }
         if (Storage::disk('local')->exists($fileName)) {
             $content = '::) date['. date('Y-m-d H:i:s') . '] ' . $tipo . ' / HTTP/1.1 ' . 'view['.$vista . '] - user['. $who .'] ::(';
-            Storage::append('mini_instagram.log', $content);
+            Storage::append($fileName, $content);
         } else {
             $content = '::) date['. date('Y-m-d H:i:s') . '] ' . $tipo . ' / HTTP/1.1 ' . 'view['.$vista . '] - user['. $who .'] ::(';
             Storage::disk('local')->put($fileName, $content);
