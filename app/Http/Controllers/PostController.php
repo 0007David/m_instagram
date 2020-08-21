@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Notificacion;
 use App\Seguidor;
 use App\Post;
-use App\Perfil;
+use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -28,13 +28,11 @@ class PostController extends Controller
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
         );
 
-        $posts=DB::table('post')
-        ->select(DB::raw ("post.id,TRIM(post.foto) as foto,TRIM(post.descripcion) as descripcion,post.fecha_actualizada,post.estado,post.id_usuario"))
-        ->orderByDesc('post.fecha_actualizada')
-        ->where('post.estado','=','t')
-        ->where('post.id_usuario','=',$datos['usuario_id'])
-        ->get();
-
+        $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
+            ->where('estado','=','t')
+            ->orderByDesc('id')
+            ->get();
+            
         return view('post')->with(compact('datos','posts'));
     }
 

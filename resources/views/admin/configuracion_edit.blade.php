@@ -20,14 +20,14 @@
             
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('admin/configuracion')}}">
+            <form id="form-EditarConfiguracionAdmi" method='POST' action="{{ url('admin/configuracion')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Notificaciones</label>
-                    <select name="notificaciones" class="form-control">
+                    <select data-rule="required" name="notificaciones" class="form-control">
                         <option value="">Seleccione</option>
                         @if ($configuracion->notificaciones=='t')
                         <option value="t" selected>Activado</option>
@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Tema Fondo</label>
-                    <select name="tema_fondo" class="form-control">
+                    <select data-rule="required" name="tema_fondo" class="form-control">
                         <option value="">Seleccione</option>
                         @if (trim($configuracion->tema_fondo)=='dark')
                         <option value="dark" selected>Dark</option>

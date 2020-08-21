@@ -172,6 +172,54 @@ $(document).ready((evt) => {
         heart.removeClass('c-black');
     });
 
+    function inSeconds(d, dd) {
+        var t2 = dd.getTime();
+        var t1 = d.getTime();
+ 
+        return parseInt((t2-t1)/(1000));
+    }
+
+    function inMinutes(d, dd) {
+        var t2 = dd.getTime();
+        var t1 = d.getTime();
+ 
+        return parseInt((t2-t1)/(1000*60));
+    }
+
+    function inHours(d, dd) {
+        var t2 = dd.getTime();
+        var t1 = d.getTime();
+ 
+        return parseInt((t2-t1)/(1000*60*60));
+    }
+
+    function inDays(d, dd) {
+        var t2 = dd.getTime();
+        var t1 = d.getTime();
+ 
+        return parseInt((t2-t1)/(24*3600*1000));
+    }
+
+    function inWeeks(d, dd) {
+        var t2 = dd.getTime();
+        var t1 = d.getTime();
+ 
+        return parseInt((t2-t1)/(24*3600*1000*7));
+    }
+
+    function inMonths(d, dd) {
+        var dY = d.getFullYear();
+        var ddY = dd.getFullYear();
+        var dM = d.getMonth();
+        var ddM = dd.getMonth();
+ 
+        return (ddM+12*ddY)-(dM+12*dY);
+    }
+
+    function inYears(d, dd) {
+        return dd.getFullYear()-d.getFullYear();
+    }
+
     function traerSeguidores(idUsuario) {
         fetch(base_url + '/getseguidores/' + idUsuario).then((response) => response.json()
         ).then(function (myJson) {
@@ -180,18 +228,84 @@ $(document).ready((evt) => {
             if (myJson.count > 0) {
                 myJson.seguidores.forEach((seguidor) => {
                     let boton;
+                    var result='Comenzar a seguir';
+                    console.log(seguidor)
+                    if(seguidor.loEstoySiguiendo){
+                        var a=seguidor.fecha_hora;
+                        var b= a.substr(5,2)-1;
+                        var d = new Date(a.substr(0,4),b, a.substr(8,2), a.substr(11,2), a.substr(14,2), a.substr(17,2),0);
+                        var dd = new Date();
+                        var year=inYears(d,dd);
+                        var month=inMonths(d,dd);
+                        var week=inWeeks(d,dd);
+                        var day=inDays(d,dd);
+                        var hour=inHours(d,dd);
+                        var minute=inMinutes(d,dd);
+                        var second=inSeconds(d,dd);
+                        result=0;
+                        if(year==1){
+                            result='hace '+year+' año';
+                        }else{
+                            result='hace '+year+' años';
+                        }
+                        if(second<=59 && second!=0){
+                            if(second==1){
+                                result='hace '+second+' segundo';
+                            }else{
+                                result='hace '+second+' segundos';
+                            }
+                        }
+                        if(minute<=59 && minute!=0){
+                            if(minute==1){
+                                result='hace '+minute+' minuto';
+                            }else{
+                                result='hace '+minute+' minutos';
+                            }
+                        }
+                        if(hour<=23 && hour!=0){
+                            if(hour==1){
+                                result='hace '+hour+' hora';
+                            }else{
+                                result='hace '+hour+' horas';
+                            }
+                        }
+                        if(day<=6 && day!=0){
+                            if(day==1){
+                                result='hace '+day+' dia';
+                            }else{
+                                result='hace '+day+' dias';
+                            }
+                        }
+                        if(week<=3 && week!=0){
+                            if(week==1){
+                                result='hace '+week+' semana';
+                            }else{
+                                result='hace '+week+' semanas';
+                            }
+                        }
+                        if(month<=11 && month!=0){
+                            if(month==1){
+                                result='hace '+month+' mes';
+                            }else{
+                                result='hace '+month+' meses';
+                            }
+                        }
+                    }
                     if (seguidor.loEstoySiguiendo) {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="modalDejarDeSeguir" class="btn btn-outline-secondary">Siguiendo</button>`;
                     } else {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="btn-seguir-usuario" class="btn btn-primary">Seguir</button>`;
                     }
+                    
                     $('#list_seguir').append(`<div class="row bc-white">
                                         <div class="col-md-1">
                                             <img src="${base_url}/Imagen/${seguidor.foto}" class="circular--square" alt="..." width="33" height="33">
                                         </div>
                                         <div class="col-md-7">
                                             <h6>${seguidor.nombre_usuario}</h6>
-                                            <p>ha comenzado a seguirte. 4sem ago</p>
+                                            <!--console.log(fecha.diff(${seguidor.fecha}, 'days'), ' dias de diferencia');-->
+                                            <p>${result}</p>
+                                            <!--<p>ha comenzado a seguirte. 4sem ago</p>-->
                                         </div>
                                         <div class="offset-md-1"></div>
                                         <div class="col-md-2">  
@@ -243,8 +357,8 @@ $(document).ready((evt) => {
         }
         console.log(data);
         seguirODejarSeguir(data);
-        target.attr('id', 'btnDejarSeguir');
-        target.text("Seguiendo");
+        target.attr('id','btnDejarSeguir');
+        target.text("Siguiendo");
         target.removeClass('btn-primary');
         target.addClass('btn-secondary');
     });
@@ -345,10 +459,7 @@ $(document).ready((evt) => {
                     }
                 }
             })
-            .catch(function (response) {
-                console.log('respuesta error', response)
-
-            });
+            .catch((err)=> console.log('respuesta error',err,err.message));
 
     }
 

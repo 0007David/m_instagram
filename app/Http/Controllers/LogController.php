@@ -8,17 +8,18 @@ use Illuminate\Support\Facades\Storage;
 
 class LogController extends Controller
 {
-    public static function storeLog($tipo, $accion, $tabla, $quien, $descripcion)
+    // LogController::storeLog('GET','home','user['.json_encode($usuario) .']');
+    public static function storeLog($tipo, $vista, $who)
     {
         date_default_timezone_set('America/La_Paz');
-        $date = date("D M d, Y h:i:sa", time());
+        // ::) date[2020-08-10 -10:0392.99] "GET / HTTP/1.1" - "Home" - user[{user_id: id,ip: ip,view:home,}]" ::(
         if (Storage::disk('local')->exists('mini_instagram.log')) {
-            $content = '::) [ ' . $date . ' ] "' . $tipo . ' / HTTP/1.1" - "' . $accion . '" - "' . $tabla . '" - "' . $quien . '" - "' . $descripcion . '" ::(';
+            $content = '::) date['. date('Y-m-d H:i:s') . '] ' . $tipo . ' / HTTP/1.1 ' . 'view['.$vista . '] - user['. $who .'] ::(';
             // Storage::disk('local')->put('mini_instagram.log', $content);
             Storage::append('mini_instagram.log', $content);
         } else {
             $fileName = "mini_instagram.log";
-            $content = '::) [ ' . $date . ' ] "' . $tipo . ' / HTTP/1.1" - "' . $accion . '" - "' . $tabla . '" - "' . $quien . '" - "' . $descripcion . '" ::(';
+            $content = '::) date['. date('Y-m-d H:i:s') . '] ' . $tipo . ' / HTTP/1.1 ' . 'view['.$vista . '] - user['. $who .'] ::(';
             Storage::disk('local')->put($fileName, $content);
         }
         // LogController::storeLog('GET','obetner','Employee',$quien,$descripcion);

@@ -20,18 +20,18 @@
             
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('admin/post')}}">
+            <form id="form-EditarPostUsuario" method='POST' action="{{ url('admin/post')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Descripcion</label>
-                    <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" value="{{$post->descripcion}}">
+                    <input type="text" class="form-control" name="descripcion" data-rule="maxlength-256" placeholder="Descripcion" value="{{$post->descripcion}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Estado</label>
-                    <select name="estado" class="form-control">
+                    <select data-rule="required" name="estado" class="form-control">
                         <option value="">Seleccione</option>
                         @if ($post->estado=='f')
                         <option value="f" selected>Desactivado</option>

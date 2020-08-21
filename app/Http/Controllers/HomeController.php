@@ -12,7 +12,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $usuarios = User::all();
         $usuario = Session::get('login');
 
         $user = User::find($usuario['usuario_id']);
@@ -25,12 +24,13 @@ class HomeController extends Controller
             ->get();
         // $onlySeguidores = array_slice($seguidoresIds,0,(count($seguidoresIds) > 4 )? 4: count($seguidoresIds));
         $seguidores= $user->seguidores->only($user->array_seguidores);
-        LogController::storeLog('GET','obetner','Home','quien','descripcion');
+        LogController::storeLog('GET','home',json_encode($usuario));
+
         return view('home')->with(compact('posts', 'usuario', 'seguidores'));
     }
 
     public function search(Request $request){
-        // dd($request);
+
         $query = $request->q; $amigos = array();
         if(isset($query)){
             $query = strtolower($query);

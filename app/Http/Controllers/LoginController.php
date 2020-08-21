@@ -32,6 +32,7 @@ class LoginController extends Controller
             // session_start();
             
             $perfil = $user->perfil;
+            $configuracion=$user->configuracion;
             
             $datos = array(
                 'usuario_id' => $user->id,
@@ -40,7 +41,11 @@ class LoginController extends Controller
                 'nombre_usuario'=> $perfil->nombre_usuario,
                 'nombre' => $perfil->nombre,
                 'foto' => $perfil->foto,
-                'rol' => $user->rol
+                'rol' => $user->rol,
+                'notificaciones' => $configuracion->notificaciones,
+                'tema_fondo' => $configuracion->tema_fondo,
+                'user_agent'=>$request->server('HTTP_USER_AGENT'),
+                'ip_address'=>$this->getRealIP() // trae de $_SERVER['REMOTE_ADDR'];
             );
             Session::put('login', $datos);
             
@@ -77,4 +82,34 @@ class LoginController extends Controller
 
         return redirect('/');
     }
+    
+    function getRealIP(){
+
+        if (isset($_SERVER["HTTP_CLIENT_IP"])){
+
+            return $_SERVER["HTTP_CLIENT_IP"];
+
+        }elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
+
+            return $_SERVER["HTTP_X_FORWARDED_FOR"];
+
+        }elseif (isset($_SERVER["HTTP_X_FORWARDED"])){
+
+            return $_SERVER["HTTP_X_FORWARDED"];
+
+        }elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])){
+
+            return $_SERVER["HTTP_FORWARDED_FOR"];
+
+        }elseif (isset($_SERVER["HTTP_FORWARDED"])){
+
+            return $_SERVER["HTTP_FORWARDED"];
+
+        }else{
+
+            return $_SERVER["REMOTE_ADDR"];
+
+        }
+    }       
+    
 }

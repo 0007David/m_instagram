@@ -27,13 +27,13 @@
             <div class="tab-content">
                 <div id="home" class="tab-pane active"><br>
                     <div class="card-body">
-                        <form method='POST' action="{{url('updateConfiguracion')}}">
+                        <form id="form-EditarConfiguracionUsuario" method='POST' action="{{url('updateConfiguracion')}}">
                             @method('POST')
                             @csrf
 
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Notificaciones</label>
-                                <select name="notificaciones" class="form-control">
+                                <select data-rule="required" name="notificaciones" class="form-control">
                                     <option value="">Seleccione</option>
                                     @if ($configuracion->notificaciones=='t')
                                     <option value="t" selected>Activado</option>
@@ -49,7 +49,7 @@
             
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Tema Fondo</label>
-                                <select name="tema_fondo" class="form-control">
+                                <select data-rule="required" name="tema_fondo" class="form-control">
                                     <option value="">Seleccione</option>
                                     @if (trim($configuracion->tema_fondo)=='dark')
                                     <option value="dark" selected>Dark</option>

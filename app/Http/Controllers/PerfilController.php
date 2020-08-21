@@ -8,7 +8,7 @@ use App\User;
 use App\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\DB;
 class PerfilController extends Controller
 {
     
@@ -25,7 +25,11 @@ class PerfilController extends Controller
             'cantidad_seguidos'=>Seguidor::ContadorSeguidos($usuario['usuario_id']),
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
         );
-        return view('perfil')->with(compact('datos'));
+        $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
+            ->where('estado','=','t')
+            ->orderByDesc('id')
+            ->get();
+        return view('perfil')->with(compact('datos','posts'));
     }
     public function edit()
     { 

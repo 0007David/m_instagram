@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Perfil;
 use App\Seguidor;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SeguidorController extends Controller
@@ -58,7 +59,10 @@ class SeguidorController extends Controller
             $exito = $seguidor->update();
         }else{
             $seguidor->estado='t';
+            $date = Carbon::now();
+            $seguidor->fecha_hora = $date->toDateTimeString();
             $exito = $seguidor->update();
+            dd($seguidor);
         }
         return response()->json(array('exito'=>$exito,'seguidor'=>$seguidor->usuarioSeguido->perfil,'seguir'=>$request->json('seguir')));
     }

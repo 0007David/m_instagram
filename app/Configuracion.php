@@ -30,4 +30,9 @@ class Configuracion extends Model
     {
         return static::where('id',compact('id'))->first();
     }
+
+    public function getTemaFondoAttribute($value)
+    {
+        return trim($value);
+    }
 }

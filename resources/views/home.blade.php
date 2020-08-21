@@ -73,11 +73,11 @@
                 </div>
                 <div class="dropdown-divider"></div>
 
-                <form class="card-food row" method='POST' action="{{ url('comentarios')}}">
+                <form id="form-ComentarioHome" class="card-food row" method='POST' action="{{ url('comentarios')}}">
                     {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="col-md-9">
-                        <textarea required class="form-text-area" name="descripcion" placeholder="Añade un comentario..."></textarea>
+                        <textarea required class="form-text-area" name="descripcion" data-rule="maxlength-256" placeholder="Añade un comentario..."></textarea>
                         <input type="hidden" name="id_usuario" value="{{Session::get('login')['usuario_id']}}">
                         <input type="hidden" name="id_post" value="{{$post->id}}">
                     </div>
@@ -125,7 +125,7 @@
                             @if( is_null($seg->loEstoySiguiendo( $seg->id_usuario_seguidor) ) )
                                 <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnSeguir" class="btn btn-primary">Seguir</button>
                             @else
-                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnDejarSeguir" class="btn btn-secondary">Seguiendo</button>
+                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnDejarSeguir" class="btn btn-secondary">Siguiendo</button>
                             @endif
                         </div>
                     </div>

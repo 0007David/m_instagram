@@ -103,5 +103,15 @@ class Post extends Model
             ->get();
         return $datos[0]->count;
     }
+
+    public function getFotoAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getDescripcionAttribute($value)
+    {
+        return trim($value);
+    }
     
 }

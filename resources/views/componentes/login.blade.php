@@ -47,7 +47,7 @@
 		<!-- Login Form -->
 		<form id="form-login" method='POST' action="{{url('login')}}">
 			@csrf
-			<input type="text" id="login" class="fadeIn second error" id="email" name="email" data-rule="required|email" placeholder="Correo Electronico">
+			<input type="text" id="login" class="fadeIn second error" id="email" name="email" data-rule="required|email|maxlength-56" placeholder="Correo Electronico">
 			<input type="password" id="password" class="fadeIn third" id="password" data-rule="required|minlength-6" name="password" placeholder="Contraseña">
 			<input type="submit" class="fadeIn fourth" value="Log In">
 		</form>
