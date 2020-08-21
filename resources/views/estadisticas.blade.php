@@ -33,9 +33,6 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#esta2">Reportes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#esta3">Otros </a>
-                </li>
             </ul>
 
             <!-- Tab panes -->
@@ -118,11 +115,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-
-                <div id="esta3" class="container tab-pane fade"><br>
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 </div>
             </div>
         </div>

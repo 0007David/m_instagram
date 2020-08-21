@@ -18,12 +18,20 @@
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
             <h5>Estadisticas y Reportes Personales </h5>
-            <select id="user_selected" class="form-control col-md-4 offset-4">
+            <select id="reporte_selected" class="form-control col-md-4 offset-1 dp-inline">
+                <option value="">Seleccione </option>
+                <option value="post">Post publicados</option>
+                <option value="seguidores">Sus seguidores</option>
+                <option value="seguidos">A los que sigue</option>
+
+            </select>
+            <select id="user_selected" class="form-control col-md-4 offset-1 dp-inline">
                 <option value="">Selecciones usuario</option>
                 @foreach($usuarios as $usuario)
                 <option value="{{$usuario->id_usuario}}">{{@$usuario->nombre}}</option>
                 @endforeach
             </select>
+
 
         </div>
         <div class="col-md-12">
@@ -34,9 +42,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#esta2">Reportes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#esta3">Otros </a>
                 </li>
             </ul>
 
@@ -69,9 +74,9 @@
                     <!-- /.card -->
                     <!-- STACKED BAR CHART -->
                     <div class="card card-success">
-                        <div class="card-header">
+                        <!-- <div class="card-header">
                             <h3 class="card-title">Stacked Bar Chart</h3>
-                        </div>
+                        </div> -->
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -82,6 +87,34 @@
                     <!-- /.card -->
                 </div>
                 <div id="esta2" class="container tab-pane fade"><br>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Genero</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <th scope="row">$key</th>
+
+                                <td>$user->nombre</td>
+                                <td>$user->nombre_usuario</td>
+                                <td>$user->email</td>
+                                <td>$user->genero</td>
+                                <td>
+                                    <button class="btn btn-danger">Eliminar</button>
+                                    <button class="btn btn-warning">Editar</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                     <!-- DONUT CHART -->
                     <div class="card card-danger">
                         <div class="card-header">
@@ -93,11 +126,6 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                </div>
-
-                <div id="esta3" class="container tab-pane fade"><br>
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 </div>
             </div>
         </div>

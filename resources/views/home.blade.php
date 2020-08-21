@@ -11,7 +11,7 @@
     <br><br>
     <div class="row">
         <div id="col-posts" class="col-md-6">
-        @foreach($posts as $post)
+            @foreach($posts as $post)
             @if( $post->estado == 't')
             <div class="card">
                 <div class="card-header row bc-white m-0">
@@ -73,11 +73,11 @@
                 </div>
                 <div class="dropdown-divider"></div>
 
-                <form id="form-ComentarioHome" class="card-food row" method='POST' action="{{ url('comentarios')}}">
+                <form class="card-food row" method='POST' action="{{ url('comentarios')}}">
                     {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="col-md-9">
-                        <textarea required class="form-text-area" name="descripcion" data-rule="maxlength-256" placeholder="Añade un comentario..."></textarea>
+                        <textarea required class="form-text-area" name="descripcion" maxlength="256" placeholder="Añade un comentario..."></textarea>
                         <input type="hidden" name="id_usuario" value="{{Session::get('login')['usuario_id']}}">
                         <input type="hidden" name="id_post" value="{{$post->id}}">
                     </div>
@@ -91,7 +91,7 @@
             </div>
             <br>
             @endif
-        @endforeach
+            @endforeach
 
 
         </div>
@@ -123,9 +123,9 @@
                         </div>
                         <div id="" class="col-md-2 m-2 pl-1">
                             @if( is_null($seg->loEstoySiguiendo( $seg->id_usuario_seguidor) ) )
-                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnSeguir" class="btn btn-primary">Seguir</button>
+                            <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnSeguir" class="btn btn-primary">Seguir</button>
                             @else
-                                <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnDejarSeguir" class="btn btn-secondary">Siguiendo</button>
+                            <button data-seguirid="{{$seg->id_usuario_seguidor}}" id="btnDejarSeguir" class="btn btn-secondary">Siguiendo</button>
                             @endif
                         </div>
                     </div>
@@ -146,9 +146,7 @@
     </div>
 
 </div>
-<script>
-	let contadorVistas = @json($contadorVistas ?? '');
-</script>
+
 @endsection
 @section('script')
 <script src="{{asset('assets/js/home.js') }}"></script>

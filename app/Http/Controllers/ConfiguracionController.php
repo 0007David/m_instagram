@@ -27,6 +27,11 @@ class ConfiguracionController extends Controller
         $configuracion->notificaciones = $request->notificaciones;
         $configuracion->tema_fondo = $request->tema_fondo;
         $configuracion->save();
+        // Actualizamos las Configuraciones del Usuario Logueado
+        $usuario['notificaciones'] = $request->notificaciones;
+        $usuario['tema_fondo'] = $request->tema_fondo;
+        Session::forget('login');
+        Session::put('login', $usuario);
 
         return redirect()->route('home');
     }

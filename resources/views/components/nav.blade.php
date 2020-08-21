@@ -93,11 +93,12 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ url('admin/usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/configuraciones') }}"><span> <i class="fa fa-users"> Admi-Configuraciones</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/configuraciones') }}"><span> <i class="fa fa-users"> Admi-Config</i></span> </a>
                     <a class="dropdown-item" href="{{ url('admin/contactos') }}"><span> <i class="fa fa-users"> Admi-Contactos</i></span> </a>
                     <a class="dropdown-item" href="{{ url('admin/postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/reportes') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/estadisticas') }}"><span> <i class="fa fa-users"> Admi-Estadisticas</i></span> </a>
+                    <!-- <a class="dropdown-item" href="{{ url('admin/reporteusuarios') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>  -->
+                    <a class="dropdown-item" href="{{ url('admin/estadisticas') }}"><span> <i class="fa fa-users"> Admi-Est. y Rep.</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/accesslog') }}"><span> <i class="fa fa-users"> Log Access</i></span> </a> 
                 </div>
             </li>
             @endif

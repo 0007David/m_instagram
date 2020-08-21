@@ -56,7 +56,18 @@ class PerfilController extends Controller
         $user = User::find($usuario['usuario_id']);
         $user->email = $request->email;
         //$user->password = Hash::make($request->password);
-        $user->save();
+        $resp = $user->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se a actualizado tu perfil Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'No se a actualizado tu perfil.';
+            Session::put('msj', $message);
+        }
+        
+
         return redirect()->route('home');
     }
 

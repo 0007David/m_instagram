@@ -1,5 +1,6 @@
 
 $(document).ready((evt) => {
+    console.log('main js')
     contadorView();
     // MediaQuery
     $(window).resize(function () {
@@ -16,15 +17,13 @@ $(document).ready((evt) => {
         if( view == ''){
             view = 'login';
         }
-
-        console.log('main', base_url, current_url);
-        // console.log('contadorVistas', contadorVistas);
-
+        // console.log('main', base_url, current_url);
+    
         let data = {
             vista: view,
             counter: counter
         }
-        console.log('post data: ',data)
+        // console.log('post data: ',data)
         fetch('/counterViews', {
             method: 'POST',
             headers: {
@@ -77,7 +76,7 @@ $(document).ready((evt) => {
                 container: source => {
                     source.setAttribute("id", "autoComplete_list");
                     source.setAttribute("style", "position: absolute; width: 14.5rem;");
-                    console.log('source: ', source)
+                    // console.log('source: ', source)
                 },
                 // destination: document.querySelector("#autoComplete"),
                 position: "afterend",
@@ -131,7 +130,7 @@ $(document).ready((evt) => {
             const resultsList = document.querySelector("#autoComplete_list");
             document.querySelector("#autoComplete").addEventListener(eventType, function () {
                 // Hide results list & show other elemennts
-                console.log(eventType);
+                // console.log(eventType);
                 if (eventType === "blur") {
                     resultsList.style.display = "none";
                 } else if (eventType === "focus") {
@@ -148,12 +147,12 @@ $(document).ready((evt) => {
         let id_usuario = target.data('id_usuario');
         // class="fa fa-heart-o fa-1x c-black"
         if (target.hasClass('c-black')) {
-            console.log('tiene')
+            // console.log('tiene')
             target.removeClass('fa-heart');
             target.addClass('fa-heart-o');
             target.removeClass('c-black');
         } else {
-            console.log('no tiene')
+            // console.log('no tiene')
             target.removeClass('fa-heart-o');
             target.addClass('fa-heart');
             target.addClass('c-black');
@@ -165,7 +164,6 @@ $(document).ready((evt) => {
     });
     $('.dropdown').on('hidden.bs.dropdown', (evt) => {
         let target = $(evt.target);
-        console.log('evt', evt.target);
         let heart = target.find('#btn-seguir');
         heart.removeClass('fa-heart');
         heart.addClass('fa-heart-o');
@@ -223,13 +221,13 @@ $(document).ready((evt) => {
     function traerSeguidores(idUsuario) {
         fetch(base_url + '/getseguidores/' + idUsuario).then((response) => response.json()
         ).then(function (myJson) {
-            console.log(myJson);
+            // console.log(myJson);
             $('#list_seguir').empty();
             if (myJson.count > 0) {
                 myJson.seguidores.forEach((seguidor) => {
                     let boton;
                     var result='Comenzar a seguir';
-                    console.log(seguidor)
+                    // console.log(seguidor)
                     if(seguidor.loEstoySiguiendo){
                         var a=seguidor.fecha_hora;
                         var b= a.substr(5,2)-1;
@@ -355,7 +353,7 @@ $(document).ready((evt) => {
             usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
             seguir: true
         }
-        console.log(data);
+        // console.log(data);
         seguirODejarSeguir(data);
         target.attr('id','btnDejarSeguir');
         target.text("Siguiendo");
@@ -369,7 +367,7 @@ $(document).ready((evt) => {
             usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
             seguir: false
         }
-        console.log(data);
+        // console.log(data);
         seguirODejarSeguir(data);
         // id="btnSeguir" class="btn btn-primary"
         target.attr('id', 'btnSeguir');
@@ -383,7 +381,7 @@ $(document).ready((evt) => {
     $('#list_seguir').on('click', '#modalDejarDeSeguir', (evt) => {
 
         let target = $(evt.target);
-        console.log('modalDejarDeSeguir', target, target.data('seguirid'));
+        // console.log('modalDejarDeSeguir', target, target.data('seguirid'));
         fetch(base_url + '/getseguidor/' + target.data('seguirid')).then((response) => response.json()
         ).then(function (myJson) {
             // console.log(myJson);
@@ -413,7 +411,7 @@ $(document).ready((evt) => {
     //Evento click dejar de seguir 
     $('#m_body').on('click', '#btn-dejar-de-seguir', (evt) => {
         let target = $(evt.target);
-        console.log('dejar-de-seguir', target, target.data('usuarioid'));
+        // console.log('dejar-de-seguir', target, target.data('usuarioid'));
         let data = {
             usuario_id: loginData.usuario_id,
             usuario_seg_id: target.data('usuarioid'), //id de usuario a seguir
@@ -423,7 +421,7 @@ $(document).ready((evt) => {
     })
 
     function seguirODejarSeguir(data) {
-        console.log(data);
+        // console.log(data);
         fetch('/seguidorStore', {
             method: 'POST',
             headers: {
@@ -462,7 +460,5 @@ $(document).ready((evt) => {
             .catch((err)=> console.log('respuesta error',err,err.message));
 
     }
-
-
-
+    
 });
