@@ -24,5 +24,10 @@ class Contacto extends Model
     {
         return static::where('id',compact('id'))->first();
     }
+
+    public function getTelefonoAttribute($value)
+    {
+        return trim($value);
+    }
     
 }

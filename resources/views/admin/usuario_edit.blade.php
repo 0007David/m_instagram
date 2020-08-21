@@ -20,12 +20,12 @@
             
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('admin/usuario')}}">
+            <form id="form-EditarUsuarioAdmi" method='POST' action="{{ url('admin/usuario')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
         <div class=" form-group">
                 <label for="exampleFormControlInput1">Email</label>
-                <input type="email" class="form-control" name="email" value="{{$user->email}}">
+                <input type="email" class="form-control" name="email" data-rule="required|email|maxlength-56" value="{{$user->email}}">
         </div>
 
         <div class=" form-group">
@@ -35,27 +35,27 @@
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Nombre</label>
-            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{$user->nombre}}">
+            <input type="text" class="form-control" name="nombre" data-rule="required|name|maxlength-256" placeholder="Nombre" value="{{$user->nombre}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Nombre Usuario</label>
-            <input type="text" class="form-control" name="nombre_usuario" placeholder="Nombre Usuario" value="{{$user->nombre_usuario}}">
+            <input type="text" class="form-control" name="nombre_usuario" data-rule="required|name|maxlength-120" placeholder="Nombre Usuario" value="{{$user->nombre_usuario}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Presentacion</label>
-            <input type="text" class="form-control" name="presentacion" placeholder="Presentacion" value="{{$user->presentacion}}">
+            <input type="text" class="form-control" name="presentacion" data-rule="maxlength-512" placeholder="Presentacion" value="{{$user->presentacion}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Sitio Web</label>
-            <input type="text" class="form-control" name="sitio_web" placeholder="Sitio Web" value="{{$user->sitio_web}}">
+            <input type="text" class="form-control" name="sitio_web" data-rule="maxlength-200" placeholder="Sitio Web" value="{{$user->sitio_web}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Genero</label>
-            <select name="genero" class="form-control">
+            <select data-rule="required" name="genero" class="form-control">
                 <option value="">Seleccione</option>
                 @if ($user->genero=='m')
                 <option value="m" selected>Masculino</option>
@@ -71,18 +71,18 @@
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Fecha Nacimiento</label>
-            <input type="date" class="form-control" name="fecha_nacimiento" placeholder="Fecha Nacimiento" value="{{$user->fecha_nacimiento}}">
+            <input type="date" class="form-control" name="fecha_nacimiento" data-rule="required" placeholder="Fecha Nacimiento" value="{{$user->fecha_nacimiento}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Telefono</label>
-            <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{$user->telefono}}">
+            <input type="text" class="form-control" name="telefono"data-rule="required|phone" placeholder="Telefono" value="{{$user->telefono}}">
             <input type="hidden" name="id" value="{{$user->id}}">
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Estado</label>
-            <select name="estado" class="form-control">
+            <select data-rule="required" name="estado" class="form-control">
                 <option value="">Seleccione</option>
                 @if ($user->estado=='f')
                 <option value="f" selected>Desactivado</option>
@@ -98,7 +98,7 @@
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Rol</label>
-            <select name="rol" class="form-control">
+            <select data-rule="required" name="rol" class="form-control">
                 <option value="">Seleccione</option>
                 @if ($user->rol=='1')
                 <option value="1" selected>Administrador</option>

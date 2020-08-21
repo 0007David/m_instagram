@@ -78,11 +78,11 @@
                 <div class="col-md-3">
                     <button type="button" class="btn btn-outline-primary mt-2">Publicar</button>
                 </div> --}}
-                <form class="row" method='POST' action="{{ url('comentarios')}}">
+                <form id="form-ComentarioUsuario" class="row" method='POST' action="{{ url('comentarios')}}">
                     {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="col-md-9">
-                        <textarea required class="form-text-area" name="descripcion" placeholder="Añade un comentario..."></textarea>
+                        <textarea required class="form-text-area" name="descripcion" data-rule="maxlength-256" placeholder="Añade un comentario..."></textarea>
                         <input type="hidden" name="id_usuario" value="{{Session::get('login')['usuario_id']}}">
                         <input type="hidden" name="id_post" value="{{$post->id}}">
                     </div>

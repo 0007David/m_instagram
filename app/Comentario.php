@@ -28,4 +28,9 @@ class Comentario extends Model
     {
         return static::where('id',compact('id'))->first();
     }
+
+    public function getDescripcionAttribute($value)
+    {
+        return trim($value);
+    }
 }

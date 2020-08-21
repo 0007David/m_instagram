@@ -18,12 +18,12 @@
         <div class="col-md-12">
         </div>
         <div class="col-md-8 offset-2">
-        <form method='POST' action="{{ url('storecontacto')}}">
+        <form id="form-CrearContactoUsuario" method='POST' action="{{ url('storecontacto')}}">
                 {{ method_field('POST') }}
                 {{ csrf_field() }}
         <div class=" form-group">
             <label for="exampleFormControlInput1">Telefono</label>
-            <input type="text" class="form-control" name="telefono" placeholder="Telefono">
+            <input type="text" class="form-control" name="telefono" data-rule="required|phone" placeholder="Telefono">
         </div>
 
         <div class="form-group text-center">

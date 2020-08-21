@@ -32,6 +32,7 @@ class LoginController extends Controller
             // session_start();
             
             $perfil = $user->perfil;
+            $configuracion=$user->configuracion;
             
             $datos = array(
                 'usuario_id' => $user->id,
@@ -40,7 +41,9 @@ class LoginController extends Controller
                 'nombre_usuario'=> $perfil->nombre_usuario,
                 'nombre' => $perfil->nombre,
                 'foto' => $perfil->foto,
-                'rol' => $user->rol
+                'rol' => $user->rol,
+                'notificaciones' => $configuracion->notificaciones,
+                'tema_fondo' => $configuracion->tema_fondo
             );
             Session::put('login', $datos);
             

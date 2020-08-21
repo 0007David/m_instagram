@@ -46,17 +46,17 @@
                 <div id="menu1" class="container tab-pane active"><br>
 
                     <h3>Post </h3>
-                    <form method='POST' action="{{url('insertPost')}}" enctype="multipart/form-data">
+                    <form id="form-InsertPostUsuario" method='POST' action="{{url('insertPost')}}" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         <div class="form-group">
                             <label for="file">Foto: </label>
-                            <input type="file" id="foto" name="foto">
+                            <input type="file" id="foto" name="foto"  data-rule="required|fileextension-jpg-png-jpeg|maxfilesize-2-MB">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Descripcion: </label>
-                            <textarea class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Ingrese una descripcion para su foto..."></textarea>
+                            <textarea class="form-control" type="text" id="descripcion" name="descripcion" data-rule="maxlength-256" placeholder="Ingrese una descripcion para su foto..."></textarea>
                         </div>
                         <div class="form-group text-center">
                             <button class="btn btn-light">cancelar</button>
@@ -72,7 +72,8 @@
                                 <th scope="col">Foto</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Fecha</th>
-  
+                                <th scope="col">Likes</th>
+                                <th scope="col">Comentarios</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -84,6 +85,8 @@
                                 <td><img src="{{asset('imagen/'.$post->foto)}}" width="40" height="40"></td>
                                 <td>{{$post->descripcion}}</td>
                                 <td>{{$post->fecha_actualizada}}</td>
+                                <td>{{$post->likes_count}}</td>
+                                <td>{{$post->comentario_count}}</td>
                                 <td>
                                     <form method='POST' action="{{ url('post')}}">
                                         {{ method_field('POST') }}

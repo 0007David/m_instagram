@@ -42,8 +42,19 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        
+                    <!-- Grid row -->
+                    <div class="gallery">
+                        @foreach ($posts as $post) 
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/'.$post->foto)}}"  alt="Responsive image">
+                            </div>
+                        @endforeach
+                       
+                    
+                    </div>
+                    <!-- Grid row -->
+
                 </div>
                 <div id="menu1" class="container tab-pane fade"><br>
                     <h3>Menu 1</h3>

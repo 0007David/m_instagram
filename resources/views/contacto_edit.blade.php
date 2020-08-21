@@ -20,14 +20,14 @@
             
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('contacto')}}">
+            <form id="form-EditarContactoUsuario" method='POST' action="{{ url('contacto')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{$contacto->telefono}}">
+                    <input type="text" class="form-control" name="telefono" data-rule="required|phone" placeholder="Telefono" value="{{$contacto->telefono}}">
                 </div>
                 <input type="hidden" name="id" value="{{$contacto->id}}">
 

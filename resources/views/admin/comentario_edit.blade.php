@@ -20,14 +20,14 @@
             
         </div>
         <div class="col-md-8 offset-2">
-            <form method='POST' action="{{ url('comentario')}}">
+            <form id="form-EditarComentarioAdmi" method='POST' action="{{ url('comentario')}}">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
                 
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Descripcion</label>
-                    <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" value="{{$comentario->descripcion}}">
+                    <input type="text" class="form-control" name="descripcion" data-rule="maxlength-256" placeholder="Descripcion" value="{{$comentario->descripcion}}">
                 </div>
                 <input type="hidden" name="id" value="{{$comentario->id}}">
 

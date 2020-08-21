@@ -30,11 +30,6 @@
                     <i class="fa fa-dashboard fa-1x"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-bandcamp fa-1x"></i>
-                </a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-id_usuario="{{Session::get('login')['usuario_id']?? ''}}" id="btn-seguir" class="fa fa-heart-o fa-1x"></i>

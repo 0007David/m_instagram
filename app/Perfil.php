@@ -47,4 +47,33 @@ class Perfil extends Model
         return $edad;
     }
 
+    public function getNombreAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getNombreUsuarioAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getPresentacionAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getSitioWebAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getTelefonoAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getFotoAttribute($value)
+    {
+        return trim($value);
+    }
 }
