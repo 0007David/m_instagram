@@ -9,6 +9,7 @@ class ConfiguracionController extends Controller
 {
     public function index()
     {
+        LogController::storeLog('GET','Vista Configuracion Usuario',json_encode(Session::get('login')));
         return view('configuracion');
     }
 
@@ -16,6 +17,7 @@ class ConfiguracionController extends Controller
     {
         $usuario = Session::get('login');
         $configuracion = Configuracion::find($usuario['usuario_id']);
+        LogController::storeLog('GET','Vista Editar Configuracion Usuario',json_encode(Session::get('login')));
         return view('configuracion_edit')->with(compact('configuracion'));
     }
 
@@ -27,7 +29,7 @@ class ConfiguracionController extends Controller
         $configuracion->notificaciones = $request->notificaciones;
         $configuracion->tema_fondo = $request->tema_fondo;
         $configuracion->save();
-
+        LogController::storeLog('POST','Editar Configuracion Usuario',json_encode(Session::get('login')));
         return redirect()->route('home');
     }
 }

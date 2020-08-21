@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class PostController extends Controller
 {
     public function index()
@@ -15,6 +17,7 @@ class PostController extends Controller
         ->select(DB::raw ("post.id,TRIM(post.foto) as foto,TRIM(post.descripcion) as descripcion,post.fecha_actualizada,TRIM(perfil.nombre) as nombre,post.estado"))
         ->orderBy('post.id')
         ->get();
+        LogController::storeLog('GET','Vista Post Admi',json_encode(Session::get('login')));
         return view('admin.postsynotifs')->with(compact('posts'));
     }
 
@@ -26,6 +29,7 @@ class PostController extends Controller
         ->where('post.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array
+        LogController::storeLog('GET','Vista Editar Post Admi',json_encode(Session::get('login')));
         return view('admin.postynotif_edit')->with(compact('post'));
     }
 
@@ -42,7 +46,7 @@ class PostController extends Controller
         ]);
         $post=Post::findid(request()->id);
         $post->update($data);
-        
+        LogController::storeLog('POST','Editar Post Admi',json_encode(Session::get('login')));
         return redirect()->route('postsynotifs');
     }
 
@@ -51,6 +55,7 @@ class PostController extends Controller
         $post=Post::findid($request->id);
         $post->estado=$request->estado;
         $post->save();
+        LogController::storeLog('POST','Eliminar Post Admi',json_encode(Session::get('login')));
         return redirect()->route('postsynotifs');
     }
     

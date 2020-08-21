@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Session;
 use App\Likes;
 use Illuminate\Http\Request;
 
@@ -20,6 +20,7 @@ class LikeController extends Controller
         } else {
             $exito = $like->delete();
         }
+        LogController::storeLog('POST','Insertar Like Usuario',json_encode(Session::get('login')));   
         return response()->json(array('exito'=>$exito,'like'=>$like,'likes_count'=>Likes::where('id_post','=',$request->json('post_id'))->count()));
     }
 }

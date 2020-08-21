@@ -12,6 +12,7 @@ class RegistrarController extends Controller
 {
     public function index()
     {
+        LogController::storeLog('GET','Vista Registrar Usuario',json_encode(Session::get('login')));
         return view('componentes.registrar');
     }
 
@@ -41,7 +42,7 @@ class RegistrarController extends Controller
             'nombre' => $perfil->nombre
         );
         Session::put('login', $datos);
-
+        LogController::storeLog('POST','Registrar Usuario',json_encode(Session::get('login')));
         return redirect()->route('home');
     }
 }

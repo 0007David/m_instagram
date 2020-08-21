@@ -24,7 +24,7 @@ class HomeController extends Controller
             ->get();
         // $onlySeguidores = array_slice($seguidoresIds,0,(count($seguidoresIds) > 4 )? 4: count($seguidoresIds));
         $seguidores= $user->seguidores->only($user->array_seguidores);
-        LogController::storeLog('GET','home',json_encode($usuario));
+        LogController::storeLog('GET','Vista Home Usuario',json_encode($usuario));
 
         return view('home')->with(compact('posts', 'usuario', 'seguidores'));
     }
@@ -36,7 +36,7 @@ class HomeController extends Controller
             $query = strtolower($query);
             $amigos = Perfil::where('nombre_usuario','like','%'.$request->q.'%')->get();
         }
-
+        LogController::storeLog('POST','Search Usuario',json_encode(Session::get('login')));
         return response()->json(array('answer'=>$amigos,'count'=>count($amigos)));
     }
 }

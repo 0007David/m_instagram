@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Perfil;
 use App\Seguidor;
+use Illuminate\Support\Facades\Session;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class SeguidorController extends Controller
     public function index($name)
     {   
         $perfil = Perfil::findByUserName($name);
+        LogController::storeLog('GET','Vista Seguidor Usuario',json_encode(Session::get('login')));
         return view('seguido')->with(compact('perfil'));
     }
 
@@ -33,11 +35,13 @@ class SeguidorController extends Controller
                 'loEstoySiguiendo' => is_null($seg) ? false:true
             );
         }
+        LogController::storeLog('GET','Get Seguidores Usuario',json_encode(Session::get('login')));
         return response()->json($salida);
     }
 
     public function getSeguidor($id){
         $user = User::find($id);
+        LogController::storeLog('GET','Get Seguidor Usuario',json_encode(Session::get('login')));
         return response()->json(array('status'=>true,'perfil'=>$user->perfil));
     }
 
@@ -64,6 +68,7 @@ class SeguidorController extends Controller
             $exito = $seguidor->update();
             dd($seguidor);
         }
+        LogController::storeLog('POST','Store Seguidor Usuario',json_encode(Session::get('login')));
         return response()->json(array('exito'=>$exito,'seguidor'=>$seguidor->usuarioSeguido->perfil,'seguir'=>$request->json('seguir')));
     }
 }

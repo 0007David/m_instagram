@@ -32,7 +32,7 @@ class PostController extends Controller
             ->where('estado','=','t')
             ->orderByDesc('id')
             ->get();
-            
+        LogController::storeLog('GET','Vista Post Usuario',json_encode(Session::get('login')));    
         return view('post')->with(compact('datos','posts'));
     }
 
@@ -64,7 +64,7 @@ class PostController extends Controller
                 $notificacion->save();
             }
         }
-        
+        LogController::storeLog('POST','Insertar Post Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');   
     }
 
@@ -73,6 +73,7 @@ class PostController extends Controller
         $post=Post::findid($request->id);
         $post->estado=$request->estado;
         $post->save();
+        LogController::storeLog('POST','Eliminar Post Usuario',json_encode(Session::get('login')));   
         return redirect()->route('post');
     }
 }

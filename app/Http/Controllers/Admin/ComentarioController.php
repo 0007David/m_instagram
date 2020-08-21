@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Comentario;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class ComentarioController extends Controller
 {
     public function index()
@@ -17,7 +19,7 @@ class ComentarioController extends Controller
         ->select('comentario.id as id','comentario.descripcion as descripcion','a.nombre as nombre_usuario','comentario.id_post as id_post','b.nombre as dueño_post','comentario.fecha_actualizada as fecha','post.foto')
         ->orderBy('comentario.id')
         ->get();
-    
+        LogController::storeLog('GET','Vista Comentario Admi',json_encode(Session::get('login')));
         return view('admin.comentarios')->with(compact('comentarios'));
     }
 
@@ -31,6 +33,7 @@ class ComentarioController extends Controller
         ->where('comentario.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array
+        LogController::storeLog('GET','Editar Comentario Admi',json_encode(Session::get('login')));
         return view('admin.comentario_edit')->with(compact('comentario'));
     }
 
@@ -45,7 +48,7 @@ class ComentarioController extends Controller
         ]);
         $comentario=Comentario::findid(request()->id);
         $comentario->update($data);
-        
+        LogController::storeLog('POST','Editar Comentario Admi',json_encode(Session::get('login')));
         return redirect()->route('comentarios');
     }
     

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Comentario;
 use Carbon\Carbon;
@@ -14,7 +14,7 @@ class ComentarioController extends Controller
 
 
 
-
+        LogController::storeLog('GET','Vista Comentario Usuario',json_encode(Session::get('login')));
         return view('comentarios')->with(compact('post'));
     }
 
@@ -30,7 +30,7 @@ class ComentarioController extends Controller
         $comentario->fecha_creada=$fecha;
         $comentario->fecha_actualizada=$fecha;
         $comentario->save();
-
+        LogController::storeLog('POST','Insertar Comentario Usuario',json_encode(Session::get('login')));
         return redirect()->route('home');
     }
 

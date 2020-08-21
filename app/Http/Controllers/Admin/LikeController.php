@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class LikeController extends Controller
 {
     public function index()
@@ -17,6 +19,7 @@ class LikeController extends Controller
         ->select('likes.id as id','a.nombre as nombre_usuario','likes.id_post as id_post','b.nombre as dueño_post','post.foto')
         ->orderBy('likes.id')
         ->get();
+        LogController::storeLog('GET','Vista Like Admi',json_encode(Session::get('login')));
         return view('admin.likes')->with(compact('likes'));
     }
 

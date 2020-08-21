@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 
 class EstadisticaController extends Controller
 {
@@ -115,6 +116,7 @@ class EstadisticaController extends Controller
             'total' => $count_seguidores
         );
         $usuarios = Perfil::all();
+        LogController::storeLog('GET','Vista Usuario Admi',json_encode(Session::get('login')));
         return view('admin.estadisticas')->with(compact('usuarios','estadisticaGenero','estadisticaEdades'));
     
     }

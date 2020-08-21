@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contacto;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class ContactoController extends Controller
 {
     public function index()
@@ -16,6 +18,7 @@ class ContactoController extends Controller
         ->orderBy('contacto.id')
         ->get();
         //$users=User::all();
+        LogController::storeLog('GET','Vista Contacto Admi',json_encode(Session::get('login')));
         return view('admin.contactos')->with(compact('contactos'));
     }
 
@@ -27,6 +30,7 @@ class ContactoController extends Controller
         ->where('contacto.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array
+        LogController::storeLog('GET','Vista Editar Contacto Admi',json_encode(Session::get('login')));
         return view('admin.contacto_edit')->with(compact('contacto'));
     }
 
@@ -39,6 +43,7 @@ class ContactoController extends Controller
         ]);
         $contacto=Contacto::findid(request()->id);
         $contacto->update($data);
+        LogController::storeLog('GET','Editar Contacto Admi',json_encode(Session::get('login')));
         return redirect()->route('contactos');
     }
     

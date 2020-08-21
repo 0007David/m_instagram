@@ -16,11 +16,13 @@ class ContactoController extends Controller
             ->orderBy('contacto.id')
             ->where('contacto.id_usuario','=',$usuario['usuario_id'])
             ->get();
+        LogController::storeLog('GET','Vista Contacto Usuario',json_encode(Session::get('login')));
         return view('contacto')->with(compact('contactos','usuario'));
     }
 
     public function index2()
     {
+        LogController::storeLog('GET','Vista Crear Contacto Usuario',json_encode(Session::get('login')));
         return view('crearcontacto');
     }
 
@@ -30,7 +32,7 @@ class ContactoController extends Controller
         $contacto->telefono=$request->telefono;
         $contacto->id_usuario=$usuario['usuario_id'];
         $contacto->save();
-        
+        LogController::storeLog('POST','Crear Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('home');   
     }
 
@@ -43,7 +45,7 @@ class ContactoController extends Controller
         ->orderBy('contacto.id')
         ->where('contacto.id_usuario','=',$usuario['usuario_id'])
         ->get();
-
+        LogController::storeLog('GET','Vista Comparar Contacto Usuario',json_encode(Session::get('login')));
         return response()->json(array('exito'=>true, 'respuesta'=>$contactos ));
 
     }
@@ -56,6 +58,7 @@ class ContactoController extends Controller
         ->where('contacto.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array
+        LogController::storeLog('GET','Vista Editar Contacto Usuario',json_encode(Session::get('login')));
         return view('contacto_edit')->with(compact('contacto'));
     }
 
@@ -68,6 +71,7 @@ class ContactoController extends Controller
         ]);
         $contacto=Contacto::findid(request()->id);
         $contacto->update($data);
+        LogController::storeLog('POST','Editar Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('contacto');
     }
 
@@ -76,7 +80,7 @@ class ContactoController extends Controller
     
         $contacto=Contacto::findid(request()->id);
         $contacto->delete();
-
+        LogController::storeLog('POST','Eliminar Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('contacto');
     }
 

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class UserController extends Controller
 {
     public function index()
@@ -20,6 +21,7 @@ class UserController extends Controller
             ->orderBy('usuario.id')
             ->get();
         //$users=User::all();
+        LogController::storeLog('GET','Vista Usuario Admi',json_encode(Session::get('login')));
         return view('admin.usuarios')->with(compact('users'));
     }
 
@@ -33,7 +35,7 @@ class UserController extends Controller
             ->where('perfil.id_usuario','=', $id)
             ->first();
 
-        
+        LogController::storeLog('GET','Vista Editar Usuario Admi',json_encode(Session::get('login')));
         return view('admin.usuario_edit')->with(compact('user'));
     }
 
@@ -77,6 +79,7 @@ class UserController extends Controller
         
         $perfil = Perfil::find(request()->id);
         $perfil->update($data);
+        LogController::storeLog('POST','Editar Usuario Admi',json_encode(Session::get('login')));
         return redirect()->route('usuarios');
     }
 
@@ -85,6 +88,7 @@ class UserController extends Controller
         $usuario=User::find($request->id);
         $usuario->estado=$request->estado;
         $usuario->save();
+        LogController::storeLog('POST','Eliminar Usuario Admi',json_encode(Session::get('login')));
         return redirect()->route('usuarios',$usuario->id_usuario);
     }
 }

@@ -48,8 +48,17 @@ class LoginController extends Controller
                 'ip_address'=>$this->getRealIP() // trae de $_SERVER['REMOTE_ADDR'];
             );
             Session::put('login', $datos);
-            
+            LogController::storeLog('POST','Autenticado Login Usuario',json_encode(Session::get('login')));
             return redirect()->route('home');
+        }else{
+            $datos = array(
+                'usuario_id' => 0,
+                'usuario_email' =>$credentials['email'],
+                'password' => $credentials['password'],
+                'user_agent'=>$request->server('HTTP_USER_AGENT'),
+                'ip_address'=>$this->getRealIP() // trae de $_SERVER['REMOTE_ADDR'];
+            );
+            LogController::storeLog('POST','No Autenticado Login Usuario',json_encode(Session::get('login')));
         }
 
         $request->session()->flash('status', 'Task was successful!');

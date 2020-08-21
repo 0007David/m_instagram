@@ -111,6 +111,7 @@ class EstadisticaController extends Controller
             'cantidades' => [$count_seguidores_m, $count_seguidores_f],
             'total' => $count_seguidores
         );
+        LogController::storeLog('GET','Vista Estadistica Edad Usuario',json_encode(Session::get('login')));
         return view('estadisticas')->with(compact('user','estadisticaGenero','estadisticaEdades'));
     }
 
@@ -217,7 +218,7 @@ class EstadisticaController extends Controller
             'total' => $count_seguidores
         );
         $salida['edades'] = $estadisticaEdades;
-        
+        LogController::storeLog('GET','Vista  Estadistica Genero Usuario',json_encode(Session::get('login')));
         return response()->json(array('exito' => true, 'respuesta' => $salida));
     }
 }

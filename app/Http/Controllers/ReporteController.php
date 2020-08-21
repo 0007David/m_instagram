@@ -68,7 +68,7 @@ class ReporteController extends Controller
                 $salida['default'] = array();
                 break;
         }
-
+        LogController::storeLog('GET','Get Reporte Usuario',json_encode(Session::get('login')));
         return response()->json($salida);
     }
 }

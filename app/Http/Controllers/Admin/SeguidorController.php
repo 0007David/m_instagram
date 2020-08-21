@@ -8,6 +8,8 @@ use App\Seguidor;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class SeguidorController extends Controller
 {
     public function index($id)
@@ -20,6 +22,7 @@ class SeguidorController extends Controller
         ->orderBy('seguidor.id')
         ->where('seguidor.id_usuario','=',$id)
         ->get();
+        LogController::storeLog('GET','Vista Seguidor Admi',json_encode(Session::get('login')));
         return view('admin.seguidores')->with(compact('seguidores','usuario'));
     }
 
@@ -28,6 +31,7 @@ class SeguidorController extends Controller
         $seguidor=Seguidor::findid($request->id);
         $seguidor->estado=$request->estado;
         $seguidor->save();
+        LogController::storeLog('POST','Eliminar Usuario Admi',json_encode(Session::get('login')));
         return redirect()->route('seguidores',$seguidor->id_usuario);
     }
 

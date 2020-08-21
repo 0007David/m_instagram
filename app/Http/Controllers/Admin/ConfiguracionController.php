@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Configuracion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LogController;
 class ConfiguracionController extends Controller
 {
     public function index()
@@ -15,6 +17,7 @@ class ConfiguracionController extends Controller
         ->select('configuracion.id','notificaciones','tema_fondo','perfil.nombre as usuario')
         ->orderBy('configuracion.id')
         ->get();
+        LogController::storeLog('GET','Vista Configuracion Admi',json_encode(Session::get('login')));
         return view('admin.configuraciones')->with(compact('configuraciones'));
     }
 
@@ -26,6 +29,7 @@ class ConfiguracionController extends Controller
         ->where('configuracion.id', '=', $id)
         ->first();
         //first no es lo mismo que get, first elimina el array
+        LogController::storeLog('GET','Vista Editar Configuracion Admi',json_encode(Session::get('login')));
         return view('admin.configuracion_edit')->with(compact('configuracion'));
     }
 
@@ -42,7 +46,7 @@ class ConfiguracionController extends Controller
         ]);
         $configuracion=Configuracion::findid(request()->id);
         $configuracion->update($data);
-        
+        LogController::storeLog('POST','Editar Configuracion Admi',json_encode(Session::get('login')));
         return redirect()->route('configuraciones');
     }
     

@@ -29,6 +29,7 @@ class PerfilController extends Controller
             ->where('estado','=','t')
             ->orderByDesc('id')
             ->get();
+        LogController::storeLog('GET','Vista Perfil Usuario',json_encode(Session::get('login')));   
         return view('perfil')->with(compact('datos','posts'));
     }
     public function edit()
@@ -37,6 +38,7 @@ class PerfilController extends Controller
 
         $user = User::find($usuario['usuario_id']);
         $perfil = Perfil::find($usuario['usuario_id']);
+        LogController::storeLog('GET','Vista Editar Perfil Usuario',json_encode(Session::get('login')));   
         return view('perfil_edit')->with(compact('perfil','user'));;
     }
 
@@ -57,6 +59,7 @@ class PerfilController extends Controller
         $user->email = $request->email;
         //$user->password = Hash::make($request->password);
         $user->save();
+        LogController::storeLog('POST','Editar Perfil Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');
     }
 
@@ -65,6 +68,7 @@ class PerfilController extends Controller
         $user = User::find($usuario['usuario_id']);
         $user->password = Hash::make($request->password);
         $user->save();
+        LogController::storeLog('POST','Editar Password Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');
     }
 
@@ -83,6 +87,7 @@ class PerfilController extends Controller
                 $perfil->save();
             }
         }
+        LogController::storeLog('POST','Editar Foto de Perfil Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');
     }
 }
