@@ -56,13 +56,23 @@ class PostController extends Controller
                 $post->fecha_creada = $fecha;
                 $post->fecha_actualizada = $fecha;        
                 $post->id_usuario=$usuario['usuario_id'];
-                $post->save();
+                $resp = $post->save();
 
                 $notificacion = new Notificacion();
                 $notificacion->id_post=Notificacion::maxID();
                 $notificacion->fecha_hora=$fecha;
                 $notificacion->save();
             }
+        }
+
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Has publicado un Post.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'No se pudo publicar tu Post.';
+            Session::put('msj', $message);
         }
         LogController::storeLog('POST','Insertar Post Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');   

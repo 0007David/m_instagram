@@ -11,8 +11,8 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2 class="dp-inline">Administracion Usuarios</h2>
-            <button class="btn btn-primary mb-2">Crear</button>
+            <h2 class="dp-inline">Administracion Accesos de los Usuarios </h2>
+            <!-- <button class="btn btn-primary mb-2">Crear</button> -->
         </div>
         <table class="table table-hover">
             <thead>
@@ -21,24 +21,26 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Nombre Usuario</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Genero</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach($perfiles as $key => $perfil)
                 <tr>
-                    <th scope="row">$key</th>
-                    
-                    <td>$user->nombre</td>
-                    <td>$user->nombre_usuario</td>
-                    <td>$user->email</td>
-                    <td>$user->genero</td>
+                    <th scope="row">{{$key+1}}</th>
+                    <td>{{$perfil->nombre}}</td>
+                    <td>{{$perfil->nombre_usuario}}</td>
+                    <td>{{$perfil->email}}</td>
                     <td>
-                        <button class="btn btn-danger">Eliminar</button>
-                        <button class="btn btn-warning">Editar</button>
+                        @if( $perfil->file_log)
+                        <button class="btn btn-primary">Ver Log</button>
+                        <button class="btn btn-warning">Ver Estadistica</button>
+                        @else
+                        <button class="btn btn-default">Usuario sin Registros</button>
+                        @endif
                     </td>
                 </tr>
+                @endforeach
                 
             </tbody>
         </table>

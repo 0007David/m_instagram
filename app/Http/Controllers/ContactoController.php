@@ -70,7 +70,16 @@ class ContactoController extends Controller
             'telefono' => 'Es necesario colocar un numero de telefono o celular'
         ]);
         $contacto=Contacto::findid(request()->id);
-        $contacto->update($data);
+        $resp = $contacto->update($data);
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha editado tu contacto correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'No se ha editado tu contacto.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Editar Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('contacto');
     }

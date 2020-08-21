@@ -9,11 +9,11 @@
 	<title>@yield('title','Mini Instagram')</title>
 
 	@yield('class-login')
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 	<link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}"/>
+	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}" />
 	<link href="{{asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">	
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<link rel="stylesheet" href="{{asset('assets/css/autoComplete.css')}}">
 	<link href="{{asset('assets/css/style.css') }}" rel="stylesheet" />
 
@@ -38,10 +38,38 @@
 	</script>
 	@endif
 	<script>
-		const base_url = {!!json_encode(url('/'))!!};
+		const base_url = {!!json_encode(url('/')) !!};
 	</script>
 	<script src="{{asset('assets/js/main.js') }}"></script>
-
+	@if(Session::has('msj'))
+	<script>
+		let mensaje = @json(Session::get('msj'));
+		if(loginData.notificaciones == 't'){
+			Toastify({
+				text: mensaje.mensaje,
+				duration: -1,
+				gravity: "bottom", // `top` or `bottom`
+				close: true,
+				backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+				stopOnFocus: true, // Prevents dismissing of toast on hover
+				onClick: function() {} // Callback after click
+			}).showToast();
+		}
+		console.log('msj', mensaje);
+		function notificacionDelete(){
+			console.log('entro notify')
+			fetch(base_url + '/notificaciones').then((response) => response.json()
+			).then(function (myJson) {
+				console.log('resp notify')
+				console.log('notify: ', myJson);
+			})  
+			.catch((err)=> console.log('respuesta error',err,err.message)); 
+		}
+		notificacionDelete();
+		delete mensaje;
+	</script>
+	
+	@endif
 	@yield('script')
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

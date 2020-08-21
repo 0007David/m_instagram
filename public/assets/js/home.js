@@ -1,7 +1,7 @@
 
 $(document).ready((evt) => {
     console.log('Home js')
-    console.log('var: ', loginData);
+    // console.log('var: ', loginData);
 
     $('#col-posts').on('click', '#btn-like', (evt) => {
         let target = $(evt.target);
@@ -10,12 +10,11 @@ $(document).ready((evt) => {
             post_id: target.data('postid')
         }
         let parent = target.parent();
-        // console.log(parent.parent().parent());
         let likesCount = parent.parent().parent().find('#likes_count');
-        console.log(likesCount);
+        // console.log(likesCount);
 
         if (target.hasClass('c-red')) {
-            console.log('tiene')
+            // console.log('tiene')
             target.removeClass('fa-heart');
             target.addClass('fa-heart-o');
             target.removeClass('c-red');
@@ -24,7 +23,7 @@ $(document).ready((evt) => {
             let likes = parseInt(likesCount.text());
             likesCount.text(`${likes - 1}`);
         } else {
-            console.log('no tiene')
+            // console.log('no tiene')
             target.removeClass('fa-heart-o');
             target.addClass('fa-heart');
             target.addClass('c-red');
@@ -38,8 +37,8 @@ $(document).ready((evt) => {
     });
 
     function darLikeOrDislike(data) {
-        // let response = await fetch('/article/fetch/post/user', {
-        console.log('send data: ', data)
+        
+        // console.log('send data: ', data)
         fetch('/like', {
             method: 'POST',
             headers: {

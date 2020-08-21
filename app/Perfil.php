@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class Perfil extends Model
 {
@@ -75,5 +76,13 @@ class Perfil extends Model
     public function getFotoAttribute($value)
     {
         return trim($value);
+    }
+
+    public function getFileLogAttribute(){
+        $nombre_usuario = $this->nombre_usuario;
+        // Storage::disk('local')->exists($fileName)
+        // $path = storage_path("app"."\\".$nombre_usuario .".log");        
+        $fileName = $nombre_usuario . '.log';
+        return Storage::disk('local')->exists($fileName);
     }
 }

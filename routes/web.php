@@ -72,6 +72,9 @@ Route::middleware(['guest'])->group(function () {
     //LOG
     Route::post('counterViews', 'LogController@contadorVistas')->name('counterViews');
 
+    //NOTIFICACIONES
+    Route::get('notificaciones', 'NotificacionController@deleteNotificacion')->name('notificaciones');
+
 });
 Route::prefix('admin')->namespace('Admin')->group(function () {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
@@ -103,9 +106,14 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('contacto/{id}','ContactoController@show')->where('id','[0-9]+')->name('contactos.show');
     Route::put('contacto', 'ContactoController@update')->name('contactos.update');
 
-    Route::get('reportes', 'ReporteController@index')->name('reportes');
+    //REPORTES
+    Route::get('reporteusuarios', 'ReporteController@index')->name('reporteusuarios');
 
+    //ESTADISTICAS
     Route::get('estadisticas', 'EstadisticaController@index')->name('estadisticas');
+
+    //LOG
+    Route::get('accesslog', 'LogController@index')->name('accesslog');
 });
 
 
