@@ -114,6 +114,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
     //LOG
     Route::get('accesslog', 'LogController@index')->name('accesslog');
+    Route::get('accesslog/{nombre}', 'LogController@verLog')->name('accesslog');
 });
 
 
