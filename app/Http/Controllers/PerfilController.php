@@ -25,12 +25,13 @@ class PerfilController extends Controller
             'cantidad_seguidos'=>Seguidor::ContadorSeguidos($usuario['usuario_id']),
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
         );
+        $perfil = Perfil::find($usuario['usuario_id']);
         $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
             ->where('estado','=','t')
             ->orderByDesc('id')
             ->get();
         LogController::storeLog('GET','Vista Perfil Usuario',json_encode(Session::get('login')));   
-        return view('perfil')->with(compact('datos','posts'));
+        return view('perfil')->with(compact('datos','posts','perfil'));
     }
     public function edit()
     { 
@@ -66,7 +67,7 @@ class PerfilController extends Controller
             $message['mensaje'] = 'Se a actualizado tu perfil Correctamente.';
             Session::put('msj', $message);
         }else{
-            $message['mensaje'] = 'No se a actualizado tu perfil.';
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar tu Perfil.';
             Session::put('msj', $message);
         }
         LogController::storeLog('POST','Editar Perfil Usuario',json_encode(Session::get('login')));   
@@ -77,7 +78,16 @@ class PerfilController extends Controller
         $usuario = Session::get('login');
         $user = User::find($usuario['usuario_id']);
         $user->password = Hash::make($request->password);
-        $user->save();
+        $resp=$user->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se a actualizado tu password Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar tu Password.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Editar Password Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');
     }
@@ -94,8 +104,17 @@ class PerfilController extends Controller
             $moved = $file->move($path, $fileName);
             if ($moved) {
                 $perfil->foto = $fileName;
-                $perfil->save();
+                $resp=$perfil->save();
             }
+        }
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se a actualizado tu Foto de Perfil Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar tu Foto de Perfil.';
+            Session::put('msj', $message);
         }
         LogController::storeLog('POST','Editar Foto de Perfil Usuario',json_encode(Session::get('login')));   
         return redirect()->route('home');

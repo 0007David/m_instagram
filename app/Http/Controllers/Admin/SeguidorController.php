@@ -30,8 +30,17 @@ class SeguidorController extends Controller
     {
         $seguidor=Seguidor::findid($request->id);
         $seguidor->estado=$request->estado;
-        $seguidor->save();
-        LogController::storeLog('POST','Eliminar Usuario Admi',json_encode(Session::get('login')));
+        $resp=$seguidor->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha eliminado el Seguidor Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de eliminar el Seguidor.';
+            Session::put('msj', $message);
+        }
+        LogController::storeLog('POST','Eliminar Seguidor Admi',json_encode(Session::get('login')));
         return redirect()->route('seguidores',$seguidor->id_usuario);
     }
 

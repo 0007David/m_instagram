@@ -46,6 +46,15 @@ class ConfiguracionController extends Controller
         ]);
         $configuracion=Configuracion::findid(request()->id);
         $configuracion->update($data);
+        //-- Mensje
+        $resp=$message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha actualizado la Configuracion Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar la Configuracion.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Editar Configuracion Admi',json_encode(Session::get('login')));
         return redirect()->route('configuraciones');
     }

@@ -13,15 +13,15 @@
             <img src="{{asset('Imagen/'.$perfil->foto)}}" class="circular--square" alt="..." width="160" height="160">
         </div>
         <div class="col-md-8">
-            <h4 class="dp-inline">{{$perfil->nombre_usuario}}</h4> <a class="btn btn-light"> Enviar mensaje</a>
+            <h4 class="dp-inline">{{$perfil->nombre_usuario}}</h4> <button class="btn btn-primary"> Seguir</button>
             <ul class="col-md-8">
                 <li class="liul"><span><span>{{$perfil->usuario->post->count()}}</span> publicaciones</span></li>
                 <li class="liul"><a tabindex="0"><span title="10">{{$perfil->usuario->seguidores->count()}}</span> seguidores</a></li>
                 <li class="liul"><a tabindex="0"><span>{{$perfil->usuario->seguidos->count()}}</span> seguidos</a></li>
             </ul>
         <h4 class="dp-inline">{{$perfil->nombre}}</h4>
-        <p>{{$perfil->presentacion}}</p>
-        <a >{{$perfil->sitio_web}}</a>
+        <h6 class="col-md-8">{{$perfil->presentacion}}</h6>
+        <h6 class="col-md-8">{{$perfil->sitio_web}}</h6>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
@@ -42,8 +42,28 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <!-- Grid row -->
+                    <div class="gallery">
+                        @php
+                            $c=0;
+                        @endphp
+                        @foreach ($posts as $post) 
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/'.$post->foto)}}"  alt="Responsive image">
+                                @php
+                                    $c++;
+                                @endphp
+                            </div>
+                        @endforeach
+                        @if ($c==0)
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/nohayfoto.jpg')}}"  alt="Responsive image">
+                            </div>
+                        @endif
+                    
+                    </div>
+                    <!-- Grid row -->
+
                 </div>
                 <div id="menu1" class="container tab-pane fade"><br>
                     <h3>Menu 1</h3>

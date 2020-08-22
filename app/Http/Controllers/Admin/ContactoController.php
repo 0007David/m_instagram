@@ -42,7 +42,16 @@ class ContactoController extends Controller
             'telefono' => 'Es necesario colocar un numero de telefono o celular'
         ]);
         $contacto=Contacto::findid(request()->id);
-        $contacto->update($data);
+        $resp=$contacto->update($data);
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha actualizado el Contacto Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar el Contacto.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('GET','Editar Contacto Admi',json_encode(Session::get('login')));
         return redirect()->route('contactos');
     }

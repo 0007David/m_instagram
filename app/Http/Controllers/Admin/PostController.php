@@ -45,7 +45,16 @@ class PostController extends Controller
             'estado' => 'Es necesario que tenga un estado'
         ]);
         $post=Post::findid(request()->id);
-        $post->update($data);
+        $resp=$post->update($data);
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha actualizado el Post Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar el Post.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Editar Post Admi',json_encode(Session::get('login')));
         return redirect()->route('postsynotifs');
     }
@@ -54,7 +63,16 @@ class PostController extends Controller
     {
         $post=Post::findid($request->id);
         $post->estado=$request->estado;
-        $post->save();
+        $resp=$post->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha eliminado el Post Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de eliminar el Post.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Eliminar Post Admi',json_encode(Session::get('login')));
         return redirect()->route('postsynotifs');
     }
