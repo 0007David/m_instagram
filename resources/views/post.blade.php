@@ -21,10 +21,12 @@
 
             <ul class="col-md-8">
                 <li class="liul"><span><span>{{$datos['cantidad_posts']}}</span> publicaciones</span></li>
-                <li class="liul"><a href="#" tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
-                <li class="liul"><a href="#" tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
+                <li class="liul"><a  tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
+                <li class="liul"><a  tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
             </ul>
             <h4 class="dp-inline">{{$datos['nombre']}}</h4>
+            <h6 class="col-md-8">{{$perfil->presentacion}}</h6>
+            <h6 class="col-md-8">{{$perfil->sitio_web}}</h6>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->

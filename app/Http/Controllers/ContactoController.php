@@ -31,7 +31,16 @@ class ContactoController extends Controller
         $contacto=new Contacto();
         $contacto->telefono=$request->telefono;
         $contacto->id_usuario=$usuario['usuario_id'];
-        $contacto->save();
+        $resp=$contacto->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha creado Contacto Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de crear tu Contacto.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Crear Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('home');   
     }
@@ -88,7 +97,16 @@ class ContactoController extends Controller
     {   
     
         $contacto=Contacto::findid(request()->id);
-        $contacto->delete();
+        $resp=$contacto->delete();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha eliminado tu Contacto Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de eliminar tu Contacto.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Eliminar Contacto Usuario',json_encode(Session::get('login')));
         return redirect()->route('contacto');
     }

@@ -28,7 +28,17 @@ class ConfiguracionController extends Controller
         $configuracion = Configuracion::find($usuario['usuario_id']);
         $configuracion->notificaciones = $request->notificaciones;
         $configuracion->tema_fondo = $request->tema_fondo;
-        $configuracion->save();
+        $resp=$configuracion->save();
+
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se a actualizado tu Configuracion Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar tu Configuracion.';
+            Session::put('msj', $message);
+        }
 
         // Actualizamos las Configuraciones del Usuario Logueado
         $usuario['notificaciones'] = $request->notificaciones;

@@ -78,7 +78,16 @@ class UserController extends Controller
         $user->update($dataUser);
         
         $perfil = Perfil::find(request()->id);
-        $perfil->update($data);
+        $resp=$perfil->update($data);
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha actualizado el Perfil Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de actualizar el Perfil.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Editar Usuario Admi',json_encode(Session::get('login')));
         return redirect()->route('usuarios');
     }
@@ -87,7 +96,16 @@ class UserController extends Controller
     {
         $usuario=User::find($request->id);
         $usuario->estado=$request->estado;
-        $usuario->save();
+        $resp=$usuario->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se ha baneado correctamente el usuario.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de banear el Usuario.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Eliminar Usuario Admi',json_encode(Session::get('login')));
         return redirect()->route('usuarios',$usuario->id_usuario);
     }

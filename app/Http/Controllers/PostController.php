@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Notificacion;
 use App\Seguidor;
 use App\Post;
-use App\User;
+use App\Perfil;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -27,13 +27,13 @@ class PostController extends Controller
             'cantidad_seguidos'=>Seguidor::ContadorSeguidos($usuario['usuario_id']),
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
         );
-
+        $perfil = Perfil::find($usuario['usuario_id']);
         $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
             ->where('estado','=','t')
             ->orderByDesc('id')
             ->get();
         LogController::storeLog('GET','Vista Post Usuario',json_encode(Session::get('login')));    
-        return view('post')->with(compact('datos','posts'));
+        return view('post')->with(compact('datos','posts','perfil'));
     }
 
     public function insertPost(Request $request){
@@ -82,7 +82,16 @@ class PostController extends Controller
     {
         $post=Post::findid($request->id);
         $post->estado=$request->estado;
-        $post->save();
+        $resp=$post->save();
+        //-- Mensje
+        $message=array();
+        if($resp){
+            $message['mensaje'] = 'Se a eliminado tu Post Correctamente.';
+            Session::put('msj', $message);
+        }else{
+            $message['mensaje'] = 'Ha ocurrido un error a la hora de eliminar tu Post.';
+            Session::put('msj', $message);
+        }
         LogController::storeLog('POST','Eliminar Post Usuario',json_encode(Session::get('login')));   
         return redirect()->route('post');
     }

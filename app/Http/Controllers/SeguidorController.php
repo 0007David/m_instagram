@@ -6,6 +6,7 @@ use App\Perfil;
 use App\Seguidor;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,15 @@ class SeguidorController extends Controller
 {
     public function index($name)
     {   
+        $usuario = Session::get('login');
         $perfil = Perfil::findByUserName($name);
+        
+        $posts = Post::where('id_usuario', '=', $perfil->id_usuario)
+            ->where('estado','=','t')
+            ->orderByDesc('id')
+            ->get();
         LogController::storeLog('GET','Vista Seguidor Usuario',json_encode(Session::get('login')));
-        return view('seguido')->with(compact('perfil'));
+        return view('seguido')->with(compact('perfil','posts'));
     }
 
     public function getSeguidores($idUsuario)
