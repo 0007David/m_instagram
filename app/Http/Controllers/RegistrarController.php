@@ -33,6 +33,7 @@ class RegistrarController extends Controller
         $configuracion->notificaciones = 't'; 
         $configuracion->tema_fondo = 'white'; 
         $configuracion->id_usuario=$user->id;
+        $configuracion->save();
 
         $datos = array(
             'usuario_id' => $user->id,

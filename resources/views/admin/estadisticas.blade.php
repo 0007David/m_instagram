@@ -16,8 +16,8 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2 class="dp-inline">Administracion Usuarios</h2>
-            <h5>Estadisticas y Reportes Personales </h5>
+            <h2 class="dp-inline">Estadisticas y Reportes</h2>
+            <h5 class="col-md-12">Estadisticas y Reportes Personales </h5>
             <select id="reporte_selected" class="form-control col-md-4 offset-1 dp-inline">
                 <option value="">Seleccione </option>
                 <option value="post">Post publicados</option>

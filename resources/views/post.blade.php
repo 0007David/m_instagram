@@ -32,10 +32,10 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#menu1">Publicar</a>
+                    <a class="nav-link active" data-toggle="tab" href="#menu2">Publicaciones </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu2">Publicaciones </a>
+                    <a class="nav-link" data-toggle="tab" href="#menu1">Publicar</a>
                 </li>
             </ul>
 
@@ -45,7 +45,7 @@
                     <h3>HOME</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
-                <div id="menu1" class="container tab-pane active"><br>
+                <div id="menu1" class="container tab-pane fade"><br>
 
                     <h3>Post </h3>
                     <form id="form-InsertPostUsuario" method='POST' action="{{url('insertPost')}}" enctype="multipart/form-data">
@@ -66,7 +66,7 @@
                         </div>
                     </form>
                 </div>
-                <div id="menu2" class="container tab-pane fade"><br>
+                <div id="menu2" class="container tab-pane active"><br>
                     <table class="table table-hover">
                         <thead>
                             <tr>

@@ -36,7 +36,7 @@
                     <td>{{$contacto->telefono}}</td>
                     <td>{{$contacto->usuario}}</td>
                     <td>
-                        <button class="btn btn-danger">Eliminar</button>
+                       
                         <a href="{{ route('contactos.show',$contacto->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>

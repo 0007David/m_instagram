@@ -28,7 +28,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#esta1">Seguidores</a>
+                    <a class="nav-link active" data-toggle="tab" href="#esta1">Estadisticas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#esta2">Reportes</a>

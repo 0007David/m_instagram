@@ -46,7 +46,6 @@
 				}
 			}
 		@endphp
-		<!-- {{ Session::get('login')['usuario_email']}}  -->
 		<div class="alert alert-warning alert-block">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			Contador: <strong id="counter">{{$counter}}</strong>

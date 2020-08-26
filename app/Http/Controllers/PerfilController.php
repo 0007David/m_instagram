@@ -26,12 +26,12 @@ class PerfilController extends Controller
             'cantidad_posts'=>Post::ContadorPosts($usuario['usuario_id'])
         );
         $perfil = Perfil::find($usuario['usuario_id']);
-        $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
-            ->where('estado','=','t')
-            ->orderByDesc('id')
-            ->get();
+        // $posts = Post::where('id_usuario', '=', $usuario['usuario_id'])
+        //     ->where('estado','=','t')
+        //     ->orderByDesc('id')
+        //     ->get();
         LogController::storeLog('GET','Vista Perfil Usuario',json_encode(Session::get('login')));   
-        return view('perfil')->with(compact('datos','posts','perfil'));
+        return view('perfil')->with(compact('datos','perfil'));
     }
     public function edit()
     { 

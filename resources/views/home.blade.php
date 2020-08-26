@@ -55,7 +55,7 @@
                     <div class="col-md-12 mt-2">
                         <strong><a id="likes_count" class="link-sin-hover" title="ver mas">{{$post->likes_count}}</a> Me gusta</strong>
                         <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
-                        <strong><a href="{{url('comentarios')}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
+                        <strong><a  href="{{route('comentario',$post->id)}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
                         @isset($post->first_comentario)
 
                         <p class="mb-0"><strong>{{ $post->first_comentario->nombre_usuario }}: </strong> {{ $post->first_comentario->descripcion }}</p>

@@ -47,12 +47,23 @@
                                         
                     <!-- Grid row -->
                     <div class="gallery">
+                        @php
+                            $posts=$perfil->usuario->post->where('estado','=','t')->sortByDesc('id');;
+                            $c=0;
+                        @endphp
                         @foreach ($posts as $post) 
                             <div>
                                 <img class="img-fluid img-thumbnail" src="{{asset('imagen/'.$post->foto)}}"  alt="Responsive image">
+                                @php
+                                    $c++;
+                                @endphp
                             </div>
                         @endforeach
-                       
+                        @if ($c==0)
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/nohayfoto.jpg')}}"  alt="Responsive image">
+                            </div>
+                        @endif
                     
                     </div>
                     <!-- Grid row -->

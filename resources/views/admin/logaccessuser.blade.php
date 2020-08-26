@@ -76,9 +76,9 @@
                         <tbody>
                             
                             @foreach($objs as $key => $obj)
-                                @php
+                                <?php
                                     $user = $obj['user'];
-                                @endphp
+                                ?>
                                 @if($obj['view'] != 'Historial Usuario')
                                 <tr>
                                     <th scope="row">{{$key+1}}</th>

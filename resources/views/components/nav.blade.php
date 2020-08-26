@@ -53,7 +53,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('estadistaca') }}" title="Estadisticas">
+                <a class="nav-link" href="{{ url('estadistica') }}" title="Estadisticas">
                     <i class="fa fa-dashboard fa-1x"></i>
                 </a>
             </li>

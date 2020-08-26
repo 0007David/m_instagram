@@ -21,7 +21,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/', 'LoginController@index')->name('login');
     Route::post('login', 'LoginController@autenticar');
     Route::get('/logout', 'LoginController@logout')->name('logout');
-    Route::post('/register', 'RegistrationController@register');
+    Route::post('registrar', 'RegistrarController@crear')->name('registrar');
+    Route::get('registrar', 'RegistrarController@index')->name('registrar');
     Route::get('home', 'HomeController@index')->name('home');
 
     Route::get('buscar', 'HomeController@search')->name('buscar');
@@ -32,7 +33,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('insertPost', 'PostController@insertPost')->name('insertPost');
     Route::post('post','PostController@eliminar')->name('post.eliminar');
     //ESTADISTICAS
-    Route::get('estadistaca', 'EstadisticaController@index')->name('estadistaca');
+    Route::get('estadistica', 'EstadisticaController@index')->name('estadistica');
     Route::get('generoSeguidor/{id}', 'EstadisticaController@estadisticaGeneroSeguidores');
 
     //COMENTARIOS
@@ -57,8 +58,6 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post('update', 'PerfilController@update')->name('update');
     Route::post('updatePass', 'PerfilController@updatePass')->name('updatePass');
-    Route::post('registrar', 'RegistrarController@crear')->name('registrar');
-    Route::get('registrar', 'RegistrarController@index')->name('registrar');
     Route::get('editConfiguracion', 'ConfiguracionController@edit')->name('editConfiguracion');
     Route::post('updateConfiguracion', 'ConfiguracionController@update')->name('updateConfiguracion');
     Route::post('updateFoto', 'PerfilController@updateFoto')->name('updateFoto');
