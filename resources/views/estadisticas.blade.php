@@ -10,8 +10,11 @@
 <div class="container">
     <div class="row mt-5 pt-5 text-center">
         <div class="col-md-4">
-            <!-- <i class="fa fa-user-circle fa-6x"></i>user -->
+            @if( isset($user->perfil->foto) && !empty($user->perfil->foto))
             <img src="{{asset('Imagen/'.$user->perfil->foto)}}" class="circular--square" alt="..." width="160" height="160">
+            @else
+            <i class="fa fa-user-circle fa-6x"></i>
+            @endif
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">{{$user->perfil->nombre_usuario}}</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>

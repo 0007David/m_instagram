@@ -38,6 +38,16 @@
     font-size: 1.5em;
 }
 
+.hide {
+    display: none;
+}
+.show {
+    display: inline-block;
+}
+.error {
+    color:#b51818;
+}
+
 .drop-down-left {
     min-width: 30rem;
     left: -1080%;

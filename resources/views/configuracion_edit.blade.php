@@ -5,11 +5,6 @@
 @section('content')
 
 
-
-<!-- {{ Session::get('login')['usuario_email']}}  -->
-<!-- <div>
-    <?= var_dump(Session::get('login')) ?>
-</div> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
@@ -49,20 +44,29 @@
             
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Tema Fondo</label>
-                                <select data-rule="required" name="tema_fondo" class="form-control">
+                                <select id="select_thema" data-rule="required" name="tema_fondo" class="form-control">
                                     <option value="">Seleccione</option>
+                                    @if (trim($configuracion->tema_fondo)=='light')
+                                    <option value="dark" >Dark</option>
+                                    <option value="light" selected>Light</option>
+                                    <option value="white" >White</option>
+                                    <option value="gray" >Gray</option>
+                                    @endif
                                     @if (trim($configuracion->tema_fondo)=='dark')
                                     <option value="dark" selected>Dark</option>
+                                    <option value="light">Light</option>
                                     <option value="white" >White</option>
                                     <option value="gray" >Gray</option>
                                     @endif
                                     @if (trim($configuracion->tema_fondo)=='white')
                                     <option value="dark" >Dark</option>
+                                    <option value="light">Light</option>
                                     <option value="white" selected>White</option>
                                     <option value="gray" >Gray</option>
                                     @endif
                                     @if (trim($configuracion->tema_fondo)=='gray')
                                     <option value="dark" >Dark</option>
+                                    <option value="light">Light</option>
                                     <option value="white" >White</option>
                                     <option value="gray" selected>Gray</option>
                                     @endif
@@ -71,11 +75,6 @@
                                 <input type="hidden" name="id" value="{{$configuracion->id}}">
                             
                             </div>
-
-
-
-
-
                             <div class="form-group text-center">
                                 <button class="btn btn-light">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Enviar</button>
@@ -87,5 +86,10 @@
         </div>
     </div>
 </div>
-
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
+@endsection
+@section('script')
+<script src="{{asset('assets/js/configuracion.js') }}"></script>
 @endsection

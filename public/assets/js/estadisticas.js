@@ -118,7 +118,7 @@ $(document).ready((evt) => {
         data: stackedBarChartData,
         options: stackedBarChartOptions
     });
-
+   
     //Reportes de Usuario
     $('#reporte_selected').change((evt) => {
         let target = $(evt.target);

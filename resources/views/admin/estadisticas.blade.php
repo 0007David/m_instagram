@@ -18,9 +18,9 @@
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
             <h5>Estadisticas y Reportes Personales </h5>
-            <select id="reporte_selected" class="form-control col-md-4 offset-1 dp-inline">
+            <select id="reporte_selected" class="form-control col-md-4 offset-1 hide">
                 <option value="">Seleccione </option>
-                <option value="post">Post publicados</option>
+                <option value="posts">Post publicados</option>
                 <option value="seguidores">Sus seguidores</option>
                 <option value="seguidos">A los que sigue</option>
 
@@ -37,10 +37,10 @@
         <div class="col-md-12">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
+                <li id="btn_grafica" class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#esta1">Graficos Estadisticos</a>
                 </li>
-                <li class="nav-item">
+                <li id="btn_reporte" class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#esta2">Reportes</a>
                 </li>
             </ul>
@@ -88,43 +88,21 @@
                 </div>
                 <div id="esta2" class="container tab-pane fade"><br>
                     <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Nombre Usuario</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Genero</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
+                        <thead id="tabla_head">
                         </thead>
-                        <tbody>
-
-                            <tr>
-                                <th scope="row">$key</th>
-
-                                <td>$user->nombre</td>
-                                <td>$user->nombre_usuario</td>
-                                <td>$user->email</td>
-                                <td>$user->genero</td>
-                                <td>
-                                    <button class="btn btn-danger">Eliminar</button>
-                                    <button class="btn btn-warning">Editar</button>
-                                </td>
-                            </tr>
-
+                        <tbody id="tabla_body">
                         </tbody>
                     </table>
                     <!-- DONUT CHART -->
-                    <div class="card card-danger">
+                    <!-- <div class="card card-danger">
                         <div class="card-header">
                             <h3 class="card-title">Donut Chart</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                         </div>
-                        <!-- /.card-body -->
-                    </div>
+                        
+                    </div> -->
                     <!-- /.card -->
                 </div>
             </div>

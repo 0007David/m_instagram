@@ -15,7 +15,7 @@
 		<div class="fadeIn first">
 			<h4>GRUPO 12-SA</h4>
 			<p>Registrate para ver fotos y contenidos de tus amigos</p>
-			<img src="Imagen/mini.png" width="30" height="30" id="icon" alt="User Icon" />
+			<img src="{{asset('Imagen/mini.png')}}" width="30" height="30" id="icon" alt="User Icon" />
 		</div>
 		
 		
@@ -52,12 +52,12 @@
 		</form>
 		<!-- Remind Passowrd -->
 		<div id="formFooter">
-		<p >¿No tienes una cuenta? <a href="{{url('registrar')}}" tabindex="0"><span>Regístrate</span></a></p>
+		<p >¿No tienes una cuenta? <a href="{{route('registrar')}}" tabindex="0"><span>Regístrate</span></a></p>
 		</div>
 
 	</div>
 </div>
-@endsection
 <script>
 	let contadorVistas = @json($contadorVistas ?? '');
 </script>
+@endsection

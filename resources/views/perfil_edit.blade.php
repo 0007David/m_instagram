@@ -5,11 +5,6 @@
 @section('content')
 
 
-
-<!-- {{ Session::get('login')['usuario_email']}}  -->
-<!-- <div>
-    <?= var_dump(Session::get('login')) ?>
-</div> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
@@ -41,7 +36,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Email" data-rule="required|email|maxlength-56" value="{{$user->email}}">
+                            <input type="email" class="form-control" id="email_user" name="email" placeholder="Email" data-rule="required|email|maxlength-56" value="{{$user->email}}">
                             </div>
 
                             <div class="form-group">
@@ -51,7 +46,7 @@
 
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Nombre Usuario</label>
-                                <input type="text" class="form-control" name="nombre_usuario" data-rule="required|name|maxlength-120" placeholder="Nombre Usuario" value="{{$perfil->nombre_usuario}}">
+                                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" data-rule="required|maxlength-120" placeholder="Nombre Usuario" value="{{$perfil->nombre_usuario}}">
                             </div>
 
                             <div class="form-group">
@@ -73,8 +68,12 @@
                                     <option value="f" >Femenino</option>
                                     @endif
                                     @if ($perfil->genero=='f')
-                                    <option value="f" selected>Femenino</option>
                                     <option value="m" >Masculino</option>
+                                    <option value="f" selected>Femenino</option>
+                                    @endif
+                                    @if(!isset($perfil->genero))
+                                    <option value="m">Masculino</option>
+                                    <option value="f" >Femenino</option>
                                     @endif
                                 </select>
                                 <!--<input type="text" class="form-control" name="genero" placeholder="Genero" value="{{$user->genero}}"> -->

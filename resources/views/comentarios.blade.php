@@ -14,7 +14,12 @@
         <div class="col-md-6 pl-0 pr-0">
             <!-- img-thumbnail  -->
             <!--"http://lorempixel.com/400/550/sports/"-->
-            <img class="card-img-top" src="{{asset('imagen/'.$post->foto)}}" width="100%" alt="...">
+            <!-- <img class="card-img-top" src="{{asset('imagen/'.$post->foto)}}" width="100%" alt="..."> -->
+            @if( strpos($post->foto, 'http://') !== false)
+            <img src="{{$post->foto}}" class="card-img-top" alt="...">
+            @else
+            <img src="{{asset('imagen/' .$post->foto)}}" class="card-img-top" alt="...">
+            @endif
         </div>
         <div class="col-md-6">
             <div class="row card-header">
@@ -30,11 +35,15 @@
                 </div>
 
             </div>
-            <div class="card-body">
+            <div class="card-body seguidor-nav">
                 @foreach ($post->comentario as $comentario)
                 <div class="row">
                     <div class="col-md-3">
+                        @if( isset($comentario->usuario->perfil->foto) && !empty($comentario->usuario->perfil->foto))
+                        <img src="{{asset('imagen/'.$comentario->usuario->perfil->foto)}}" class="circular--square" alt="..." width="45" height="45">
+                        @else
                         <i class="fa fa-user-circle fa-2x"></i>
+                        @endif
                     </div>
                     <div class="col-md-8">
                     <strong>{{$comentario->usuario->perfil->nombre_usuario}}</strong>
@@ -49,7 +58,8 @@
                 </div>
                 @endforeach
             </div>
-            <div class="card-food row" style="position: absolute; bottom: 0px;">
+            <!-- style="position: absolute; bottom: 0px;" -->
+            <div class="card-food row" >
 
                 <div class="col-md-6">
                     <a>
@@ -78,7 +88,7 @@
                 <div class="col-md-3">
                     <button type="button" class="btn btn-outline-primary mt-2">Publicar</button>
                 </div> --}}
-                <form id="form-ComentarioUsuario" class="row" method='POST' action="{{ url('comentarios')}}">
+                <form id="form-ComentarioUsuario" class="col-md-12" style="display: flex;" method='POST' action="{{ url('comentarios')}}">
                     {{ method_field('POST') }}
                     {{ csrf_field() }}
                     <div class="col-md-9">
@@ -91,11 +101,12 @@
                         <button type="submit" class="btn btn-outline-primary mt-2">Publicar</button>
                     </div>
                     </form>
-                <!-- <input type="text" placeholder="Añade un comentario"> -->
             </div>
         </div>
     </div>
     <br><br>
 </div>
-
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
 @endsection

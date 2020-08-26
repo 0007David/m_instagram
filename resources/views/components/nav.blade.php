@@ -69,6 +69,21 @@
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
+            @if (Session::get('login')['rol']=='1')
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-users fa-1x"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ url('admin/usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/configuraciones') }}"><span> <i class="fa fa-cogs"> Admi-Config</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/contactos') }}"><span> <i class="fa fa-address-book-o"> Admi-Contactos</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/estadisticas') }}"><span> <i class="fa fa-bar-chart"> Admi-Est. y Rep.</i></span> </a>
+                    <a class="dropdown-item" href="{{ url('admin/accesslog') }}"><span> <i class="fa fa-unlock-alt"> Log Access</i></span> </a> 
+                </div>
+            </li>
+            @endif
             <!-- style="right: -60%;" -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,22 +101,7 @@
                     </form>
                 </div>
             </li>
-            @if (Session::get('login')['rol']=='1')
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-users fa-1x"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('admin/usuarios') }}"><span> <i class="fa fa-users"> Admi-Usuarios</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/configuraciones') }}"><span> <i class="fa fa-users"> Admi-Config</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/contactos') }}"><span> <i class="fa fa-users"> Admi-Contactos</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/postsynotifs') }}"><span> <i class="fa fa-users"> Admi-Posts</i></span> </a>
-                    <!-- <a class="dropdown-item" href="{{ url('admin/reporteusuarios') }}"><span> <i class="fa fa-users"> Admi-Reportes</i></span> </a>  -->
-                    <a class="dropdown-item" href="{{ url('admin/estadisticas') }}"><span> <i class="fa fa-users"> Admi-Est. y Rep.</i></span> </a>
-                    <a class="dropdown-item" href="{{ url('admin/accesslog') }}"><span> <i class="fa fa-users"> Log Access</i></span> </a> 
-                </div>
-            </li>
-            @endif
+            
             <!-- </div> -->
         </ul>
 

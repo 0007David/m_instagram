@@ -1,6 +1,8 @@
 
 console.log('validacion.js')
 
+
+
 // Validacion del Formulario de Login
 if (document.querySelector('#form-login')) {
     new Validator(document.querySelector('#form-login'), function (err, res) {
@@ -9,11 +11,53 @@ if (document.querySelector('#form-login')) {
     });
 
 }
+
+
 // Validacion de Form Register form-register
 if (document.querySelector('#form-register')) {
+    //Valido Nombre Usuario
+    $('#nombre_usuario').change((evt)=>{
+        let target = $(evt.target),
+            value = target.val();
+            $('#unique_user').remove();
+        if(value.length > 4){
+            fetch(base_url + '/buscarby/nombre_usuario/' + value).then((response) => response.json()
+            ).then( (myJson) =>{
+                // console.log(myJson)
+                $('#unique_user').remove();
+                console.log('typeof', myJson.answer)
+                if( myJson.answer !== null){
+                    $('#nombre_usuario').after(`<div id="unique_user" class="error">Nombre de usuario no disponible.</div>`);
+                }
+            }).catch((response) => console.log('respuesta error', response));
+        }
+    })
+    // email
+    $('#email_user').change((evt)=>{
+        let target = $(evt.target),
+            value = target.val();
+            console.log('event change')
+        if(value.length > 4){
+            fetch(base_url + '/buscarby/email/' + value).then((response) => response.json()
+            ).then( (myJson) =>{
+                // console.log(myJson)
+                console.log('typeof', myJson.answer)
+                if( myJson.answer !== null){
+                    $('#email_user').after(`<div id="unique_email" class="error">Email ya usado en otro usuario.</div>`);
+                }else{
+                    $('#unique_email').remove();
+                }
+            }).catch((response) => console.log('respuesta error', response));
+        }
+    })
     new Validator(document.querySelector('#form-register'), function (err, res) {
-        console.log('validator: ', err, res);
-        return res;
+        let salida = res;
+        console.log('Len: ',$('#unique_email').length, $('#unique_user').length)
+        if($('#unique_email').length > 0 && $('#unique_user').length > 0){
+            salida = false;   
+        }
+        console.log('salida: ', err, salida); 
+        return salida;
     });
 
 }
@@ -28,9 +72,49 @@ if (document.querySelector('#form-InsertPostUsuario')) {
 }
 // Validacion de Form PerfilEditUsuario form-PerfilEditUsuario
 if (document.querySelector('#form-PerfilEditUsuario')) {
-    new Validator(document.querySelector('#form-PerfilEditUsuario'), function (err, res) {
-        console.log('validator: ', err, res);
-        return res;
+    //Valido Nombre Usuario
+    $('#nombre_usuario').change((evt)=>{
+        let target = $(evt.target),
+            value = target.val();
+            $('#unique_user').remove();
+        if(value.length > 4 && value !== loginData.nombre_usuario ){
+            fetch(base_url + '/buscarby/nombre_usuario/' + value).then((response) => response.json()
+            ).then( (myJson) =>{
+                $('#unique_user').remove();
+                console.log('typeof', myJson.answer)
+                if( myJson.answer !== null){
+                    $('#nombre_usuario').after(`<div id="unique_user" class="error">Nombre de usuario no disponible.</div>`);
+                }
+            }).catch((response) => console.log('respuesta error', response));
+        }
+    });
+    // email
+    $('#email_user').change((evt)=>{
+        let target = $(evt.target),
+            value = target.val();
+            console.log('event change')
+        if(value.length > 4){
+            fetch(base_url + '/buscarby/email/' + value).then((response) => response.json()
+            ).then( (myJson) =>{
+                // console.log(myJson)
+                console.log('typeof', myJson.answer)
+                if( myJson.answer !== null){
+                    $('#email_user').after(`<div id="unique_email" class="error">Email ya usado en otro usuario.</div>`);
+                }else{
+                    $('#unique_email').remove();
+                }
+            }).catch((response) => console.log('respuesta error', response));
+        }
+    })
+
+    new Validator(document.querySelector('#form-PerfilEditUsuario'), function (err, res) { 
+        let salida = res;
+        console.log('Len: ',$('#unique_user').length)
+        if($('#unique_user').length > 0 && $('#unique_email').length > 0){
+            salida = false;   
+        }
+        console.log('salida: ', err, salida); 
+        return salida;
     });
 
 }

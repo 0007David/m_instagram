@@ -110,5 +110,7 @@
     </div>
     <br><br>
 </div>
-
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
 @endsection

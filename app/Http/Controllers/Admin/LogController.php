@@ -25,10 +25,11 @@ class LogController extends Controller
         $arrayLines = $this->getDatos($contents);
         $len = count($arrayLines);
         $objs = $this->getObjetos($arrayLines);
-        $user = $objs[0]['user'];
-        // dd(array('perfil' => $perfil, 'file' => $contents, 'arr' => $this->getDatos($contents), 'obj'=>$this->getObjetos($arrayLines) ));
+        $objsAccessFails = $this->getAccessFallidos();
+        // $user = $objs[0]['user'];
+        // dd(array('perfil' => $perfil, 'file' => $contents, 'arr' => $this->getAccessFallidos(), 'obj'=>$this->getObjetos($arrayLines) ));
 
-        return view('admin.logaccessuser')->with(compact('perfil', 'arrayLines', 'len','objs'));
+        return view('admin.logaccessuser')->with(compact('perfil', 'arrayLines', 'len','objs', 'objsAccessFails'));
     }
 
     public function getDatos($contents)
@@ -37,7 +38,7 @@ class LogController extends Controller
         $separator = "\r\n";
         $line = strtok($contents, $separator);
         while ($line !== false) {
-            $lines[] = $line . "<br>";
+            $lines[] = $line ;
             $line = strtok($separator);
         }
         return $lines;
@@ -70,4 +71,33 @@ class LogController extends Controller
 
         
     }
+
+    public function getAccessFallidos(){
+        $contents = File::get(storage_path('app\\FailUsersAccess.log'));
+        $datosArray = $this->getDatos($contents);
+        $salida = array();
+        foreach($datosArray as $line){
+            //date
+            $posIni = strpos($line,'date[')+5;
+            $posFin = strpos($line,']');
+            $date = substr($line,$posIni,$posFin-$posIni);
+
+            // view[ ] -
+            $posIni = strpos($line,'view[')+5;
+            $posFin = strpos($line,'] -');
+            $view = substr($line,$posIni,$posFin-$posIni);
+
+            // user[
+            $posIni = strpos($line,'user[')+5;
+            $posFin = strpos($line,'}]')+1;
+            $usuario = substr($line,$posIni,$posFin-$posIni);
+            $salida[] = array(
+                'fecha' => $date,
+                'view' => $view,
+                'user' => json_decode($usuario),
+            );
+        }
+        return $salida;
+    }
+
 }

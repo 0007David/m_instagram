@@ -7,16 +7,10 @@
 @endsection
 
 @section('content')
-
-<!-- {{ Session::get('login')['usuario_email']}}  -->
-<!-- <div>
-    <?= var_dump(Session::get('login')) ?>
-</div> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-5">
-
 
     <div class="row">
         <div class="col-md-12">
@@ -52,14 +46,13 @@
                         </div>
                         <div class="card-body">
                             <div id="summernote">
-                            @for ($i = 0; $i < $len; $i++)
-                                <p>{{ $arrayLines[$i] }}</p>
-                            @endfor
-                            
+                                @for ($i = 0; $i < $len; $i++) <p>{{ $arrayLines[$i] }}</p>
+                                    @endfor
+
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div id="esta2" class="container tab-pane fade"><br>
                     <table class="table table-hover">
@@ -74,21 +67,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @foreach($objs as $key => $obj)
-                                @php
-                                    $user = $obj['user'];
-                                @endphp
-                                @if($obj['view'] != 'Historial Usuario')
-                                <tr>
-                                    <th scope="row">{{$key+1}}</th>
-                                    <td>{{$obj['fecha']}}</td>
-                                    <td>{{$obj['view'] }}</td>
-                                    <td>{{$user->nombre_usuario}}</td>
-                                    <td>{{$user->user_agent}}</td>
-                                    <td>{{$user->ip_address}}</td>
-                                </tr>
-                                @endif
+                            @php
+                            $user = $obj['user'];
+                            @endphp
+                            @if($obj['view'] != 'Historial Usuario')
+                            <tr>
+                                <th scope="row">{{$key+1}}</th>
+                                <td>{{$obj['fecha']}}</td>
+                                <td>{{$obj['view'] }}</td>
+                                <td>{{$user->nombre_usuario}}</td>
+                                <td>{{$user->user_agent}}</td>
+                                <td>{{$user->ip_address}}</td>
+                            </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -129,28 +122,31 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Nombre Usuario</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Genero</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Nro</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Mensaje</th>
+                                <th scope="col">email</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">User Agent</th>
+                                <th scope="col">Ip</th>
                             </tr>
                         </thead>
                         <tbody>
 
+                        @foreach($objsAccessFails as $key => $obj)
+                            @php
+                            $user = $obj['user'];
+                            @endphp
                             <tr>
-                                <th scope="row">$key</th>
-
-                                <td>$user->nombre</td>
-                                <td>$user->nombre_usuario</td>
-                                <td>$user->email</td>
-                                <td>$user->genero</td>
-                                <td>
-                                    <button class="btn btn-danger">Eliminar</button>
-                                    <button class="btn btn-warning">Editar</button>
-                                </td>
+                                <th scope="row">{{$key+1}}</th>
+                                <td>{{$obj['fecha']}}</td>
+                                <td>{{$obj['view'] }}</td>
+                                <td>{{$user->usuario_email}}</td>
+                                <td>{{$user->password}}</td>
+                                <td>{{$user->user_agent}}</td>
+                                <td>{{$user->ip_address}}</td>
                             </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
@@ -161,8 +157,13 @@
     </div>
     <br><br>
 </div>
+
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
+
 @endsection
 @section('script')
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
- <script src="{{asset('assets/js/logaccess.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="{{asset('assets/js/logaccess.js') }}"></script>
 @endsection

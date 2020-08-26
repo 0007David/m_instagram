@@ -34,9 +34,24 @@ class HomeController extends Controller
         $query = $request->q; $amigos = array();
         if(isset($query)){
             $query = strtolower($query);
-            $amigos = Perfil::where('nombre_usuario','like','%'.$request->q.'%')->get();
+            $amigos = Perfil::where('nombre_usuario','like','%'.$request->q.'%')->where('id_usuario','!=', $request->usuarioId)->get();
         }
         LogController::storeLog('POST','Search Usuario',json_encode(Session::get('login')));
         return response()->json(array('answer'=>$amigos,'count'=>count($amigos)));
+    }
+
+    public function searchByAttr($attr, $query)
+    {   
+        // dd($query);
+        $amigo = array();
+        if(isset($query) && isset($attr) ){
+            if($attr == 'email'){
+                $amigo = User::where($attr,'=',$query)->first();
+            }else{
+                $amigo = Perfil::where($attr,'=',$query)->first();
+
+            }
+        }
+        return response()->json(array('exito'=> true,'answer'=>$amigo));
     }
 }
