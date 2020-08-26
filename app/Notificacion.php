@@ -29,4 +29,5 @@ class Notificacion extends Model
         return DB::table('post')
         ->max('id');
     }
+    
 }

@@ -1,29 +1,28 @@
 
 $(document).ready((evt) => {
     console.log('main js')
+    if(typeof loginData !== 'undefined'){
+        definirThema(loginData.tema_fondo);
+    }
     contadorView();
     // MediaQuery
     $(window).resize(function () {
-        if ($(window).width() < 992) {
-            console.log('main: $(window).width()', $(window).width());
-            $('#nav-div').removeClass('container');
-        }
+        // if ($(window).width() < 992) {
+        //     console.log('main: $(window).width()', $(window).width());
+        //     $('#nav-div').removeClass('container');
+        // }
     });
     // Funcion que contara las vistas
     function contadorView() {
         let counter = parseInt($('#counter').text());
         let current_url = location.href;
         let view = current_url.substring(base_url.length + 1, current_url.length );
-        if( view == ''){
-            view = 'login';
-        }
-        // console.log('main', base_url, current_url);
-    
+      
         let data = {
             vista: view,
             counter: counter
         }
-        // console.log('post data: ',data)
+        console.log('post data: ',data)
         fetch('/counterViews', {
             method: 'POST',
             headers: {
@@ -35,11 +34,11 @@ $(document).ready((evt) => {
             body: JSON.stringify(data)
         }).then((response) => response.json())
             .then(function (myJson) {
-                if(myJson.exito){
-                    
-                    // $('#counter').text(myJson.counter)
-                    console.log(myJson);
-                }
+                
+                console.log(myJson);
+                // if(myJson.exito){
+                //     // $('#counter').text(myJson.counter)
+                // }
         }).catch((err)=> console.log('respuesta error',err,err.message));
         
     }
@@ -53,8 +52,8 @@ $(document).ready((evt) => {
         new autoComplete({
             data: {                              // Data src [Array, Function, Async] | (REQUIRED)
                 src: async () => {
-                    const query = document.querySelector("#autoComplete").value;
-                    const source = await fetch(base_url + '/buscar?q=' + query);
+                    const query = document.querySelector("#autoComplete").value.toLowerCase();
+                    const source = await fetch(base_url + '/buscar?q=' + query+'&usuarioId='+loginData.usuario_id);
                     const data = await source.json();
                     return data.answer;
                 },
@@ -64,7 +63,7 @@ $(document).ready((evt) => {
             trigger: {
                 event: ["input", "focusin", "focusout"]
             },
-            placeHolder: "Buscar Amigo",     // Place Holder text                 | (Optional)
+            placeHolder: "Buscar Amigos",     // Place Holder text                 | (Optional)
             selector: "#autoComplete",           // Input field selector              | (Optional)
             threshold: 1,                        // Min. Chars length to start Engine | (Optional)
             debounce: 300,                       // Post duration for engine to start | (Optional)
@@ -75,7 +74,7 @@ $(document).ready((evt) => {
                    "autoComplete" to handle the result */
                 container: source => {
                     source.setAttribute("id", "autoComplete_list");
-                    source.setAttribute("style", "position: absolute; width: 14.5rem;");
+                    source.setAttribute("style", "position: absolute; width: 15.8rem;");
                     // console.log('source: ', source)
                 },
                 // destination: document.querySelector("#autoComplete"),
@@ -88,12 +87,18 @@ $(document).ready((evt) => {
                 content: (data, source) => {
                     source.innerHTML = data.match;
                     let perfil = data.value;
-                    let nombre = perfil.nombre;
+                    let nombre = perfil.nombre, img = '';
                     data.index = perfil.id;
                     source.setAttribute('data-id', perfil.id);
+                    console.log(perfil)
+                    if(perfil.foto == "" || perfil.foto == null){
+                        img = `<i class="fa fa-user-circle fa-2x"></i>`;
+                    }else{
+                        img = `<img src="${base_url}/imagen/${perfil.foto}" class="circular--square" alt="..." width="48" height="48">`;
+                    }
                     source.className += " row";
                     source.innerHTML = `<div class="col-md-3 p-0">
-                                                <img src="${base_url}/imagen/${perfil.foto}" class="circular--square" alt="..." width="48" height="48">
+                                                ${img}
                                             </div>
                                             <div class="col-md-9" style="padding: 0px 0px 0px 5px;">
                                                 ${data.match}
@@ -107,7 +112,7 @@ $(document).ready((evt) => {
                 const result = document.createElement("li");
                 result.setAttribute("class", "autoComplete_result");
                 result.setAttribute("tabindex", "1");
-                result.setAttribute("style", "position: absolute; width: 14.5rem;")
+                result.setAttribute("style", "position: absolute; width: 15.5rem;")
                 result.innerHTML = "No Results";
                 document.querySelector("#autoComplete_list").appendChild(result);
             },
@@ -225,7 +230,7 @@ $(document).ready((evt) => {
             $('#list_seguir').empty();
             if (myJson.count > 0) {
                 myJson.seguidores.forEach((seguidor) => {
-                    let boton;
+                    let boton, img = '';
                     var result='Comenzar a seguir';
                     // console.log(seguidor)
                     if(seguidor.loEstoySiguiendo){
@@ -289,15 +294,22 @@ $(document).ready((evt) => {
                             }
                         }
                     }
+                    console.log('s: ',seguidor, typeof seguidor.foto, 'len:',seguidor.foto.length)
                     if (seguidor.loEstoySiguiendo) {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="modalDejarDeSeguir" class="btn btn-outline-secondary">Siguiendo</button>`;
                     } else {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="btn-seguir-usuario" class="btn btn-primary">Seguir</button>`;
                     }
+                    if( seguidor.foto !=="" ){
+                        img =`<img src="${base_url}/Imagen/${seguidor.foto}" class="circular--square" alt="..." width="33" height="33"></img>`;
+                    }else{
+                        img =`<i class="fa fa-user-circle fa-2x"></i>`;
+                    }
+
                     
                     $('#list_seguir').append(`<div class="row bc-white">
                                         <div class="col-md-1">
-                                            <img src="${base_url}/Imagen/${seguidor.foto}" class="circular--square" alt="..." width="33" height="33">
+                                            ${img}
                                         </div>
                                         <div class="col-md-7">
                                             <h6>${seguidor.nombre_usuario}</h6>
@@ -346,6 +358,35 @@ $(document).ready((evt) => {
         seguirODejarSeguir(data);
 
     });
+    $('#btn-seguir-usuario').click( (evt) => {
+        let target = $(evt.target);
+        let data = {
+            usuario_id: loginData.usuario_id,
+            usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
+            seguir: true
+        }
+        seguirODejarSeguir(data);
+        target.attr('id', 'btnDejarSeguirUsuario');
+        target.text("Siguiendo");
+        target.removeClass('btn-primary');
+        target.addClass('btn-secondary');
+    });
+    $('#btnDejarSeguirUsuario').click( (evt) => {
+        let target = $(evt.target);
+        let data = {
+            usuario_id: loginData.usuario_id,
+            usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
+            seguir: false
+        }
+        seguirODejarSeguir(data);
+        target.attr('id', 'btn-seguir-usuario');
+        target.text("Seguir");
+        target.removeClass('btn-secondary');
+        target.addClass('btn-primary');
+    });
+
+
+
     $('#sugerencia_list').on('click', '#btnSeguir', (evt) => {
         let target = $(evt.target);
         let data = {
@@ -353,7 +394,7 @@ $(document).ready((evt) => {
             usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
             seguir: true
         }
-        // console.log(data);
+        console.log(data);
         seguirODejarSeguir(data);
         target.attr('id','btnDejarSeguir');
         target.text("Siguiendo");
@@ -367,7 +408,7 @@ $(document).ready((evt) => {
             usuario_seg_id: target.data('seguirid'), //id de usuario a seguir
             seguir: false
         }
-        // console.log(data);
+        console.log(data);
         seguirODejarSeguir(data);
         // id="btnSeguir" class="btn btn-primary"
         target.attr('id', 'btnSeguir');
@@ -467,6 +508,52 @@ $(document).ready((evt) => {
     
             });
 
+    }
+
+    function definirThema(thema){
+        switch (thema) {
+            case 'light':
+                $("body").removeClass();
+                $("body").addClass('container bg-light');
+                //navbar navbar-expand-lg navbar-light fixed-top bg-light nav-border
+                $("nav").removeClass();
+                $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-light bg-light');
+                //navbar fixed-bottom nav-border bg-light
+                $("foot").removeClass();
+                $("foot").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-light bg-light');
+                break;
+            case 'white':
+                $("body").removeClass();
+                $("body").addClass('container bg-white text-dark');
+                //navbar navbar-expand-lg navbar-white fixed-top bg-white nav-border
+                $("nav").removeClass();
+                $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-white bg-white text-dark');
+                //navbar fixed-bottom nav-border bg-white
+                $("footer").removeClass();
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-white bg-white text-dark');
+                break;
+            case 'dark':
+                $("body").removeClass();
+                $("body").addClass('container bg-dark text-white');
+                //navbar navbar-expand-lg navbar-dark fixed-top bg-dark nav-border
+                $("nav").removeClass();
+                $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-dark bg-dark text-white');
+                //navbar fixed-bottom nav-border bg-dark
+                $("footer").removeClass();
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-dark bg-dark text-white');
+                break;
+            default:
+                //gray
+                $("body").removeClass();
+                $("body").addClass('container bg-secondary');
+                //navbar navbar-expand-lg navbar-secondary fixed-top bg-secondary nav-border
+                $("nav").removeClass();
+                $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-secondary bg-secondary');
+                //navbar fixed-bottom nav-border bg-secondary
+                $("footer").removeClass();
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-secondary bg-secondary');
+                break;
+        }
     }
     
 });

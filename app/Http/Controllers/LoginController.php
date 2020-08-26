@@ -48,6 +48,7 @@ class LoginController extends Controller
                 'ip_address'=>$this->getRealIP() // trae de $_SERVER['REMOTE_ADDR'];
             );
             Session::put('login', $datos);
+            
             LogController::storeLog('POST','Autenticado Login Usuario',json_encode($datos));
             return redirect()->route('home');
         }else{

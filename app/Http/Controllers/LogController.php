@@ -52,6 +52,6 @@ class LogController extends Controller
             Session::put('count_view', $views);
         }
         
-        return response()->json(array('exito'=>true,'views'=>$views, 'counter'=>$views[$ruta]));
+        return response()->json(array('exito'=>true,'views'=>$views));
     }
 }

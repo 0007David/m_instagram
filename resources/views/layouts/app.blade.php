@@ -9,17 +9,35 @@
 	<title>@yield('title','Mini Instagram')</title>
 
 	@yield('class-login')
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-	<link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- <link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" /> -->
 	<link rel="icon" type="image/png" href="{{asset('images/icons/ig-logo-email.png')}}" />
 	<link href="{{asset('assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<link rel="stylesheet" href="{{asset('assets/css/autoComplete.css')}}">
-	<link href="{{asset('assets/css/style.css') }}" rel="stylesheet" />
-
+	<link href="{{asset('assets/css/style.css?v=0.01') }}" rel="stylesheet" />
 </head>
 
-<body>
+@if( !is_null( Session::get('login') ))
+	@php
+		$thema = Session::get('login')['tema_fondo'];
+	@endphp
+	@switch($thema)
+		@case('light')
+		<body class="container bg-light">
+		@break
+		@case('white')
+		<body class="container bg-white text-dark">
+		@break
+		@case('dark')
+		<body class="container bg-dark text-white">
+		@break
+		@default
+		<body class="container bg-secondary">
+	@endswitch
+@else
+<body class="">
+@endif
 	@yield('content')
 
 
@@ -30,17 +48,18 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
 	<script type="text/javascript" src="{{asset('assets/js/js-form-validator.js') }}"></script>
-	<script type="text/javascript" src="{{asset('assets/js/validaciones.js') }}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/validaciones.js?v=0.01') }}"></script>
 
 	@if(!is_null( Session::get('login') ))
 	<script>
 		let loginData = @json(Session::get('login'));
+		// console.log(loginData);
 	</script>
 	@endif
 	<script>
 		const base_url = {!!json_encode(url('/')) !!};
 	</script>
-	<script src="{{asset('assets/js/main.js') }}"></script>
+	<script src="{{asset('assets/js/main.js?v=0.01') }}"></script>
 	@if(Session::has('msj'))
 	<script>
 		let mensaje = @json(Session::get('msj'));

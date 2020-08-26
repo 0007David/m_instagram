@@ -106,6 +106,9 @@ class Post extends Model
 
     public function getFotoAttribute($value)
     {
+        //http://lorempixel.com/400/450/sports/
+        if(  empty($value) || trim($value) == "")
+            return "http://lorempixel.com/400/450/sports/";
         return trim($value);
     }
 

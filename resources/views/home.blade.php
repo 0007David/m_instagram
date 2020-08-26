@@ -27,7 +27,11 @@
                     </div>
 
                 </div>
-                <img src="imagen/{{$post->foto}}" class="card-img-top" alt="...">
+                @if( strpos($post->foto, 'http://') !== false)
+                <img src="{{$post->foto}}" class="card-img-top" alt="...">
+                @else
+                <img src="{{asset('imagen/' .$post->foto)}}" class="card-img-top" alt="...">
+                @endif
                 <div class="card-body row pb-0">
                     <div class="col-md-6">
                         <a>
@@ -55,7 +59,8 @@
                     <div class="col-md-12 mt-2">
                         <strong><a id="likes_count" class="link-sin-hover" title="ver mas">{{$post->likes_count}}</a> Me gusta</strong>
                         <p class="mb-1"><strong>{{$post->user->perfil->nombre_usuario}}: </strong> {{$post->descripcion}}</p>
-                        <strong><a  href="{{route('comentario',$post->id)}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
+                        <strong><a href="{{route('comentario',$post->id)}}" class="link-sin-hover">Ver los {{$post->comentario_count}} comentarios</a></strong>
+
                         @isset($post->first_comentario)
 
                         <p class="mb-0"><strong>{{ $post->first_comentario->nombre_usuario }}: </strong> {{ $post->first_comentario->descripcion }}</p>
@@ -100,7 +105,11 @@
 
                 <div class="row card-header m-0">
                     <div class="col-md-3">
-                        <img src="imagen/{{$usuario['foto']}}" class="circular--square" alt="..." width="65" height="65">
+                        @if( isset($usuario['foto']) && !empty($usuario['foto']))
+                        <img src="{{asset('imagen/'.$usuario['foto'])}}" class="circular--square" alt="..." width="65" height="65">
+                        @else
+                        <i class="fa fa-user-circle fa-4x"></i>
+                        @endif
                     </div>
                     <div class="col-md-9">
                         <h6>{{$usuario['nombre_usuario'] ?? ''}}</h6>
@@ -131,14 +140,14 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     @endforeach
-
-                    <!-- <div class="col-md-12"></div> -->
-
-                    <p style="color:#CFCAC9" ; class="card-text">Información·Ayuda·Prensa·API·Empleo·Privacidad·Condiciones·Ubicaciones·Cuentas
+                </div>
+                <div class="card-footer">
+                    <!-- #2b2524 #CFCAC9-->
+                    <p style="color:#2b2524" ; class="card-text">Información·Ayuda·Prensa·API·Empleo·Privacidad·Condiciones·Ubicaciones·Cuentas
                         destacadas·Hashtags·Idioma
                         Español (Bolivia)
                     </p>
-                    <p style="color:#CFCAC9" ; class="card-text">
+                    <p style="color:#2b2524" ; class="card-text">
                         © 2020 MINI-INSTAGRAM FROM GRUPO12SA</p>
                 </div>
             </div>
@@ -146,8 +155,11 @@
     </div>
 
 </div>
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
 
 @endsection
 @section('script')
-<script src="{{asset('assets/js/home.js') }}"></script>
+<script src="{{asset('assets/js/home.js?v=0.01') }}"></script>
 @endsection

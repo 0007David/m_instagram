@@ -31,7 +31,7 @@ class RegistrarController extends Controller
 
         $configuracion = new Configuracion();
         $configuracion->notificaciones = 't'; 
-        $configuracion->tema_fondo = 'white'; 
+        $configuracion->tema_fondo = 'light'; 
         $configuracion->id_usuario=$user->id;
         $configuracion->save();
 
@@ -40,6 +40,7 @@ class RegistrarController extends Controller
             'usuario_email' => $user->email,
             'usuario_estado' => $user->estado,
             'nombre_usuario'=> $perfil->nombre_usuario,
+            'rol' =>$user->rol,
             'nombre' => $perfil->nombre
         );
         Session::put('login', $datos);

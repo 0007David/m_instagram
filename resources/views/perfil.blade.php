@@ -14,7 +14,12 @@
 <div class="container">
     <div class="row mt-5 pt-5">
         <div class="col-md-3">
+            @if( isset($datos['foto']) && !empty($datos['foto']))
             <img src="imagen/{{$datos['foto']}}" class="circular--square" alt="..." width="160" height="160">
+            @else
+            <i class="fa fa-user-circle fa-6x"></i>
+            @endif
+
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4> <a href="{{ url('edit') }}" class="btn btn-light"> Editar Perfil</a>
@@ -23,9 +28,9 @@
                 <li class="liul"><a tabindex="0"><span title="10">{{$datos['cantidad_seguidores']}}</span> seguidores</a></li>
                 <li class="liul"><a tabindex="0"><span>{{$datos['cantidad_seguidos']}}</span> seguidos</a></li>
             </ul>
-        <h4 class="dp-inline">{{$datos['nombre']}}</h4>
-        <h6 class="col-md-8">{{$perfil->presentacion}}</h6>
-        <h6 class="col-md-8">{{$perfil->sitio_web}}</h6>
+            <h4 class="dp-inline">{{$datos['nombre']}}</h4>
+            <h6 class="col-md-8">{{$perfil->presentacion}}</h6>
+            <h6 class="col-md-8"><a href="{{$perfil->sitio_web}}" target="_blank" rel="noopener noreferrer">{{$perfil->sitio_web}}</a></h6>
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
@@ -44,20 +49,26 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                                        
+
                     <!-- Grid row -->
                     <div class="gallery">
                         @php
                             $posts=$perfil->usuario->post->where('estado','=','t')->sortByDesc('id');;
                             $c=0;
                         @endphp
-                        @foreach ($posts as $post) 
+                        @foreach ($posts as $post)
+                            @php
+                                $c++;
+                            @endphp
+                            @if( strpos($post->foto, 'http://') !== false)
                             <div>
-                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/'.$post->foto)}}"  alt="Responsive image">
-                                @php
-                                    $c++;
-                                @endphp
+                                <img class="img-fluid img-thumbnail" src="{{$post->foto}}"  alt="Responsive image">
                             </div>
+                            @else
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{asset('imagen/'.$post->foto)}}" alt="Responsive image">
+                            </div>
+                            @endif  
                         @endforeach
                         @if ($c==0)
                             <div>
@@ -65,22 +76,25 @@
                             </div>
                         @endif
                     
+
                     </div>
                     <!-- Grid row -->
 
                 </div>
                 <div id="menu1" class="container tab-pane fade"><br>
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <h3>Lo siento!</h3>
+                    <p>Esta vista esta en proceso de desarrollo.</p>
                 </div>
                 <div id="menu2" class="container tab-pane fade"><br>
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    <h3>Lo siento!</h3>
+                    <p>Esta vista esta en proceso de desarrollo.</p>
                 </div>
             </div>
         </div>
     </div>
     <br><br>
 </div>
-
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
 @endsection

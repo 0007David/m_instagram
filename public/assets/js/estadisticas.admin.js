@@ -2,6 +2,150 @@
 $(document).ready((evt) => {
     console.log('estadistica admin');
 
+    $('#btn_reporte').click((evt)=>{
+        console.log('click reporte');
+        $('#reporte_selected').removeClass('hide');
+        $('#reporte_selected').addClass('show');
+        console.log('len: ',$('#tabla_body > tr').length); //$(tabla).find('tbody tr').length
+        if( $('#tabla_body > tr').length == 0){
+            //Primara vez traemos 
+            let idUsuario = $('#user_selected').val() == "" ?  loginData.usuario_id:$('#user_selected').val();
+            let tipoReporte = $('#reporte_selected').val() == "" ? 'posts':$('#reporte_selected').val() ;
+            console.log('Reporte de: ', idUsuario, tipoReporte);
+            console.log('url', base_url + '/admin/reporteusuarios/' +idUsuario+'/'+ tipoReporte);
+            fetch(base_url + '/admin/reporteusuarios/' +idUsuario+'/'+ tipoReporte).then((response) => response.json()
+        ).then(function (myJson) {
+            let dataReporte; let header_tabla;
+            console.log(myJson)
+            if (myJson.count > 0) {
+                switch (tipoReporte) {
+                    case 'posts':
+                        dataReporte = myJson.posts;
+                        console.log(Object.keys(dataReporte[0]))
+                        header_tabla = ['#','Foto','Descripcion','Fecha']
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">${header_tabla[0]}</th>
+                                <th scope="col">${header_tabla[1]}</th>
+                                <th scope="col">${header_tabla[2]}</th>
+                                <th scope="col">${header_tabla[3]}</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, post]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td>${post.descripcion}</td>
+                                    <td>${post.fecha}</td>
+                                </tr>`);
+                        });
+                        break;
+                }
+            } else {
+                $('#tabla_body').empty();
+            }
+        }).catch(function (response) {
+            console.log('respuesta error', response)
+        });
+
+        }
+        
+        
+    })
+    
+    $('#btn_grafica').click((evt)=>{
+        console.log('click reporte');
+        $('#reporte_selected').removeClass('show');
+        $('#reporte_selected').addClass('hide');
+        
+    });
+
+    $('#reporte_selected').change((evt) => {
+
+        let target = $(evt.target);
+        let usuarioId = $('#user_selected').val() == "" ? loginData.usuario_id:$('#user_selected').val() ; // Uso para Reporte y Estadistica
+        let typeReporte = target.val() == "" ?  'posts' : target.val(); // Solo para reporte
+        console.log('reporte_selected: ', typeReporte,usuarioId )
+        //Fetch que trae los datos del Reporte
+        fetch(base_url + '/admin/reporteusuarios/'+usuarioId+'/' + typeReporte).then((response) => response.json()
+        ).then(function (myJson) {
+            let dataReporte; let header_tabla;
+            if (myJson.count > 0) {
+                switch (typeReporte) {
+                    case 'posts':
+                        dataReporte = myJson.posts;
+                        console.log(Object.keys(dataReporte[0]))
+                        header_tabla = ['#','Foto','Descripcion','Fecha']
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">${header_tabla[0]}</th>
+                                <th scope="col">${header_tabla[1]}</th>
+                                <th scope="col">${header_tabla[2]}</th>
+                                <th scope="col">${header_tabla[3]}</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, post]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td>${post.descripcion}</td>
+                                    <td>${post.fecha}</td>
+                                </tr>`);
+                        });
+                        break;
+                    case 'seguidores':
+                        dataReporte = myJson.seguidores;
+                        // console.log(Object.keys(dataReporte[0]))
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Fecha</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, seguidor]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${seguidor.foto}" width="40" height="40"></td>
+                                    <td>${seguidor.nombre}</td>
+                                    <td>${seguidor.nombre_usuario}</td>
+                                    <td>${seguidor.fecha_hora}</td>
+                                </tr>`);
+                        });
+                        break;
+                    case 'seguidos':
+                        dataReporte = myJson.seguidos;
+                        // console.log(Object.keys(dataReporte[0]))
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Fecha</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, seguido]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${seguido.foto}" width="40" height="40"></td>
+                                    <td>${seguido.nombre}</td>
+                                    <td>${seguido.nombre_usuario}</td>
+                                    <td>${seguido.fecha_hora}</td>
+                                </tr>`);
+                        });
+                        break;
+                }
+            } else {
+                $('#tabla_body').empty();
+            }
+        }).catch(function (response) {
+            console.log('respuesta error', response)
+        });
+    });
+
     /* ChartJS
      * -------
      * Here we will create a few charts using ChartJS
@@ -51,23 +195,34 @@ $(document).ready((evt) => {
     //- DONUT CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-    let donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-    let donutData = {
-        labels: [
-            'Chrome',
-            'IE',
-            'FireFox',
-            'Safari',
-            'Opera',
-            'Navigator',
-        ],
-        datasets: [
-            {
-                data: [700, 500, 400, 600, 300, 100],
-                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }
-        ]
-    }
+    //let donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+    // let donutData = {
+    //     labels: [
+    //         'Chrome',
+    //         'IE',
+    //         'FireFox',
+    //         'Safari',
+    //         'Opera',
+    //         'Navigator',
+    //     ],
+    //     datasets: [
+    //         {
+    //             data: [700, 500, 400, 600, 300, 100],
+    //             backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+    //         }
+    //     ]
+    // }
+    // let donutOptions = {
+    //     maintainAspectRatio: false,
+    //     responsive: true,
+    // }
+    // //Create pie or douhnut chart
+    // // You can switch between pie and douhnut using the method below.
+    // let donutChart = new Chart(donutChartCanvas, {
+    //     type: 'doughnut',
+    //     data: donutData,
+    //     options: donutOptions
+    // })
     // POST
     let donutDataGenero = {
         labels: dataSetPieChart.parametros,
@@ -78,18 +233,6 @@ $(document).ready((evt) => {
             }
         ]
     }
-
-    let donutOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    let donutChart = new Chart(donutChartCanvas, {
-        type: 'doughnut',
-        data: donutData,
-        options: donutOptions
-    })
 
     //-------------
     //- PIE CHART -
@@ -156,9 +299,91 @@ $(document).ready((evt) => {
     })
     //Actualizamos la Grafica
     $('#user_selected').change((evt) => {
+
         let target = $(evt.target);
-        let usuarioId = target.val();
-        console.log('target', target, target.val());
+        let usuarioId = target.val() == "" ?  loginData.usuario_id : target.val(); // Uso para Reporte y Estadistica
+        let typeReporte = $('#reporte_selected').val() == "" ? 'posts':$('#reporte_selected').val() ; // Solo para reporte
+
+        //Fetch que trae los datos del Reporte
+        fetch(base_url + '/admin/reporteusuarios/'+usuarioId+'/' + typeReporte).then((response) => response.json()
+        ).then(function (myJson) {
+            let dataReporte; let header_tabla;
+            if (myJson.count > 0) {
+                switch (typeReporte) {
+                    case 'posts':
+                        dataReporte = myJson.posts;
+                        console.log(Object.keys(dataReporte[0]))
+                        header_tabla = ['#','Foto','Descripcion','Fecha']
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">${header_tabla[0]}</th>
+                                <th scope="col">${header_tabla[1]}</th>
+                                <th scope="col">${header_tabla[2]}</th>
+                                <th scope="col">${header_tabla[3]}</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, post]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td>${post.descripcion}</td>
+                                    <td>${post.fecha}</td>
+                                </tr>`);
+                        });
+                        break;
+                    case 'seguidores':
+                        dataReporte = myJson.seguidores;
+                        // console.log(Object.keys(dataReporte[0]))
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Fecha</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, seguidor]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${seguidor.foto}" width="40" height="40"></td>
+                                    <td>${seguidor.nombre}</td>
+                                    <td>${seguidor.nombre_usuario}</td>
+                                    <td>${seguidor.fecha_hora}</td>
+                                </tr>`);
+                        });
+                        break;
+                    case 'seguidos':
+                        dataReporte = myJson.seguidos;
+                        // console.log(Object.keys(dataReporte[0]))
+                        $('#tabla_head').empty();
+                        $('#tabla_head').append(`<tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Fecha</th>
+                            </tr>`);
+                        $('#tabla_body').empty();
+                        Object.entries(dataReporte).forEach(([key, seguido]) => {
+                            $('#tabla_body').append(`<tr>
+                                    <td>${parseInt(key) + 1}</td>
+                                    <td><img src="${base_url}/Imagen/${seguido.foto}" width="40" height="40"></td>
+                                    <td>${seguido.nombre}</td>
+                                    <td>${seguido.nombre_usuario}</td>
+                                    <td>${seguido.fecha_hora}</td>
+                                </tr>`);
+                        });
+                        break;
+                }
+            } else {
+                $('#tabla_body').empty();
+            }
+        }).catch(function (response) {
+            console.log('respuesta error', response)
+        });
+
+        //Fetch que trae datos para la grafica;
         fetch(base_url + '/generoSeguidor/' + usuarioId).then((response) => response.json()
         ).then(function (myJson) {
             console.log(myJson);
@@ -256,8 +481,9 @@ $(document).ready((evt) => {
 
         }).catch(function (response) {
             console.log('respuesta error', response)
-
         });
+        //Fetch que trae datos para la grafica;
+
 
     })
     function addData(chart, label, data) {

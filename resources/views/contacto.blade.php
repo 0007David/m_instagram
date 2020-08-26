@@ -56,6 +56,9 @@
     </div>
     <br><br>
 </div>
+<!-- Fotter -->
+<x-foot />
+<!-- Footer -->
 @endsection
 @section('script')
     <script src="{{asset('assets/js/contacto.js') }}"></script>
