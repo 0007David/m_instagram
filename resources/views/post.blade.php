@@ -14,7 +14,11 @@
 <div class="container">
     <div class="row mt-5 pt-5">
         <div class="col-md-3">
+            @if( isset($datos['foto']) && !empty($datos['foto']))
             <img src="imagen/{{$datos['foto']}}" class="circular--square" alt="..." width="160" height="160">
+            @else
+            <i class="fa fa-user-circle fa-6x"></i>
+            @endif
         </div>
         <div class="col-md-8">
             <h4 class="dp-inline">{{$datos['nombre_usuario']}}</h4>
@@ -83,8 +87,12 @@
                             @foreach ($posts as $key => $post)
                             <tr>
                                 <th scope="row">{{$key+1}}</th>
-                                
+                
+                                @if( strpos($post->foto, 'http://') !== false)
+                                <td><img src="{{$post->foto}}"  width="40" height="40"></td>
+                                @else
                                 <td><img src="{{asset('imagen/'.$post->foto)}}" width="40" height="40"></td>
+                                @endif
                                 <td>{{$post->descripcion}}</td>
                                 <td>{{$post->fecha_actualizada}}</td>
                                 <td>{{$post->likes_count}}</td>

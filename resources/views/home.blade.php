@@ -9,17 +9,25 @@
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-4">
     <br><br>
-    <div class="row">
+    <div class="row text-dark">
         <div id="col-posts" class="col-md-6">
             @foreach($posts as $post)
             @if( $post->estado == 't')
             <div class="card">
                 <div class="card-header row bc-white m-0">
                     <div class="col-md-11">
+                    @if($post->user->perfil->nombre_usuario == $usuario['nombre_usuario'])
+                        <a href="{{ url('perfil') }}">
+                            <i class="fa fa-user-circle fa-2x c-gray"></i>
+                            <h5 class="dp-inline c-gray">{{$post->user->perfil->nombre_usuario}}</h5>
+                        </a>
+                        @else
                         <a href="{{ url('user/'.$post->user->perfil->nombre_usuario) }}">
                             <i class="fa fa-user-circle fa-2x c-gray"></i>
                             <h5 class="dp-inline c-gray">{{$post->user->perfil->nombre_usuario}}</h5>
                         </a>
+                        @endif
+                        
                     </div>
 
                     <div class="col-md-1 mt-1">

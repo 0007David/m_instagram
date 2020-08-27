@@ -4,12 +4,13 @@ $(document).ready((evt) => {
     console.log('main js')
     if (typeof loginData !== 'undefined') {
         definirThema(loginData.tema_fondo);
+        notificacionPostSeguidores(timeOut);
     }
 
 
     contadorView();
     // Notificacion de Nuebos Post O Comenzo aseguirme
-    notificacionPostSeguidores(timeOut);
+    
 
     // MediaQuery
     $(window).resize(function () {
@@ -608,44 +609,44 @@ $(document).ready((evt) => {
         switch (thema) {
             case 'light':
                 $("body").removeClass();
-                $("body").addClass('container bg-light');
+                $("body").addClass('container bg-light fuente1');
                 //navbar navbar-expand-lg navbar-light fixed-top bg-light nav-border
                 $("nav").removeClass();
                 $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-light bg-light');
                 //navbar fixed-bottom nav-border bg-light
-                $("foot").removeClass();
-                $("foot").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-light bg-light');
+                $("footer").removeClass();
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-light bg-light newfooter');
                 break;
             case 'white':
                 $("body").removeClass();
-                $("body").addClass('container bg-white text-dark');
+                $("body").addClass('container bg-white text-dark fuente2');
                 //navbar navbar-expand-lg navbar-white fixed-top bg-white nav-border
                 $("nav").removeClass();
                 $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-white bg-white text-dark');
                 //navbar fixed-bottom nav-border bg-white
                 $("footer").removeClass();
-                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-white bg-white text-dark');
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-white bg-white text-dark newfooter');
                 break;
             case 'dark':
                 $("body").removeClass();
-                $("body").addClass('container bg-dark text-white');
+                $("body").addClass('container bg-dark text-white fuente3');
                 //navbar navbar-expand-lg navbar-dark fixed-top bg-dark nav-border
                 $("nav").removeClass();
                 $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-dark bg-dark text-white');
                 //navbar fixed-bottom nav-border bg-dark
                 $("footer").removeClass();
-                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-dark bg-dark text-white');
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-dark bg-dark text-white newfooter');
                 break;
             default:
                 //gray
                 $("body").removeClass();
-                $("body").addClass('container bg-secondary');
+                $("body").addClass('container bg-secondary fuente1');
                 //navbar navbar-expand-lg navbar-secondary fixed-top bg-secondary nav-border
                 $("nav").removeClass();
                 $("nav").addClass('navbar navbar-expand-lg fixed-top nav-border navbar-secondary bg-secondary');
                 //navbar fixed-bottom nav-border bg-secondary
                 $("footer").removeClass();
-                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-secondary bg-secondary');
+                $("footer").addClass('navbar navbar-expand-lg fixed-bottom nav-border navbar-secondary bg-secondary newfooter');
                 break;
         }
     }
