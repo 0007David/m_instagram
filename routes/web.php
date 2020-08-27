@@ -17,6 +17,7 @@ Route::post('login', 'LoginController@autenticar');
 Route::post('registrar', 'RegistrarController@crear')->name('registrar');
 Route::get('registrar', 'RegistrarController@index')->name('registrar');
 Route::get('buscarby/{attr}/{value}', 'HomeController@searchByAttr')->name('buscarby');
+
 Route::middleware(['authmini'])->group(function () {
     Route::get('/', function () { return view('welcome'); });
     Route::get('logout', 'LoginController@logout')->name('logout');
@@ -71,6 +72,9 @@ Route::middleware(['authmini'])->group(function () {
 
     //NOTIFICACIONES
     Route::get('notificaciones', 'NotificacionController@deleteNotificacion')->name('notificaciones');
+    Route::get('notificacionesUser', 'NotificacionController@getNotificaciones')->name('notify');
+    Route::get('notificacionesUserDelete', 'NotificacionController@deleteNotificacionPostSeguidor')->name('notify.delete');
+    
 });
 
 Route::middleware(['authmini','admin'])->prefix('admin')->namespace('Admin')->group(function () {

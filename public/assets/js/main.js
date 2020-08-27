@@ -1,10 +1,16 @@
 
 $(document).ready((evt) => {
+    let timeOut = 30000;
     console.log('main js')
-    if(typeof loginData !== 'undefined'){
+    if (typeof loginData !== 'undefined') {
         definirThema(loginData.tema_fondo);
     }
+
+
     contadorView();
+    // Notificacion de Nuebos Post O Comenzo aseguirme
+    notificacionPostSeguidores(timeOut);
+
     // MediaQuery
     $(window).resize(function () {
         // if ($(window).width() < 992) {
@@ -16,13 +22,13 @@ $(document).ready((evt) => {
     function contadorView() {
         let counter = parseInt($('#counter').text());
         let current_url = location.href;
-        let view = current_url.substring(base_url.length + 1, current_url.length );
-      
+        let view = current_url.substring(base_url.length + 1, current_url.length);
+
         let data = {
             vista: view,
             counter: counter
         }
-        console.log('post data: ',data)
+        console.log('post data: ', data)
         fetch('/counterViews', {
             method: 'POST',
             headers: {
@@ -34,13 +40,97 @@ $(document).ready((evt) => {
             body: JSON.stringify(data)
         }).then((response) => response.json())
             .then(function (myJson) {
-                
+
                 console.log(myJson);
                 // if(myJson.exito){
                 //     // $('#counter').text(myJson.counter)
                 // }
-        }).catch((err)=> console.log('respuesta error',err,err.message));
-        
+            }).catch((err) => console.log('respuesta error', err, err.message));
+
+    }
+    // $('#mainmenu').on('click',
+    $('body').on('click', '.notifyPost', (evt) => {
+        let target = $(evt.target);
+        console.log(target);
+        console.log('notify click');
+    })
+    //function Notificacion
+    function notificacionPostSeguidores(timeOut) {
+
+        if (loginData.notificaciones == 't') {
+            setInterval(function () {
+                fetch(base_url + '/notificacionesUser?usuarioId=' + loginData.usuario_id).then((response) => response.json()
+                ).then(function (myJson) {
+                    // 
+                    let notifyPosts = myJson.notify.noty_posts;
+                    let notifySeguidores = myJson.notify.noty_seguidores;
+                    if (typeof myJson.notify.noty_posts !== 'undefined') {
+                        notifyPosts.forEach((posy) => {
+                            var a = posy.fecha_hora;
+                            var b = a.substr(5, 2) - 1;
+                            var d = new Date(a.substr(0, 4), b, a.substr(8, 2), a.substr(11, 2), a.substr(14, 2), a.substr(17, 2), 0);
+                            var dd = new Date();
+                            var hour = inHours(d, dd);
+                            console.log('hour: ', hour);
+                            console.log('notify: ', posy);
+                            if (hour <= 12 && posy.estado === "t") {
+                                setTimeout(function () {
+                                    Toastify({
+                                        text: posy.descripcion,
+                                        duration: -1,
+                                        // destination: base_url+'/comentario/'+posy.id_post,
+                                        // newWindow: true,
+                                        gravity: "bottom", // `top` or `bottom`
+                                        close: true,
+                                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                        className: "notifyPost",
+                                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                                        onClick: function () {
+                                            //notificacionesUserDelete
+                                            console.log('click link');
+                                            fetch(base_url + '/notificacionesUserDelete?notify_id=' + posy.id).then((response) => response.json()
+                                            ).then(function (myJson) {
+                                                console.log('notify delete: ', myJson);
+                                                window.open(base_url+'/comentario/'+posy.id_post, '_blank');
+                                            });
+                                            // 
+                                
+                                        } // Callback after click
+                                    }).showToast();
+                                }, 10000);
+                            }
+                        });
+                    }
+                    if (typeof myJson.notify.noty_seguidores !== 'undefined') {
+                        notifySeguidores.forEach((seg) => {
+                            if (seg.estado == 't') {
+                                console.log('notify: ', seg);
+                                Toastify({
+                                    text: seg.descripcion,
+                                    duration: -1,
+                                    // destination: base_url + '/user/' + seg.usuario_seguidor,
+                                    // newWindow: true,
+                                    gravity: "bottom", // `top` or `bottom`
+                                    close: true,
+                                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                                    onClick: function () {
+                                        console.log('click link');
+                                        fetch(base_url + '/notificacionesUserDelete?notify_id=' + seg.id).then((response) => response.json()
+                                        ).then(function (myJson) {
+                                            console.log('notify delete: ', myJson);
+                                            window.open(base_url+'/user/'+seg.usuario_seguidor, '_blank');
+                                        });
+                                    } // Callback after click
+                                }).showToast();
+                            }
+                        })
+                    }
+                })
+                    .catch((err) => console.log('respuesta error', err, err.message));
+            }, timeOut);
+
+        }
     }
 
     // autoComplete.js on type event emitter
@@ -53,7 +143,7 @@ $(document).ready((evt) => {
             data: {                              // Data src [Array, Function, Async] | (REQUIRED)
                 src: async () => {
                     const query = document.querySelector("#autoComplete").value.toLowerCase();
-                    const source = await fetch(base_url + '/buscar?q=' + query+'&usuarioId='+loginData.usuario_id);
+                    const source = await fetch(base_url + '/buscar?q=' + query + '&usuarioId=' + loginData.usuario_id);
                     const data = await source.json();
                     return data.answer;
                 },
@@ -91,9 +181,9 @@ $(document).ready((evt) => {
                     data.index = perfil.id;
                     source.setAttribute('data-id', perfil.id);
                     console.log(perfil)
-                    if(perfil.foto == "" || perfil.foto == null){
+                    if (perfil.foto == "" || perfil.foto == null) {
                         img = `<i class="fa fa-user-circle fa-2x"></i>`;
-                    }else{
+                    } else {
                         img = `<img src="${base_url}/imagen/${perfil.foto}" class="circular--square" alt="..." width="48" height="48">`;
                     }
                     source.className += " row";
@@ -178,36 +268,36 @@ $(document).ready((evt) => {
     function inSeconds(d, dd) {
         var t2 = dd.getTime();
         var t1 = d.getTime();
- 
-        return parseInt((t2-t1)/(1000));
+
+        return parseInt((t2 - t1) / (1000));
     }
 
     function inMinutes(d, dd) {
         var t2 = dd.getTime();
         var t1 = d.getTime();
- 
-        return parseInt((t2-t1)/(1000*60));
+
+        return parseInt((t2 - t1) / (1000 * 60));
     }
 
     function inHours(d, dd) {
         var t2 = dd.getTime();
         var t1 = d.getTime();
- 
-        return parseInt((t2-t1)/(1000*60*60));
+
+        return parseInt((t2 - t1) / (1000 * 60 * 60));
     }
 
     function inDays(d, dd) {
         var t2 = dd.getTime();
         var t1 = d.getTime();
- 
-        return parseInt((t2-t1)/(24*3600*1000));
+
+        return parseInt((t2 - t1) / (24 * 3600 * 1000));
     }
 
     function inWeeks(d, dd) {
         var t2 = dd.getTime();
         var t1 = d.getTime();
- 
-        return parseInt((t2-t1)/(24*3600*1000*7));
+
+        return parseInt((t2 - t1) / (24 * 3600 * 1000 * 7));
     }
 
     function inMonths(d, dd) {
@@ -215,98 +305,102 @@ $(document).ready((evt) => {
         var ddY = dd.getFullYear();
         var dM = d.getMonth();
         var ddM = dd.getMonth();
- 
-        return (ddM+12*ddY)-(dM+12*dY);
+
+        return (ddM + 12 * ddY) - (dM + 12 * dY);
     }
 
     function inYears(d, dd) {
-        return dd.getFullYear()-d.getFullYear();
+        return dd.getFullYear() - d.getFullYear();
     }
 
     function traerSeguidores(idUsuario) {
         fetch(base_url + '/getseguidores/' + idUsuario).then((response) => response.json()
         ).then(function (myJson) {
-            // console.log(myJson);
+            console.log(myJson);
             $('#list_seguir').empty();
             if (myJson.count > 0) {
                 myJson.seguidores.forEach((seguidor) => {
                     let boton, img = '';
-                    var result='Comenzar a seguir';
+                    var result = 'Comenzar a seguir';
                     // console.log(seguidor)
-                    if(seguidor.loEstoySiguiendo){
-                        var a=seguidor.fecha_hora;
-                        var b= a.substr(5,2)-1;
-                        var d = new Date(a.substr(0,4),b, a.substr(8,2), a.substr(11,2), a.substr(14,2), a.substr(17,2),0);
-                        var dd = new Date();
-                        var year=inYears(d,dd);
-                        var month=inMonths(d,dd);
-                        var week=inWeeks(d,dd);
-                        var day=inDays(d,dd);
-                        var hour=inHours(d,dd);
-                        var minute=inMinutes(d,dd);
-                        var second=inSeconds(d,dd);
-                        result=0;
-                        if(year==1){
-                            result='hace '+year+' año';
-                        }else{
-                            result='hace '+year+' años';
-                        }
-                        if(second<=59 && second!=0){
-                            if(second==1){
-                                result='hace '+second+' segundo';
-                            }else{
-                                result='hace '+second+' segundos';
-                            }
-                        }
-                        if(minute<=59 && minute!=0){
-                            if(minute==1){
-                                result='hace '+minute+' minuto';
-                            }else{
-                                result='hace '+minute+' minutos';
-                            }
-                        }
-                        if(hour<=23 && hour!=0){
-                            if(hour==1){
-                                result='hace '+hour+' hora';
-                            }else{
-                                result='hace '+hour+' horas';
-                            }
-                        }
-                        if(day<=6 && day!=0){
-                            if(day==1){
-                                result='hace '+day+' dia';
-                            }else{
-                                result='hace '+day+' dias';
-                            }
-                        }
-                        if(week<=3 && week!=0){
-                            if(week==1){
-                                result='hace '+week+' semana';
-                            }else{
-                                result='hace '+week+' semanas';
-                            }
-                        }
-                        if(month<=11 && month!=0){
-                            if(month==1){
-                                result='hace '+month+' mes';
-                            }else{
-                                result='hace '+month+' meses';
-                            }
+
+
+                    var a = seguidor.fecha_hora;
+                    var b = a.substr(5, 2) - 1;
+                    var d = new Date(a.substr(0, 4), b, a.substr(8, 2), a.substr(11, 2), a.substr(14, 2), a.substr(17, 2), 0);
+                    var dd = new Date();
+                    var year = inYears(d, dd);
+                    var month = inMonths(d, dd);
+                    var week = inWeeks(d, dd);
+                    var day = inDays(d, dd);
+                    var hour = inHours(d, dd);
+                    var minute = inMinutes(d, dd);
+                    var second = inSeconds(d, dd);
+                    if (year == 1) {
+                        result = 'hace ' + year + ' año';
+                    } else {
+                        result = 'hace ' + year + ' años';
+                    }
+                    if (second <= 59 && second != 0) {
+                        if (second == 1) {
+                            result = 'hace ' + second + ' segundo';
+                        } else {
+                            result = 'hace ' + second + ' segundos';
                         }
                     }
-                    console.log('s: ',seguidor, typeof seguidor.foto, 'len:',seguidor.foto.length)
+                    if (minute <= 59 && minute != 0) {
+                        if (minute == 1) {
+                            result = 'hace ' + minute + ' minuto';
+                        } else {
+                            result = 'hace ' + minute + ' minutos';
+                        }
+                    }
+                    if (hour <= 23 && hour != 0) {
+                        if (hour == 1) {
+                            result = 'hace ' + hour + ' hora';
+                        } else {
+                            result = 'hace ' + hour + ' horas';
+                        }
+                    }
+                    if (day <= 6 && day != 0) {
+                        if (day == 1) {
+                            result = 'hace ' + day + ' dia';
+                        } else {
+                            result = 'hace ' + day + ' dias';
+                        }
+                    }
+                    if (week <= 3 && week != 0) {
+                        if (week == 1) {
+                            result = 'hace ' + week + ' semana';
+                        } else {
+                            result = 'hace ' + week + ' semanas';
+                        }
+                    }
+                    if (month <= 11 && month != 0) {
+                        if (month == 1) {
+                            result = 'hace ' + month + ' mes';
+                        } else {
+                            result = 'hace ' + month + ' meses';
+                        }
+                    }
+                    if (seguidor.loEstoySiguiendo) {
+                        result = "Le estas siguiendo desde " + result;
+                    } else {
+                        result = "Te comenzo a seguir " + result;
+                    }
+                    // console.log('s: ',seguidor, typeof seguidor.foto, 'len:',seguidor.foto.length)
                     if (seguidor.loEstoySiguiendo) {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="modalDejarDeSeguir" class="btn btn-outline-secondary">Siguiendo</button>`;
                     } else {
                         boton = `<button data-seguirid="${seguidor.usuario_id}" id="btn-seguir-usuario" class="btn btn-primary">Seguir</button>`;
                     }
-                    if( seguidor.foto !=="" ){
-                        img =`<img src="${base_url}/Imagen/${seguidor.foto}" class="circular--square" alt="..." width="33" height="33"></img>`;
-                    }else{
-                        img =`<i class="fa fa-user-circle fa-2x"></i>`;
+                    if (seguidor.foto !== "") {
+                        img = `<img src="${base_url}/Imagen/${seguidor.foto}" class="circular--square" alt="..." width="33" height="33"></img>`;
+                    } else {
+                        img = `<i class="fa fa-user-circle fa-2x"></i>`;
                     }
 
-                    
+
                     $('#list_seguir').append(`<div class="row bc-white">
                                         <div class="col-md-1">
                                             ${img}
@@ -358,7 +452,7 @@ $(document).ready((evt) => {
         seguirODejarSeguir(data);
 
     });
-    $('#btn-seguir-usuario').click( (evt) => {
+    $('#btn-seguir-usuario').click((evt) => {
         let target = $(evt.target);
         let data = {
             usuario_id: loginData.usuario_id,
@@ -371,7 +465,7 @@ $(document).ready((evt) => {
         target.removeClass('btn-primary');
         target.addClass('btn-secondary');
     });
-    $('#btnDejarSeguirUsuario').click( (evt) => {
+    $('#btnDejarSeguirUsuario').click((evt) => {
         let target = $(evt.target);
         let data = {
             usuario_id: loginData.usuario_id,
@@ -396,7 +490,7 @@ $(document).ready((evt) => {
         }
         console.log(data);
         seguirODejarSeguir(data);
-        target.attr('id','btnDejarSeguir');
+        target.attr('id', 'btnDejarSeguir');
         target.text("Siguiendo");
         target.removeClass('btn-primary');
         target.addClass('btn-secondary');
@@ -476,7 +570,7 @@ $(document).ready((evt) => {
             .then(function (myJson) {
                 console.log(myJson);
                 if (myJson.exito) {
-                    if(loginData.notificaciones == 't'){
+                    if (loginData.notificaciones == 't') {
                         console.log('entro');
                         if (!myJson.seguir) {
                             console.log('entro1');
@@ -505,12 +599,12 @@ $(document).ready((evt) => {
                 }
             }).catch(function (response) {
                 console.log('respuesta error', response)
-    
+
             });
 
     }
 
-    function definirThema(thema){
+    function definirThema(thema) {
         switch (thema) {
             case 'light':
                 $("body").removeClass();
@@ -555,5 +649,5 @@ $(document).ready((evt) => {
                 break;
         }
     }
-    
+
 });

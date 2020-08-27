@@ -18,8 +18,14 @@ class Notificacion extends Model
     
     public function post()
     {
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo('App\Post','id_post','id');
     }
+
+    public function seguidor()
+    {
+        return $this->belongsTo('App\Seguidor','id_seguidor','id');
+    }
+
     public static function findid($id)
     {
         return static::where('id',compact('id'))->first();

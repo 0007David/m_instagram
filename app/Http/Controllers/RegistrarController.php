@@ -35,13 +35,22 @@ class RegistrarController extends Controller
         $configuracion->id_usuario=$user->id;
         $configuracion->save();
 
+        $ip = LoginController::getRealIP() == "127.0.0.1" ? "161.22.208.246": LoginController::getRealIP();
+        $location = LoginController::ip_info($ip);
+
         $datos = array(
             'usuario_id' => $user->id,
             'usuario_email' => $user->email,
             'usuario_estado' => $user->estado,
             'nombre_usuario'=> $perfil->nombre_usuario,
-            'rol' =>$user->rol,
-            'nombre' => $perfil->nombre
+            'nombre' => $perfil->nombre,
+            'foto' => $perfil->foto,
+            'rol' => $user->rol,
+            'notificaciones' => $configuracion->notificaciones,
+            'tema_fondo' => $configuracion->tema_fondo,
+            'user_agent'=>$request->server('HTTP_USER_AGENT'),
+            'ip_address'=>$ip, // trae de $_SERVER['REMOTE_ADDR'];
+            'location' => $location
         );
         Session::put('login', $datos);
         LogController::storeLog('POST','Registrar Usuario',json_encode(Session::get('login')));

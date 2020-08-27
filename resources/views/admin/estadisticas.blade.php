@@ -93,17 +93,6 @@
                         <tbody id="tabla_body">
                         </tbody>
                     </table>
-                    <!-- DONUT CHART -->
-                    <!-- <div class="card card-danger">
-                        <div class="card-header">
-                            <h3 class="card-title">Donut Chart</h3>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
-                        
-                    </div> -->
-                    <!-- /.card -->
                 </div>
             </div>
         </div>

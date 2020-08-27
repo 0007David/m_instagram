@@ -26,6 +26,11 @@ class Seguidor extends Model
         return $this->belongsTo('App\User', 'id_usuario_seguidor');
     }
 
+    public function notificacion()
+    {
+        return $this->hasOne('App\Notificacion', 'id_seguidor', 'id');
+    }
+
     public static function findid($id)
     {
         return static::where('id',compact('id'))->first();
@@ -55,6 +60,12 @@ class Seguidor extends Model
     {
         $id = $this->id_usuario;
         return $this->where('id_usuario_seguidor','=',$id)->where('id_usuario','=',$idSeguidor)->where('estado','=','t')->first();
+    }
+
+    public function meEstaSiguiendo($idUsuario)
+    {
+        $id = $this->id_usuario;
+        return $this->where('id_usuario','=',$id)->where('id_usuario_seguidor','=',$idUsuario)->where('estado','=','t')->first();
     }
 
 }

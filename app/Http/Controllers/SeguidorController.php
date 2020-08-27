@@ -38,7 +38,7 @@ class SeguidorController extends Controller
                 'nombre' => $seguidor->usuarioSeguidor->perfil->nombre,
                 'nombre_usuario' => $seguidor->usuarioSeguidor->perfil->nombre_usuario,
                 'foto' => $seguidor->usuarioSeguidor->perfil->foto,
-                'fecha_hora' => $seguidor->fecha_hora,
+                'fecha_hora' => is_null($seg) ? $seguidor->fecha_hora:$seg->fecha_hora,
                 'loEstoySiguiendo' => is_null($seg) ? false : true
             );
         }

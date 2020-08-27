@@ -23,7 +23,7 @@ class HomeController extends Controller
             ->orderByDesc('id')
             ->get();
         // $onlySeguidores = array_slice($seguidoresIds,0,(count($seguidoresIds) > 4 )? 4: count($seguidoresIds));
-        $seguidores= $user->seguidores->only($user->array_seguidores);
+        $seguidores= $user->seguidores->where('estado','=','t')->take(4);
         LogController::storeLog('GET','Vista Home Usuario',json_encode($usuario));
 
         return view('home')->with(compact('posts', 'usuario', 'seguidores'));

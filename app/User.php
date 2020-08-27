@@ -74,7 +74,7 @@ class User extends Authenticatable
      */
     public function seguidos()
     {
-        return $this->hasMany('App\Seguidor', 'id_usuario_seguidor', 'id');
+        return $this->hasMany('App\Seguidor', 'id_usuario_seguidor', 'id')->where('estado','=','t');
     }
 
     public function comentario()
@@ -112,7 +112,7 @@ class User extends Authenticatable
     
     public function getArraySeguidoresAttribute(){
 
-        $seguidores = $this->seguidores;
+        $seguidores = $this->seguidores->where('estado','=','t');
         $respuesta = array();
         foreach ($seguidores  as $dato){
             $respuesta[]=$dato->id_usuario_seguidor;
@@ -122,7 +122,7 @@ class User extends Authenticatable
 
     public function getArraySeguidosAttribute(){
 
-        $seguidos = $this->seguidos;
+        $seguidos = $this->seguidos->where('estado','=','t');
         $respuesta = array();
         foreach ($seguidos  as $dato){
             $respuesta[]=$dato->id_usuario;

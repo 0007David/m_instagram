@@ -67,13 +67,15 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                        <script>
+                                let logBar = @json($logUsuario);
+                                console.log(logBar)
+                            </script>
                             @foreach($objs as $key => $obj)
-
                             @php
                             $user = $obj['user'];
                             @endphp
-                            @if($obj['view'] != 'Historial Usuario')
+                            
                             <tr>
                                 <th scope="row">{{$key+1}}</th>
                                 <td>{{$obj['fecha']}}</td>
@@ -82,8 +84,6 @@
                                 <td>{{$user->user_agent}}</td>
                                 <td>{{$user->ip_address}}</td>
                             </tr>
-                            @endif
-
                             @endforeach
                         </tbody>
                     </table>
@@ -102,10 +102,8 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
                                 <th scope="row">$key</th>
-
                                 <td>$user->nombre</td>
                                 <td>$user->nombre_usuario</td>
                                 <td>$user->email</td>
@@ -115,9 +113,27 @@
                                     <button class="btn btn-warning">Editar</button>
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
+                    <div class="col-md-8 offset-2">
+                        <!-- DONUT CHART -->
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Donut Chart</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="donutChart" style="height:230px; min-height:230px"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
 
                 </div>
                 <div id="esta4" class="container tab-pane fade"><br>
@@ -135,7 +151,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach($objsAccessFails as $key => $obj)
+                            @foreach($objsAccessFails as $key => $obj)
                             @php
                             $user = $obj['user'];
                             @endphp
@@ -148,7 +164,7 @@
                                 <td>{{$user->user_agent}}</td>
                                 <td>{{$user->ip_address}}</td>
                             </tr>
-                        @endforeach
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -166,6 +182,7 @@
 
 @endsection
 @section('script')
+<script src="{{asset('assets/js/Chart.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="{{asset('assets/js/logaccess.js') }}"></script>
 @endsection
