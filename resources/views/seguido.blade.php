@@ -19,6 +19,7 @@
         <div class="col-md-8">
             <!-- <h4 class="dp-inline">{{$perfil->nombre_usuario}}</h4> <button class="btn btn-primary"> Seguir</button> -->
             <h4 class="dp-inline">{{$perfil->nombre_usuario}}</h4> <button data-seguirid="{{$perfil->id_usuario}}" id="btn-seguir-usuario" class="btn btn-primary">Seguir</button>
+            
             <ul class="col-md-8">
                 <li class="liul"><span><span>{{$perfil->usuario->post->count()}}</span> publicaciones</span></li>
                 <li class="liul"><a tabindex="0"><span title="10">{{$perfil->usuario->seguidores->count()}}</span> seguidores</a></li>

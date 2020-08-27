@@ -1,4 +1,4 @@
-<footer class="navbar fixed-bottom nav-border bg-light">
+<footer class="navbar fixed-bottom nav-border bg-light newfooter">
     <!-- Grid row -->
     <div class="container-fluid text-center">
         <!-- Grid column -->

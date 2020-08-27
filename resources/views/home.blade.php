@@ -9,7 +9,7 @@
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-4">
     <br><br>
-    <div class="row">
+    <div class="row text-dark">
         <div id="col-posts" class="col-md-6">
             @foreach($posts as $post)
             @if( $post->estado == 't')

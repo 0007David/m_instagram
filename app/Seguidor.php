@@ -36,6 +36,7 @@ class Seguidor extends Model
         $datos= DB::table('seguidor')
         ->select(DB::raw('count(*)'))
         ->where('seguidor.id_usuario', '=' ,$id)
+        ->where('estado','=','t')
         ->get();
 
         return $datos[0]->count;
@@ -46,6 +47,7 @@ class Seguidor extends Model
         $datos= DB::table('seguidor')
         ->select(DB::raw('count(*)'))
         ->where('seguidor.id_usuario_seguidor', '=' ,$id)
+        ->where('estado','=','t')
         ->get();
 
         return $datos[0]->count;

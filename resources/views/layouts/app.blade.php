@@ -24,16 +24,16 @@
 	@endphp
 	@switch($thema)
 		@case('light')
-		<body class="container bg-light">
+		<body class="container bg-light fuente1">
 		@break
 		@case('white')
-		<body class="container bg-white text-dark">
+		<body class="container bg-white text-dark fuente2">
 		@break
 		@case('dark')
-		<body class="container bg-dark text-white">
+		<body class="container bg-dark text-white fuente3">
 		@break
 		@default
-		<body class="container bg-secondary">
+		<body class="container bg-secondary fuente1">
 	@endswitch
 @else
 <body class="">
