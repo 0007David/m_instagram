@@ -26,12 +26,10 @@ class LogController extends Controller
         $arrayLines = $this->getDatos($contents);
         $len = count($arrayLines);
         $logUsuario = $this->getObjetos($arrayLines);
-        $objs = $logUsuario['navegacion'];
-        $objsAccessFails = $this->getAccessFallidos();
-        
-        // dd(array('perfil' => $perfil, 'obj' => $arrayLines,'$logUsuario'=>$logUsuario));
+        $logUsuario['objsAccessFails'] = $this->getAccessFallidos();
+        //dd(array('perfil' => $perfil, 'obj' => $arrayLines,'$logUsuario'=>$logUsuario));
 
-        return view('admin.logaccessuser')->with(compact('perfil', 'arrayLines', 'len', 'objs', 'objsAccessFails','logUsuario'));
+        return view('admin.logaccessuser')->with(compact('perfil', 'arrayLines', 'len','logUsuario'));
     }
 
     public function getDatos($contents)

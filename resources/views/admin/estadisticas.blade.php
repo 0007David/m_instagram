@@ -13,11 +13,11 @@
 <!-- FIN Componente NAVBAR -->
 <div class="container mt-5">
 
-
     <div class="row">
         <div class="col-md-12">
             <h2 class="dp-inline">Administracion Usuarios</h2>
             <h5>Estadisticas y Reportes Personales </h5>
+            <button class="btn btn-primary mb-2 hide" id="btnExportPdf" >PDF</button>
             <select id="reporte_selected" class="form-control col-md-4 offset-1 hide">
                 <option value="">Seleccione </option>
                 <option value="posts">Post publicados</option>
@@ -31,8 +31,6 @@
                 <option value="{{$usuario->id_usuario}}">{{@$usuario->nombre}}</option>
                 @endforeach
             </select>
-
-
         </div>
         <div class="col-md-12">
             <!-- Nav tabs -->
@@ -87,7 +85,7 @@
                     <!-- /.card -->
                 </div>
                 <div id="esta2" class="container tab-pane fade"><br>
-                    <table class="table table-hover">
+                    <table id="tabla_reporte" class="table table-hover">
                         <thead id="tabla_head">
                         </thead>
                         <tbody id="tabla_body">
@@ -96,8 +94,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <br><br>
 </div>
@@ -110,6 +106,8 @@
 <!-- Footer -->
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.9/dist/jspdf.plugin.autotable.min.js" integrity="sha512-6oCyRRRdXAgfXITH/5iavIaxb2x6QO8diA4/VgWBlin77Z07IPjzJPyrQ4+22zyd58pE5q/ma/ogHtlG/2gdPg==" crossorigin="anonymous"></script>
 <script src="{{asset('assets/js/Chart.min.js') }}"></script>
 <script src="{{asset('assets/js/estadisticas.admin.js') }}"></script>
 @endsection

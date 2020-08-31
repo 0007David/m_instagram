@@ -92,7 +92,7 @@ class Post extends Model
     public function dioLikeSeguidor($id_seguidor)
     {
         $id = $this->id;
-        return $this->likes()->where('id_usuario','=',$id_seguidor)->where('id_post','=',$id)->first();
+        return $this->likes()->where('id_usuario', '=', $id_seguidor)->where('id_post', '=', $id)->first();
     }
 
     static public function contadorPosts($id)
@@ -107,14 +107,32 @@ class Post extends Model
     public function getFotoAttribute($value)
     {
         //http://lorempixel.com/400/450/sports/
-        if(  empty($value) || trim($value) == "")
+        if (empty($value) || trim($value) == "")
             return "http://lorempixel.com/400/450/sports/";
         return trim($value);
     }
+    public function getFotoBase64Attribute()
+    {
+        $foto = $this->foto;
+        if (strpos($foto, 'http://') !== false){
+            $foto = 'sin_imagen.png';
+        }
+        $path = public_path('Imagen/'.trim($foto));
+        $filetype = pathinfo($path);
+        $data = file_get_contents($path);
+        return 'data:image/'.$filetype['extension'].';base64,'.base64_encode($data);
+    }
+
 
     public function getDescripcionAttribute($value)
     {
         return trim($value);
     }
-    
+
+    public function getResumenDescripcionAttribute()
+    {
+        $descripcion = $this->descripcion;
+        return (strlen($descripcion) > 15) ? substr($descripcion,0,15) .'...' : $descripcion;
+        
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notificacion;
 use App\Perfil;
 use App\Seguidor;
 use Illuminate\Support\Facades\Session;
@@ -66,6 +67,15 @@ class SeguidorController extends Controller
                 $seguidor->estado = 't';
                 $seguidor->fecha_hora = date('Y-m-d H:i:s');
                 $exito = $seguidor->save();
+
+                $notificacion = new Notificacion();
+                $notificacion->id_seguidor = $seguidor->id;
+                //2020-08-28 22:33:56                               
+                //Te ha comenzado a Seguir @darkbreaker             
+                $notificacion->descripcion = "Te ha comenzado a Seguir @". $seguidor->usuarioSeguidor->perfil->nombre_usuario;
+                $notificacion->fecha_hora= date('Y-m-d H:i:s');
+                $notificacion->save();
+
             }
         } else if (!$request->json('seguir')) {
             $seguidor->estado = 'f';
@@ -74,6 +84,19 @@ class SeguidorController extends Controller
             $seguidor->estado = 't';
             $seguidor->fecha_hora = date('Y-m-d H:i:s');//date('Y-m-d H:i:s');
             $exito = $seguidor->update();
+            $notificacion = $seguidor->notificacion;
+            if(is_null($notificacion)){
+                $notificacion = new Notificacion();
+                $notificacion->id_seguidor = $seguidor->id;
+                $notificacion->descripcion = "Te ha comenzado a Seguir @". $seguidor->usuarioSeguidor->perfil->nombre_usuario;
+                $notificacion->fecha_hora= date('Y-m-d H:i:s');
+            }else{
+                $notificacion->id_seguidor = $seguidor->id;
+                $notificacion->descripcion = "Te ha comenzado a Seguir @". $seguidor->usuarioSeguidor->perfil->nombre_usuario;
+                $notificacion->fecha_hora= date('Y-m-d H:i:s');
+            }
+            $notificacion->save();
+
         }
         LogController::storeLog('POST', 'Store Seguidor Usuario', json_encode(Session::get('login')));
         return response()->json(array('exito' => $exito, 'seguidor' => $seguidor->usuarioSeguido->perfil, 'seguir' => $request->json('seguir')));

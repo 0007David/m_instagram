@@ -6,6 +6,9 @@ $(document).ready((evt) => {
         console.log('click reporte');
         $('#reporte_selected').removeClass('hide');
         $('#reporte_selected').addClass('show');
+        $('#btnExportPdf').removeClass('hide');
+        $('#btnExportPdf').addClass('show');
+        
         console.log('len: ',$('#tabla_body > tr').length); //$(tabla).find('tbody tr').length
         if( $('#tabla_body > tr').length == 0){
             //Primara vez traemos 
@@ -34,7 +37,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, post]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td><img src="${post.foto}" width="40" height="40"></td>
                                     <td>${post.descripcion}</td>
                                     <td>${post.fecha}</td>
                                 </tr>`);
@@ -57,6 +60,8 @@ $(document).ready((evt) => {
         console.log('click reporte');
         $('#reporte_selected').removeClass('show');
         $('#reporte_selected').addClass('hide');
+        $('#btnExportPdf').removeClass('show');
+        $('#btnExportPdf').addClass('hide');
         
     });
 
@@ -87,7 +92,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, post]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td><img src="${post.foto}" width="40" height="40"></td>
                                     <td>${post.descripcion}</td>
                                     <td>${post.fecha}</td>
                                 </tr>`);
@@ -108,7 +113,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguidor]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguidor.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguidor.foto}" width="40" height="40"></td>
                                     <td>${seguidor.nombre}</td>
                                     <td>${seguidor.nombre_usuario}</td>
                                     <td>${seguidor.fecha_hora}</td>
@@ -130,7 +135,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguido]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguido.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguido.foto}" width="40" height="40"></td>
                                     <td>${seguido.nombre}</td>
                                     <td>${seguido.nombre_usuario}</td>
                                     <td>${seguido.fecha_hora}</td>
@@ -144,6 +149,28 @@ $(document).ready((evt) => {
         }).catch(function (response) {
             console.log('respuesta error', response)
         });
+    });
+
+    $('#btnExportPdf').click((evt) => {
+        var doc = new jsPDF();
+        doc.autoTable({
+            html: '#tabla_reporte',
+            bodyStyles: { minCellHeight: 15 },
+            didDrawCell: function (data) {
+                if (data.column.index === 1 && data.cell.section === 'body') {
+                    console.log('data-table', data)
+                    let td = data.cell.raw;
+                    let img = td.getElementsByTagName('img')[0];
+                    let dim = data.cell.height - data.cell.padding('vertical');
+                    let textPos = data.cell.textPos;
+                    console.log('textPos:', textPos)
+                    doc.addImage(img.src, data.cell.x, data.cell.y, dim, dim);
+                }
+            }
+        });
+
+        doc.save("table_reporte_admin.pdf");
+        
     });
 
     /* ChartJS
@@ -294,7 +321,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, post]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td><img src="${post.foto}" width="40" height="40"></td>
                                     <td>${post.descripcion}</td>
                                     <td>${post.fecha}</td>
                                 </tr>`);
@@ -315,7 +342,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguidor]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguidor.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguidor.foto}" width="40" height="40"></td>
                                     <td>${seguidor.nombre}</td>
                                     <td>${seguidor.nombre_usuario}</td>
                                     <td>${seguidor.fecha_hora}</td>
@@ -337,7 +364,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguido]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguido.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguido.foto}" width="40" height="40"></td>
                                     <td>${seguido.nombre}</td>
                                     <td>${seguido.nombre_usuario}</td>
                                     <td>${seguido.fecha_hora}</td>

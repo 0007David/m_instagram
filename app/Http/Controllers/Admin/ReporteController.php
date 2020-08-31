@@ -23,7 +23,7 @@ class ReporteController extends Controller
                         $salida['posts'][] = array(
                             'usuario_id' => $idUser,
                             'descripcion' => $post->descripcion,
-                            'foto' => $post->foto,
+                            'foto' => $post->fotoBase64,
                             'fecha' => $post->fecha_creada,
                         );
                     }
@@ -40,7 +40,7 @@ class ReporteController extends Controller
                             'usuario_id' => $seguidor->id_usuario_seguidor,
                             'nombre' => $seguidor->usuarioSeguidor->perfil->nombre,
                             'nombre_usuario' => $seguidor->usuarioSeguidor->perfil->nombre_usuario,
-                            'foto' => $seguidor->usuarioSeguidor->perfil->foto,
+                            'foto' => $seguidor->usuarioSeguidor->perfil->fotoBase64,
                             'fecha_hora' => $seguidor->fecha_hora,
                         );
                     }
@@ -56,7 +56,7 @@ class ReporteController extends Controller
                             'usuario_id' => $seguido->id_usuario,
                             'nombre' => $seguido->usuarioSeguido->perfil->nombre,
                             'nombre_usuario' => $seguido->usuarioSeguido->perfil->nombre_usuario,
-                            'foto' => $seguido->usuarioSeguido->perfil->foto,
+                            'foto' => $seguido->usuarioSeguido->perfil->fotoBase64,
                             'fecha_hora' => $seguido->fecha_hora,
                         );
                     }

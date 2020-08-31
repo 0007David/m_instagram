@@ -59,6 +59,7 @@ $(document).ready((evt) => {
     function notificacionPostSeguidores(timeOut) {
 
         if (loginData.notificaciones == 't') {
+            let notify = [];
             setInterval(function () {
                 fetch(base_url + '/notificacionesUser?usuarioId=' + loginData.usuario_id).then((response) => response.json()
                 ).then(function (myJson) {
@@ -74,13 +75,13 @@ $(document).ready((evt) => {
                             var hour = inHours(d, dd);
                             console.log('hour: ', hour);
                             console.log('notify: ', posy);
-                            if (hour <= 12 && posy.estado === "t") {
+                            console.log('includes',notify.includes(posy.id));
+                            if (hour <= 12 && posy.estado === "t" && !notify.includes(posy.id) ) {
+                            	notify.push(posy.id);
                                 setTimeout(function () {
                                     Toastify({
                                         text: posy.descripcion,
                                         duration: -1,
-                                        // destination: base_url+'/comentario/'+posy.id_post,
-                                        // newWindow: true,
                                         gravity: "bottom", // `top` or `bottom`
                                         close: true,
                                         backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -104,8 +105,9 @@ $(document).ready((evt) => {
                     }
                     if (typeof myJson.notify.noty_seguidores !== 'undefined') {
                         notifySeguidores.forEach((seg) => {
-                            if (seg.estado == 't') {
-                                console.log('notify: ', seg);
+                            console.log('includes',notify.includes(seg.id), notify);
+                            if (seg.estado === 't' && !notify.includes(seg.id)) {
+                            	notify.push(seg.id);
                                 Toastify({
                                     text: seg.descripcion,
                                     duration: -1,

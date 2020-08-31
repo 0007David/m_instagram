@@ -75,7 +75,18 @@ class Perfil extends Model
 
     public function getFotoAttribute($value)
     {
+        if (empty($value) || trim($value) == "")
+            return "sin_imagen.png";
         return trim($value);
+    }
+
+    public function getFotoBase64Attribute()
+    {
+        $foto = $this->foto;
+        $path = public_path('Imagen/'.trim($foto));
+        $filetype = pathinfo($path);
+        $data = file_get_contents($path);
+        return 'data:image/'.$filetype['extension'].';base64,'.base64_encode($data);
     }
 
     public function getFileLogAttribute(){

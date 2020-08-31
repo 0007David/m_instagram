@@ -48,7 +48,7 @@ class PostController extends Controller
         {
             $path = public_path() . '/Imagen';
             $fileName = uniqid() . $file->getClientOriginalName();
-            $moved = $file->move($path, $fileName);
+            $moved =$file->move($path, $fileName);
             if ($moved) {
                 $post = new Post();
                 $post->foto = $fileName;
@@ -60,6 +60,7 @@ class PostController extends Controller
 
                 $notificacion = new Notificacion();
                 $notificacion->id_post=Notificacion::maxID();
+                $notificacion->descripcion = "@". $post->user->perfil->nombre_usuario. " ha publicado un post: '". $post->resumenDescripcion ."'";
                 $notificacion->fecha_hora=$fecha;
                 $notificacion->save();
             }

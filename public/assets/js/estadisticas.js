@@ -118,7 +118,7 @@ $(document).ready((evt) => {
         data: stackedBarChartData,
         options: stackedBarChartOptions
     });
-   
+
     //Reportes de Usuario
     $('#reporte_selected').change((evt) => {
         let target = $(evt.target);
@@ -132,7 +132,7 @@ $(document).ready((evt) => {
                     case 'posts':
                         dataReporte = myJson.posts;
                         console.log(Object.keys(dataReporte[0]))
-                        header_tabla = ['#','Foto','Descripcion','Fecha']
+                        header_tabla = ['#', 'Foto', 'Descripcion', 'Fecha']
                         $('#tabla_head').empty();
                         $('#tabla_head').append(`<tr>
                                 <th scope="col">${header_tabla[0]}</th>
@@ -144,7 +144,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, post]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${post.foto}" width="40" height="40"></td>
+                                    <td><img src="${post.foto}" width="40" height="40"></td>
                                     <td>${post.descripcion}</td>
                                     <td>${post.fecha}</td>
                                 </tr>`);
@@ -165,7 +165,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguidor]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguidor.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguidor.foto}" width="40" height="40"></td>
                                     <td>${seguidor.nombre}</td>
                                     <td>${seguidor.nombre_usuario}</td>
                                     <td>${seguidor.fecha_hora}</td>
@@ -187,7 +187,7 @@ $(document).ready((evt) => {
                         Object.entries(dataReporte).forEach(([key, seguido]) => {
                             $('#tabla_body').append(`<tr>
                                     <td>${parseInt(key) + 1}</td>
-                                    <td><img src="${base_url}/Imagen/${seguido.foto}" width="40" height="40"></td>
+                                    <td><img src="${seguido.foto}" width="40" height="40"></td>
                                     <td>${seguido.nombre}</td>
                                     <td>${seguido.nombre_usuario}</td>
                                     <td>${seguido.fecha_hora}</td>
@@ -202,87 +202,27 @@ $(document).ready((evt) => {
             console.log('respuesta error', response)
         });
     });
-    
-    //--- ejemplo2
+
     $('#btnExportPdf').click((evt) => {
+        var doc = new jsPDF();
+        doc.autoTable({
+            html: '#tabla_reporte',
+            bodyStyles: { minCellHeight: 15 },
+            didDrawCell: function (data) {
+                if (data.column.index === 1 && data.cell.section === 'body') {
+                    console.log('data-table', data)
+                    let td = data.cell.raw;
+                    let img = td.getElementsByTagName('img')[0];
+                    let dim = data.cell.height - data.cell.padding('vertical');
+                    let textPos = data.cell.textPos;
+                    console.log('textPos:', textPos)
+                    doc.addImage(img.src, data.cell.x, data.cell.y, dim, dim);
+                }
+            }
+        });
 
-        demoFromHTML();
-        // let doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
-        // doc.table(1, 1, generateData(10), headers, { autoSize: true });
-
-        // var file = $("#row_reporte").val();
-        // if (file === undefined) {
-        //     file = "demo";
-        // }
-        // if (typeof doc !== "undefined") {
-        //     doc.save(file + ".pdf");
-        // } else if (typeof pdf !== "undefined") {
-        //     setTimeout(function () {
-        //         pdf.save(file + ".pdf");
-        //     }, 2000);
-        // } else {
-        //     alert("Error 0xE001BADF");
-        // }
+        doc.save("table_reporte.pdf");
+        
     });
-       
-    function demoFromHTML() {
-        let pdf = new jsPDF('p', 'pt', 'letter');
-        // var doc = new jsPDF();
-
-        // doc.autoTable({
-        //   html: '#tabla_reporte',
-        //   bodyStyles: {minCellHeight: 15},
-        //   didDrawCell: function(data) {
-        //       if (data.column.index === 1 && data.cell.section === 'body') {
-        //         console.log('data-table', data)
-        //        let td = data.cell.raw;
-        //        let img = td.getElementsByTagName('img')[0];
-        //        let dim = data.cell.height - data.cell.padding('vertical');
-        //        let textPos = data.cell.textPos;
-        //        console.log('textPos:',textPos)
-        //        doc.addImage(img.src, data.cell.x,  data.cell.y, dim, dim);
-        //     }
-        //   }
-        // });
-      
-            // doc.save("table.pdf");
-        console.log('export', pdf)
-        // source can be HTML-formatted string, or a reference
-        // to an actual DOM element from which the text will be scraped.
-        source = $('#row_reporte')[0];
-        // we support special element handlers. Register them with jQuery-style 
-        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-        // There is no support for any other type of selectors 
-        // (class, of compound) at this time.
-        specialElementHandlers = {
-            // element with id of "bypass" - jQuery style selector
-            '#bypassme': function (element, renderer) {
-                // true = "handled elsewhere, bypass text extraction"
-                return true
-            }
-        };
-        console.log('export', specialElementHandlers)
-        margins = {
-            top: 80,
-            bottom: 60,
-            left: 40,
-            width: 340
-        };
-        // all coords and widths are in jsPDF instance's declared units
-        // 'inches' in this case
-        pdf.fromHTML(
-            source, // HTML string or DOM elem ref.
-            margins.left, // x coord
-            margins.top, {// y coord
-            'width': margins.width, // max width of content on PDF
-            'elementHandlers': specialElementHandlers
-        },
-            function (dispose) {
-                // dispose: object with X, Y of the last line add to the PDF 
-                //          this allow the insertion of new lines after html
-                pdf.save('Test.pdf');
-            }
-            , margins);
-    }
 
 });

@@ -3,7 +3,8 @@
 @section('title','Mini Instagram')
 
 @section('content')
-
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"> -->
 <!-- Componente NAVBAR -->
 <x-nav />
 <!-- FIN Componente NAVBAR -->
@@ -81,16 +82,18 @@
                 </div>
                 <div id="esta2" class="container tab-pane fade"><br>
                     <div class="row">
+                        
                         <div class="col-md-12">
-                            <h4>Reporte de {{$user->perfil->nombre_usuario}}</h4>
-                        <button class="btn btn-primary" id="btnExportPdf" >PDF</button>
-                            <select id="reporte_selected" class="form-control col-md-4 offset-4 mb-4">
+                            <h4 class="dp-inline">Reporte de {{$user->perfil->nombre_usuario}}</h4>
+                            <button class="btn btn-primary dp-inline mb-2" id="btnExportPdf" >PDF</button>
+                            <select id="reporte_selected" class="form-control col-md-6 offset-3">
                                 <option value="">Selecciones reporte</option>
                                 <option selected value="posts">Mis Posts</option>
                                 <option value="seguidores">Mis Seguidores</option>
                                 <option value="seguidos">A los que Siguo</option>
                             </select>
                         </div>
+                        
                         <div id="row_reporte" class="col-md-12">
                             <table id="tabla_reporte" class="table table-striped">
                                 <thead id="tabla_head">
@@ -105,7 +108,9 @@
                                     @foreach($user->post as $key => $value)
                                     <tr>
                                         <td>{{$key +1}}</td>
-                                        <td><img src="{{asset('imagen/'.$value->foto)}}" width="40" height="40"></td>
+                                        <td>
+                                            <img src="{{$value->fotoBase64}}" width="40" height="40">
+                                        </td>
                                         <td>
                                             {{$value->descripcion}}
                                         </td>
@@ -135,9 +140,8 @@
 <!-- Footer -->
 @endsection
 @section('script')
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.9/dist/jspdf.plugin.autotable.min.js" integrity="sha512-6oCyRRRdXAgfXITH/5iavIaxb2x6QO8diA4/VgWBlin77Z07IPjzJPyrQ4+22zyd58pE5q/ma/ogHtlG/2gdPg==" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.9/dist/jspdf.plugin.autotable.min.js" integrity="sha512-6oCyRRRdXAgfXITH/5iavIaxb2x6QO8diA4/VgWBlin77Z07IPjzJPyrQ4+22zyd58pE5q/ma/ogHtlG/2gdPg==" crossorigin="anonymous"></script>
 <script src="{{asset('assets/js/Chart.min.js') }}"></script>
 <script src="{{asset('assets/js/estadisticas.js') }}"></script>
 @endsection
